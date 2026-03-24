@@ -1,0 +1,122 @@
+{% extends "admin/base.html" %}
+{% block title %}Manage Gallery{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/manage_gallery.css')}}">
+
+<div class="ttl-btn">
+  <h2>Manage Gallery</h2>
+  <button id="addGalleryBtn"> Add Image</button>
+</div>
+
+<table class="customer-table" id="galleryTable">
+  <tr>
+    <th>ID</th>
+    <th>Image</th>
+    <th>Actions</th>
+  </tr>
+  {% for g in galleries %}
+  <tr id="row-{{ g.id }}">
+    <td>{{ g.id }}</td>
+    <td>
+      {% if g.image %}
+        <img src="{{ url_for('static', filename='admin/image/' ~ g.image) }}" width="100">
+      {% endif %}
+    </td>
+    <td>
+      <button class="editGalleryBtn" data-id="{{ g.id }}"> Edit</button>
+      <button class="deleteGalleryBtn" data-id="{{ g.id }}"> Delete</button>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!-- Add Gallery Popup -->
+<div id="addGalleryPopup" class="popup">
+  <div class="popup-content">
+    <span id="addGalleryCloseBtn" class="popup-close">&times;</span>
+    <h2>Add Image</h2>
+    <form id="addGalleryForm" enctype="multipart/form-data">
+      <input type="file" name="image" required>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Gallery Popup -->
+<div id="editGalleryPopup" class="popup">
+  <div class="popup-content">
+    <span id="editGalleryCloseBtn" class="popup-close">&times;</span>
+    <h2>Edit Image</h2>
+    <form id="editGalleryForm" enctype="multipart/form-data">
+      <input type="hidden" name="id" id="editGalleryId">
+      <input type="file" name="image">
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// ADD POPUP
+const addGalleryPopup = document.getElementById("addGalleryPopup");
+const addGalleryBtn = document.getElementById("addGalleryBtn");
+const addGalleryCloseBtn = document.getElementById("addGalleryCloseBtn");
+addGalleryBtn.addEventListener("click", () => { addGalleryPopup.style.display = "flex"; });
+addGalleryCloseBtn.addEventListener("click", () => { addGalleryPopup.style.display = "none"; });
+
+// EDIT POPUP
+const editGalleryPopup = document.getElementById("editGalleryPopup");
+const editGalleryCloseBtn = document.getElementById("editGalleryCloseBtn");
+editGalleryCloseBtn.addEventListener("click", () => { editGalleryPopup.style.display = "none"; });
+
+// ADD SUBMIT
+document.getElementById("addGalleryForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("{{ url_for('auth.manage_gallery') }}", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){ location.reload(); }
+      else { alert("Error: " + data.error); }
+    });
+});
+
+// DELETE
+document.querySelectorAll(".deleteGalleryBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/delete_gallery/${id}`, { method: "POST" })
+      .then(res => res.json())
+      .then(data => {
+        if(data.success){ document.getElementById("row-"+id).remove(); }
+        else { alert("Error: " + data.error); }
+      });
+  });
+});
+
+// EDIT
+document.querySelectorAll(".editGalleryBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/get_gallery/${id}`)
+      .then(res => res.json())
+      .then(g => {
+        document.getElementById("editGalleryId").value = g.id;
+        editGalleryPopup.style.display = "flex";
+      });
+  });
+});
+
+// EDIT SUBMIT
+document.getElementById("editGalleryForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("/admin/edit_gallery", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){ location.reload(); }
+      else { alert("Error: " + data.error); }
+    });
+});
+</script>
+
+{% endblock %}

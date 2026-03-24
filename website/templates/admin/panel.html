@@ -1,0 +1,36 @@
+
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+       
+    <link rel="stylesheet" href="{{url_for('static',filename='admin/css/panel.css')}}">
+   
+        <title>Admin Login</title>
+        </head>
+<body>
+  <div class="login-container">
+    <h2>Admin Login</h2>
+                      <form method="POST" action="{{ url_for('auth.admin_login') }}">
+    <input type="text" name="username" placeholder="User ID" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+</form>
+
+
+                      {% with messages = get_flashed_messages(category_filter=["error"]) %}
+                        {% if messages %}
+                          <div class="error">
+                            {% for msg in messages %}
+                              <p>{{ msg }}</p>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+                      {% endwith %}
+
+  </div>
+
+  
+</body>
+</html>

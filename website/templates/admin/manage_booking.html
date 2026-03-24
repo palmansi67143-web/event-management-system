@@ -1,0 +1,148 @@
+{% extends "admin/base.html" %}
+{% block title %}Manage Bookings{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/manage_booking.css')}}">
+
+<div class="ttl-btn">
+  <h2>Manage Bookings</h2>
+</div>
+
+<table class="customer-table" id="bookingTable">
+
+<tr>
+<th>ID</th>
+<th>User Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Event</th>
+<th>Venue</th>
+<th>Service</th>
+<th>Transport</th>
+<th>Event Date</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+
+{% for b in bookings %}
+
+<tr id="row-{{ b.id }}">
+
+<td>{{ b.id }}</td>
+<td>{{ b.user_name }}</td>
+<td>{{ b.user_email }}</td>
+<td>{{ b.user_phone }}</td>
+
+<td>{{ b.event.name if b.event else '-' }}</td>
+<td>{{ b.venue.name if b.venue else '-' }}</td>
+<td>{{ b.service.name if b.service else '-' }}</td>
+<td>{{ b.transport.vehicle if b.transport else '-' }}</td>
+
+<td>{{ b.event_date.strftime("%d-%m-%Y") if b.event_date else '-' }}</td>
+
+<td>{{ b.status }}</td>
+
+<td>
+
+<button class="confirmBookingBtn" data-id="{{ b.id }}">Confirm</button>
+
+<button class="cancelBookingBtn" data-id="{{ b.id }}">Cancel</button>
+
+<button class="pendingBookingBtn" data-id="{{ b.id }}">Pending</button>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<script>
+
+// Confirm Booking
+document.querySelectorAll(".confirmBookingBtn").forEach(btn => {
+
+btn.addEventListener("click", () => {
+
+const id = btn.dataset.id;
+
+fetch(`/admin/confirm_booking/${id}`, { method: "POST" })
+
+.then(res => res.json())
+
+.then(data => {
+
+if(data.success){
+location.reload();
+}
+
+else{
+alert("Error: " + data.error);
+}
+
+});
+
+});
+
+});
+
+
+// Cancel Booking
+document.querySelectorAll(".cancelBookingBtn").forEach(btn => {
+
+btn.addEventListener("click", () => {
+
+const id = btn.dataset.id;
+
+fetch(`/admin/cancel_booking/${id}`, { method: "POST" })
+
+.then(res => res.json())
+
+.then(data => {
+
+if(data.success){
+location.reload();
+}
+
+else{
+alert("Error: " + data.error);
+}
+
+});
+
+});
+
+});
+
+
+// Pending Booking
+document.querySelectorAll(".pendingBookingBtn").forEach(btn => {
+
+btn.addEventListener("click", () => {
+
+const id = btn.dataset.id;
+
+fetch(`/admin/pending_booking/${id}`, { method: "POST" })
+
+.then(res => res.json())
+
+.then(data => {
+
+if(data.success){
+location.reload();
+}
+
+else{
+alert("Error: " + data.error);
+}
+
+});
+
+});
+
+});
+
+</script>
+
+{% endblock %}

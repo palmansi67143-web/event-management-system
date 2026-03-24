@@ -1,0 +1,33 @@
+{% extends "admin/base.html" %}
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/edit_profile.css') }}">
+
+<div class="profile-container">
+    <h2>Edit Profile</h2>
+    <form method="POST" enctype="multipart/form-data" class="profile-card">
+
+        <div class="profile-image">
+            <img src="{{ url_for('static', filename='admin/image/' ~ admin.image) }}" alt="Admin" width="150">
+        </div>
+
+        <label>Name</label>
+        <input type="text" name="name" value="{{ admin.name }}" required>
+
+        <label>Email</label>
+        <input type="email" name="email" value="{{ admin.email }}" required>
+
+        <label>Phone</label>
+        <input type="text" name="phone" value="{{ admin.phone }}" required>
+
+        <label>Profile Image</label>
+        <input type="file" name="image">
+
+        <div class="profile-actions">
+            <button type="submit" class="btn_edit">Update Profile</button>
+            <a href="{{ url_for('auth.profile') }}" class="btn_logout">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

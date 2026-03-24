@@ -1,0 +1,127 @@
+{% extends "admin/base.html" %}
+{% block title %}Manage Transportation{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/manage_transportation.css')}}">
+
+<div class="ttl-btn">
+  <h2>Manage Transportation</h2>
+  <button id="addTransportBtn"> Add Transport</button>
+</div>
+
+<table class="customer-table" id="transportTable">
+  <tr>
+    <th>ID</th>
+    <th>Vehicle</th>
+    <th>Image</th>
+    <th>Actions</th>
+  </tr>
+  {% for t in transports %}
+  <tr id="row-{{ t.id }}">
+    <td>{{ t.id }}</td>
+    <td>{{ t.vehicle }}</td>
+    <td>
+      {% if t.image %}
+        <img src="{{ url_for('static', filename='admin/image/' ~ t.image) }}" width="100">
+      {% endif %}
+    </td>
+    <td>
+      <button class="editTransportBtn" data-id="{{ t.id }}"> Edit</button>
+      <button class="deleteTransportBtn" data-id="{{ t.id }}"> Delete</button>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!-- Add Transport Popup -->
+<div id="addTransportPopup" class="popup">
+  <div class="popup-content">
+    <span id="addTransportCloseBtn" class="popup-close">&times;</span>
+    <h2>Add Transport</h2>
+    <form id="addTransportForm" enctype="multipart/form-data">
+      <input type="text" name="vehicle" placeholder="Vehicle Name" required>
+      <input type="file" name="image">
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Transport Popup -->
+<div id="editTransportPopup" class="popup">
+  <div class="popup-content">
+    <span id="editTransportCloseBtn" class="popup-close">&times;</span>
+    <h2>Edit Transport</h2>
+    <form id="editTransportForm" enctype="multipart/form-data">
+      <input type="hidden" name="id" id="editTransportId">
+      <input type="text" name="vehicle" id="editTransportVehicle" required>
+      <input type="file" name="image">
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// ADD POPUP
+const addTransportPopup = document.getElementById("addTransportPopup");
+const addTransportBtn = document.getElementById("addTransportBtn");
+const addTransportCloseBtn = document.getElementById("addTransportCloseBtn");
+addTransportBtn.addEventListener("click", () => { addTransportPopup.style.display = "flex"; });
+addTransportCloseBtn.addEventListener("click", () => { addTransportPopup.style.display = "none"; });
+
+// EDIT POPUP
+const editTransportPopup = document.getElementById("editTransportPopup");
+const editTransportCloseBtn = document.getElementById("editTransportCloseBtn");
+editTransportCloseBtn.addEventListener("click", () => { editTransportPopup.style.display = "none"; });
+
+// ADD SUBMIT
+document.getElementById("addTransportForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("{{ url_for('auth.manage_transport') }}", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){ location.reload(); }
+      else { alert("Error: " + data.error); }
+    });
+});
+
+// DELETE
+document.querySelectorAll(".deleteTransportBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/delete_transport/${id}`, { method: "POST" })
+      .then(res => res.json())
+      .then(data => {
+        if(data.success){ document.getElementById("row-"+id).remove(); }
+        else { alert("Error: " + data.error); }
+      });
+  });
+});
+
+// EDIT
+document.querySelectorAll(".editTransportBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/get_transport/${id}`)
+      .then(res => res.json())
+      .then(t => {
+        document.getElementById("editTransportId").value = t.id;
+        document.getElementById("editTransportVehicle").value = t.vehicle;
+        editTransportPopup.style.display = "flex";
+      });
+  });
+});
+
+// EDIT SUBMIT
+document.getElementById("editTransportForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("/admin/edit_transport", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){ location.reload(); }
+      else { alert("Error: " + data.error); }
+    });
+});
+</script>
+
+{% endblock %}

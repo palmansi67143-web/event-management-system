@@ -1,0 +1,100 @@
+{% extends "user/base.html" %} {% block title %}gallery{% endblock %} {% block content %}
+ 
+<!-- HERO section -->
+ <html>
+    <head>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/gallery.css')}}">
+   <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
+    </head>
+    <body>
+        </div>
+         <section class="hero">
+       <div class="overlay"></div>
+       <div class="hero-content">
+      <h1> Photos Gallery of Dream. </h1>
+      <p>Capturing your precious moments, one frame at a time ✨
+Where every celebration becomes a timeless memory</p>
+    </div>
+  </section>
+    <div class="gallery">
+   {% for g in galleries %}
+    <div class="gallery-card"> 
+        {% if g.image %} 
+        <img src="{{ url_for('static', filename='admin/image/' ~ g.image) }}" alt="Gallery Image">
+     {% endif %} 
+    </div> 
+    {% endfor %}
+
+    </div>
+    <!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <span class="close">&times;</span>
+    <img id="lightbox-img">
+</div>
+<div class="load-more-container">
+    <a href="javascript:void(0)" id="loadMore">Load More</a>
+</div>
+
+<script>
+    const images = document.querySelectorAll(".gallery img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".close");
+
+    images.forEach(img => {
+        img.addEventListener("click", () => {
+            lightbox.style.display = "flex";
+            lightboxImg.src = img.src;
+        });
+    });
+
+    closeBtn.addEventListener("click", () => {
+        lightbox.style.display = "none";
+    });
+
+    lightbox.addEventListener("click", (e) => {
+        if (e.target !== lightboxImg) {
+            lightbox.style.display = "none";
+        }
+    });
+
+
+
+
+    const galleryImages = document.querySelectorAll(".gallery img");
+    const loadMoreBtn = document.getElementById("loadMore");
+
+    let visibleImages = 8; // start me sirf 8
+    const loadStep = 4;    // har click par 4
+
+    // sab images hide
+    galleryImages.forEach((img, index) => {
+        if (index >= visibleImages) {
+            img.style.display = "none";
+        }
+    });
+
+    loadMoreBtn.addEventListener("click", () => {
+        let newVisible = visibleImages + loadStep;
+
+        galleryImages.forEach((img, index) => {
+            if (index < newVisible) {
+                img.style.display = "block";
+            }
+        });
+
+        visibleImages = newVisible;
+
+        // agar saari images dikh gayi ho
+        if (visibleImages >= galleryImages.length) {
+            loadMoreBtn.style.display = "none";
+        }
+    });
+
+</script>
+
+    </body>
+ </html>
+
+     {% endblock %}

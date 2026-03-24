@@ -1,0 +1,146 @@
+{% extends "admin/base.html" %}
+{% block title %}Manage Venues{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/manage_venue.css')}}">
+
+<div class="ttl-btn">
+  <h2>Manage Venues</h2>
+  <button id="addVenueBtn">Add Venue</button>
+</div>
+
+<table class="customer-table" id="venueTable">
+  <tr>
+    <th>ID</th>
+    <th>Venue Name</th>
+    <th>Location</th>
+    <th>Price</th>
+    <th>Image</th>
+    <th>Actions</th>
+  </tr>
+  {% for v in venues %}
+  <tr id="row-{{ v.id }}">
+    <td>{{ v.id }}</td>
+    <td>{{ v.name }}</td>
+    <td>{{ v.location }}</td>
+    <td>{{ v.price }}</td>
+    <td>
+      {% if v.image %}
+        <img src="{{ url_for('static', filename='admin/image/' ~ v.image) }}" width="100">
+      {% endif %}
+    </td>
+    <td>
+      <button class="editVenueBtn" data-id="{{ v.id }}"> Edit</button>
+      <button class="deleteVenueBtn" data-id="{{ v.id }}">Delete</button>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!-- Add Venue Popup -->
+<div id="addVenuePopup" class="popup">
+  <div class="popup-content">
+    <span id="addVenueCloseBtn" class="popup-close">&times;</span>
+    <h2>Add Venue</h2>
+    <form id="addVenueForm" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Venue Name" required>
+      <input type="text" name="location" placeholder="Location" required>
+      <input type="text" name="price" placeholder="Price" required>
+      <input type="file" name="image">
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Venue Popup -->
+<div id="editVenuePopup" class="popup">
+  <div class="popup-content">
+    <span id="editVenueCloseBtn" class="popup-close">&times;</span>
+    <h2>Edit Venue</h2>
+    <form id="editVenueForm" enctype="multipart/form-data">
+      <input type="hidden" name="id" id="editVenueId">
+      <input type="text" name="name" id="editVenueName" required>
+      <input type="text" name="location" id="editVenueLocation" required>
+      <input type="text" name="price" id="editVenuePrice" required>
+      <input type="file" name="image">
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// ADD POPUP
+const addVenuePopup = document.getElementById("addVenuePopup");
+const addVenueBtn = document.getElementById("addVenueBtn");
+const addVenueCloseBtn = document.getElementById("addVenueCloseBtn");
+addVenueBtn.addEventListener("click", () => { addVenuePopup.style.display = "flex"; });
+addVenueCloseBtn.addEventListener("click", () => { addVenuePopup.style.display = "none"; });
+
+// EDIT POPUP
+const editVenuePopup = document.getElementById("editVenuePopup");
+const editVenueCloseBtn = document.getElementById("editVenueCloseBtn");
+editVenueCloseBtn.addEventListener("click", () => { editVenuePopup.style.display = "none"; });
+
+// ADD SUBMIT
+document.getElementById("addVenueForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("{{ url_for('auth.manage_venue') }}", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){
+        location.reload();
+      } else {
+        alert("Error: " + data.error);
+      }
+    });
+});
+
+// DELETE
+document.querySelectorAll(".deleteVenueBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/delete_venue/${id}`, { method: "POST" })
+      .then(res => res.json())
+      .then(data => {
+        if(data.success){
+          document.getElementById("row-"+id).remove();
+        } else {
+          alert("Error: " + data.error);
+        }
+      });
+  });
+});
+
+// EDIT
+document.querySelectorAll(".editVenueBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/get_venue/${id}`)
+      .then(res => res.json())
+      .then(v => {
+        document.getElementById("editVenueId").value = v.id;
+        document.getElementById("editVenueName").value = v.name;
+        document.getElementById("editVenueLocation").value = v.location;
+        document.getElementById("editVenuePrice").value = v.price;
+        editVenuePopup.style.display = "flex";
+      });
+  });
+});
+
+// EDIT SUBMIT
+document.getElementById("editVenueForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("/admin/edit_venue", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){
+        location.reload();
+      } else {
+        alert("Error: " + data.error);
+      }
+    });
+});
+</script>
+
+{% endblock %}

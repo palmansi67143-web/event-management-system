@@ -1,0 +1,40 @@
+{% extends "admin/base.html" %}
+{% block title %}Clients{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/manage_booking.css')}}">
+
+<div class="ttl-btn">
+  <h2>Client List</h2>
+</div>
+
+
+<table class="customer-table" id="bookingTable">
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>Date</th>
+<th>Address</th>
+
+</tr>
+
+{% for c in clients %}
+
+<tr>
+
+<td>{{ c.id }}</td>
+<td>{{ c.name }}</td>
+<td>{{ c.email }}</td>
+<td>{{ c.phone }}</td>
+<td>{{ c.created_at }}</td>
+<td>{{ c.address}}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+{% endblock %}

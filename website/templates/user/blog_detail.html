@@ -1,0 +1,121 @@
+{% extends "user/base.html" %}
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+<!-- HERO section -->
+ <html>
+    <head>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='user/css/blog_detail.css') }}">
+ <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
+    </head>
+ <body>
+        </div>
+<section class="hero">
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1>{{ blog.title }}</h1>
+   </div>
+</section>
+ 
+<div class="package-content">
+          <div class="img-content">
+          <div class="image-container">
+            <h2>
+    <span class="explore">Explore The</span>
+    <span class="venues">Blogs</span>
+  </h2>
+          </div>
+          <div class="content-container">
+         <span><p>At Dream Events, we understand that every celebration is unique, 
+          with each client bringing their own vision and requirements. To make the journey effortless, 
+          we’ve carefully crafted a range of event packages that balance flexibility, creativity, and precision. 
+          From venue selection and décor styling to entertainment, hospitality, and seamless logistics, 
+          our packages provide clear inclusions so you know exactly what to expect. Whether it’s an intimate gathering, a grand wedding, or a corporate function, our tailored solutions are designed to fit your budget and style, ensuring that every event becomes an unforgettable experience.
+
+             </p>
+         </span>
+          </div>
+          </div>
+</div>
+
+
+<section class="blog-detail">
+  <div class="blog-page">
+ <!-- Blog Content -->
+  <div class="blog-content">
+     <!-- Blog Banner -->
+  <div class="blog-hero">
+    {% if blog.image %}
+      <img src="{{ url_for('static', filename='admin/image/' ~ blog.image) }}" alt="{{ blog.title }}">
+    {% endif %}
+  </div>
+
+    <p class="blog-date">
+      {{ blog.blog_date.strftime('%d %B %Y') }}
+    </p>
+    <div class="para">
+            <p>
+              {{ blog.short_description[:200] }}...
+            </p></div>
+      <div class="blog-text">
+      {{ blog.content | safe }}
+    </div>
+  </div>
+ <div class="blog-page2">
+  <div class="blog-heading">
+          <h3>Latest Blogs</h3>
+  </div>
+ <div class="blog-wrapper">
+      {% for b in blogs %}
+    <div class="blog-card">
+        <div class="blog-content">
+            <div class="text">
+            <a href="{{ url_for('auth.blog_detail', slug=b.slug) }}" >{{ b.title }}</a>
+          </div>
+        </div>
+    </div>
+   {% endfor %}
+  </div>
+ </div>
+  </div>
+</section>
+<script>
+/* Inquiry button → Contact page */
+document.querySelectorAll(".read-more").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); 
+    window.location.href = "/Blogs"; 
+  });
+});</script>
+
+ <div class="about-content">
+  <div class="contact-cta-box">
+
+    <!-- Left Content -->
+    <div class="contact-text">
+      <h2>Let’s Talk</h2>
+      <p>
+        Have questions or want to plan your next event with us?  
+        We’re here to help you turn your ideas into reality.
+      </p>
+    </div>
+
+    <!-- Right Button -->
+    <div class="contact-action">
+      <a  class="contact-btn">Contact</a>
+    </div>
+
+  </div>
+ </div>
+<script>
+/* Inquiry button → Contact page */
+document.querySelectorAll(".contact-btn").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); 
+    window.location.href = "/Contact"; 
+  });
+});</script>  
+ </body>
+ </html>
+{% endblock %}

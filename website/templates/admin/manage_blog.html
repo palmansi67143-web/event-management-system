@@ -1,0 +1,127 @@
+{% extends "admin/base.html" %}
+{% block title %}Manage Blogs{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/manage_blog.css')}}">
+
+<div class="ttl-btn">
+  <h2>Manage Blogs</h2>
+  <button id="addBlogBtn">Add Blog</button>
+</div>
+
+<table class="customer-table" id="blogTable">
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Short Description</th>
+    <th>Date</th>
+    <th>Image</th>
+    <th>Actions</th>
+  </tr>
+  {% for b in blogs %}
+  <tr id="row-{{ b.id }}">
+    <td>{{ b.id }}</td>
+    <td>{{ b.title }}</td>
+    <td>{{ b.short_description[:50] }}...</td>
+    <td>{{ b.blog_date.strftime("%d-%m-%Y") }}</td>
+    <td>
+      {% if b.image %}
+        <img src="{{ url_for('static', filename='admin/image/' ~ b.image) }}" width="100">
+      {% endif %}
+    </td>
+    <td>
+      <button class="editBlogBtn" data-id="{{ b.id }}"> Edit</button>
+      <button class="deleteBlogBtn" data-id="{{ b.id }}">Delete</button>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!-- Add Blog Popup -->
+<div id="addBlogPopup" class="popup">
+  <div class="popup-content">
+    <span id="addBlogCloseBtn" class="popup-close">&times;</span>
+    <h2>Add Blog</h2>
+    <form id="addBlogForm" enctype="multipart/form-data">
+      <input type="text" name="title" placeholder="Title" required>
+      <textarea name="short_description" placeholder="Short Description" required></textarea>
+      <textarea name="content" placeholder="Content" required></textarea>
+      <input type="file" name="image">
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Blog Popup -->
+<div id="editBlogPopup" class="popup">
+  <div class="popup-content">
+    <span id="editBlogCloseBtn" class="popup-close">&times;</span>
+    <h2>Edit Blog</h2>
+    <form id="editBlogForm" enctype="multipart/form-data">
+      <input type="hidden" name="id" id="editBlogId">
+      <input type="text" name="title" id="editBlogTitle" required>
+      <textarea name="short_description" id="editBlogShortDescription" required></textarea>
+      <textarea name="content" id="editBlogContent" required></textarea>
+      <input type="file" name="image">
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Popup logic
+const addBlogPopup = document.getElementById("addBlogPopup");
+const addBlogBtn = document.getElementById("addBlogBtn");
+const addBlogCloseBtn = document.getElementById("addBlogCloseBtn");
+addBlogBtn.addEventListener("click", () => { addBlogPopup.style.display = "flex"; });
+addBlogCloseBtn.addEventListener("click", () => { addBlogPopup.style.display = "none"; });
+
+const editBlogPopup = document.getElementById("editBlogPopup");
+const editBlogCloseBtn = document.getElementById("editBlogCloseBtn");
+editBlogCloseBtn.addEventListener("click", () => { editBlogPopup.style.display = "none"; });
+
+// ADD
+document.getElementById("addBlogForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("{{ url_for('auth.manage_blog') }}", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => { if(data.success){ location.reload(); } else { alert(data.error); } });
+});
+
+// EDIT
+document.querySelectorAll(".editBlogBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/get_blog/${id}`)
+      .then(res => res.json())
+      .then(b => {
+        document.getElementById("editBlogId").value = b.id;
+        document.getElementById("editBlogTitle").value = b.title;
+        document.getElementById("editBlogShortDescription").value = b.short_description;
+        document.getElementById("editBlogContent").value = b.content;
+        editBlogPopup.style.display = "flex";
+      });
+  });
+});
+
+// EDIT SUBMIT
+document.getElementById("editBlogForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("/admin/edit_blog", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => { if(data.success){ location.reload(); } else { alert(data.error); } });
+});
+
+// DELETE
+document.querySelectorAll(".deleteBlogBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/delete_blog/${id}`, { method: "POST" })
+      .then(res => res.json())
+      .then(data => { if(data.success){ document.getElementById("row-"+id).remove(); } else { alert(data.error); } });
+  });
+});
+</script>
+
+{% endblock %}

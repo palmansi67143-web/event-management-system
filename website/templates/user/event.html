@@ -1,0 +1,126 @@
+{% extends "user/base.html" %} {% block title %}event package{% endblock %} {% block content %}
+<html>
+    <head>
+                   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+         <link rel="stylesheet" href="{{url_for('static',filename='user/css/event.css')}}">
+          <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
+   </div>
+ <section class="Contact-hero1">
+   <div class="Contact-overlay1">
+       <div class="text-wrapper">
+       <p1 class="slide-right">"We don't create events, we create memories that last a lifetime."</p1><br><br>
+        <p2 class="slide-right">"Events are where stories begin and memories are born."
+       </p2>
+       </div>
+    </div>
+ </section>
+    </head>
+    <body>
+
+<div class="card-wrapper">
+{% for ev in events %}
+    <!-- CARD 1 -->
+<div class="event-card" data-form="form{{ ev.id }}"data-category="{{ ev.category }}">
+        <div class="card-image ">
+             {% if ev.image %}
+          <img src="{{ url_for('static', filename='admin/image/' ~ ev.image) }}" width="100%">
+          <span class="price">₹ {{ ev.price }}</span>
+          {% endif %}
+        </div>
+     <div class="card-body">
+            <h3>{{ ev.name }}</h3>
+            <p class="location">📍 {{ ev.city }}, {{ ev.venue.name if ev.venue else '-' }}</p>
+      </div>
+      <div class="tags">
+                <span>{{ ev.category }}</span>
+     </div>
+                    <div class="info">
+                    <div>🍽 {{ ev.food_type }}</div>
+                    <div>👥 {{ ev.pax }} Pax</div>
+                    <div>🏨 {{ ev.room }} room</div>
+                     </div>
+ </div>  
+  <div class="event-form" id="form{{ ev.id }}">
+    <span class="close-form">✖</span>
+    <h2>{{ ev.name }}</h2>
+     <ul class="detail-list">
+         <li><span class="label">Price:</span><span class="value">₹ {{ ev.price }}</span></li> 
+        <li><span class="label">Food Type:</span><span class="value">{{ ev.food_type }}</span></li>
+         <li><span class="label">Pax:</span><span class="value">{{ ev.pax }}</span></li>
+        <li><span class="label">Room:</span><span class="value">{{ ev.room }}</span></li> 
+         <li><span class="label">City:</span><span class="value">{{ ev.city }}</span></li> 
+        <li><span class="label">Venue:</span><span class="value">{{ ev.venue.name if ev.venue else '-' }}</span></li>
+         <li><span class="label">Package:</span><span class="value">{{ ev.category }}</span></li>    
+        </ul>
+        <!-- BOOK BUTTON -->
+<a href="{{ url_for('auth.book_event', event_id=ev.id) }}" class="book-btn">Book Now</a>
+ </div>
+ 
+    {% endfor %}
+</div>
+
+<script> 
+document.querySelectorAll(".event-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const formId = card.getAttribute("data-form");
+    const form = document.getElementById(formId);
+
+    // agar already open hai → close
+    form.classList.toggle("active");
+  });
+});
+
+// Cross button
+document.querySelectorAll(".close-form").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); // card click se bachane ke liye
+    btn.parentElement.classList.remove("active");
+  });
+});
+
+/* Inquiry button → Contact page */
+document.querySelectorAll(".inquiry-btn").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); // form close hone se bachane ke liye
+    window.location.href = "/Contact"; // yahan apna contact URL
+  });
+});
+
+</script> 
+
+
+  <script>
+  function getQueryParam(param) {
+  return new URLSearchParams(window.location.search).get(param);
+}
+
+const packageType = getQueryParam("type");
+const cards = document.querySelectorAll(".event-card");
+const forms = document.querySelectorAll(".event-form");
+
+// Default → sab dikhao
+cards.forEach(card => card.style.display = "block");
+forms.forEach(form => form.style.display = "block");
+
+// Agar packageType mila tab filter lagao
+if (packageType) {
+  cards.forEach(card => {
+    if (card.dataset.category !== packageType) {
+      card.style.display = "none";
+    }
+  });
+
+  forms.forEach(form => {
+    // form ka id card ke data-form se match karta hai
+    const card = document.querySelector(`.event-card[data-form="${form.id}"]`);
+    if (card && card.dataset.category !== packageType) {
+      form.style.display = "none";
+    }
+  });
+}
+</script>
+</body>
+</html>
+      
+
+ {% endblock %}

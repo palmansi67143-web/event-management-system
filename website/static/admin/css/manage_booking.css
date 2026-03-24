@@ -1,0 +1,59 @@
+/* Table styling */
+.customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.customer-table th, .customer-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.customer-table th {
+    background-color: #891809; /* Teal header for bookings */
+    color: white;
+    font-weight: bold;
+}
+
+.customer-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.customer-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Status badges */
+.status {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+}
+
+.status.pending {
+    background-color: #ffc107; /* Yellow */
+}
+
+.status.confirmed {
+    background-color: #28a745; /* Green */
+}
+
+.status.cancelled {
+    background-color: #dc3545; /* Red */
+}
+button{
+    justify-items: start;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    background: #780804;
+}
+

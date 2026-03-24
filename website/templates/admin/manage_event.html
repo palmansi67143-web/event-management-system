@@ -1,0 +1,207 @@
+{% extends "admin/base.html" %}
+{% block title %}Manage Events{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/manage_event.css') }}">
+
+<div class="ttl-btn">
+  <h2>Manage Events</h2>
+  <button id="addEventBtn">Add Event</button>
+</div>
+
+<table class="customer-table" id="eventTable">
+  <tr>
+    <th>ID</th>
+    <th>Event Name</th>
+    <th>Price</th>
+    <th>Food Type</th>
+    <th>Pax</th>
+    <th>Room</th>
+    <th>City</th>
+    <th>Venue</th>
+    <th>Category</th>
+    <th>Package</th>
+    <th>Image</th>
+    <th>Actions</th>
+  </tr>
+  {% for ev in events %}
+  <tr id="row-{{ ev.id }}">
+    <td>{{ ev.id }}</td>
+    <td>{{ ev.name }}</td>
+    <td>{{ ev.price }}</td>
+    <td>{{ ev.food_type }}</td>
+    <td>{{ ev.pax }}</td>
+    <td>{{ ev.room }}</td>
+    <td>{{ ev.city }}</td>
+    <td>{{ ev.venue.name if ev.venue else '-' }}</td>
+    <td>{{ ev.category }}</td>
+    <td>{{ ev.package.name if ev.package else '-' }}</td>
+    <td>
+      {% if ev.image %}
+        <img src="{{ url_for('static', filename='admin/image/' ~ ev.image) }}" width="100">
+      {% endif %}
+    </td>
+    <td>
+      <button class="editEventBtn" data-id="{{ ev.id }}">Edit</button>
+      <button class="deleteEventBtn" data-id="{{ ev.id }}">Delete</button>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<!-- Add Event Popup -->
+<div id="addEventPopup" class="popup">
+  <div class="popup-content">
+    <span id="addEventCloseBtn" class="popup-close">&times;</span>
+    <h2>Add Event</h2>
+    <form id="addEventForm" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="Event Name" required>
+      <input type="text" name="price" placeholder="Price" required>
+      <input type="text" name="food_type" placeholder="Food Type" required>
+      <input type="number" name="pax" placeholder="Pax" required>
+      <input type="text" name="room" placeholder="Room">
+      <input type="text" name="city" placeholder="City">
+      
+      <!-- Venue Dropdown -->
+      <select name="venue_id" required>
+        <option value="">Select Venue</option>
+        {% for v in venues %}
+          <option value="{{ v.id }}">{{ v.name }}</option>
+        {% endfor %}
+      </select>
+
+      <!-- Package Dropdown -->
+      <select name="package_id">
+        <option value="">Select Package</option>
+        {% for p in packages %}
+          <option value="{{ p.id }}">{{ p.name }}</option>
+        {% endfor %}
+      </select>
+
+      <input type="text" name="category" placeholder="Category" required>
+      <input type="file" name="image">
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Event Popup -->
+<div id="editEventPopup" class="popup">
+  <div class="popup-content">
+    <span id="editEventCloseBtn" class="popup-close">&times;</span>
+    <h2>Edit Event</h2>
+    <form id="editEventForm" enctype="multipart/form-data">
+      <input type="hidden" name="id" id="editEventId">
+      <input type="text" name="name" id="editEventName" required>
+      <input type="text" name="price" id="editEventPrice" required>
+      <input type="text" name="food_type" id="editEventFoodType" required>
+      <input type="number" name="pax" id="editEventPax" required>
+      <input type="text" name="room" id="editEventRoom">
+      <input type="text" name="city" id="editEventCity">
+
+      <!-- Venue Dropdown -->
+      <select name="venue_id" id="editEventVenue" required>
+        {% for v in venues %}
+          <option value="{{ v.id }}">{{ v.name }}</option>
+        {% endfor %}
+      </select>
+
+      <!-- Package Dropdown -->
+      <select name="package_id" id="editEventPackage">
+        {% for p in packages %}
+          <option value="{{ p.id }}">{{ p.name }}</option>
+        {% endfor %}
+      </select>
+
+      <input type="text" name="category" id="editEventCategory" required>
+      <input type="file" name="image">
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// ADD POPUP
+const addEventPopup = document.getElementById("addEventPopup");
+const addEventBtn = document.getElementById("addEventBtn");
+const addEventCloseBtn = document.getElementById("addEventCloseBtn");
+addEventBtn.addEventListener("click", () => { addEventPopup.style.display = "flex"; });
+addEventCloseBtn.addEventListener("click", () => { addEventPopup.style.display = "none"; });
+
+// EDIT POPUP
+const editEventPopup = document.getElementById("editEventPopup");
+const editEventCloseBtn = document.getElementById("editEventCloseBtn");
+editEventCloseBtn.addEventListener("click", () => { editEventPopup.style.display = "none"; });
+
+// ADD SUBMIT
+document.getElementById("addEventForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("{{ url_for('auth.manage_event') }}", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){
+        location.reload();
+      } else {
+        alert("Error: " + data.error);
+      }
+    });
+});
+
+// DELETE
+document.querySelectorAll(".deleteEventBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/delete_event/${id}`, { method: "POST" })
+      .then(res => res.json())
+      .then(data => {
+        if(data.success){
+          document.getElementById("row-"+id).remove();
+        } else {
+          alert("Error: " + data.error);
+        }
+      });
+  });
+});
+
+// EDIT
+document.querySelectorAll(".editEventBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    fetch(`/admin/get_event/${id}`)
+      .then(res => res.json())
+      .then(ev => {
+        document.getElementById("editEventId").value = ev.id;
+        document.getElementById("editEventName").value = ev.name;
+        document.getElementById("editEventPrice").value = ev.price;
+        document.getElementById("editEventFoodType").value = ev.food_type;
+        document.getElementById("editEventPax").value = ev.pax;
+        document.getElementById("editEventRoom").value = ev.room;
+        document.getElementById("editEventCity").value = ev.city;
+        document.getElementById("editEventCategory").value = ev.category;
+
+        // Set dropdown values
+        document.getElementById("editEventVenue").value = ev.venue_id || '';
+        document.getElementById("editEventPackage").value = ev.package_id || '';
+
+        editEventPopup.style.display = "flex";
+      });
+  });
+});
+
+// EDIT SUBMIT
+document.getElementById("editEventForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const formData = new FormData(this);
+  fetch("/admin/edit_event", { method: "POST", body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if(data.success){
+        location.reload();
+      } else {
+        alert("Error: " + data.error);
+      }
+    });
+});
+</script>
+
+{% endblock %}

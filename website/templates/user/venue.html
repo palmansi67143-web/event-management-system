@@ -1,0 +1,87 @@
+{% extends "user/base.html" %} {% block title %}venue{% endblock %} {% block content %}
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="{{url_for('static',filename='user/css/venue.css')}}">
+         <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
+    </div>
+      <section class="venueimage">
+       <div class="venueoverlay">
+       <div class="text-wrapper">
+       <p1 class="slide-right">"We don't create events, we create memories that last a lifetime."</p1><br><br>
+        <p2 class="slide-right">"Events are where stories begin and memories are born."</p2>
+       </div>
+       </div>
+      </section>  
+ 
+
+    </head>
+   <body>
+ <div class="service-content">
+          <div class="img-content">
+          <div class="image-container">
+            <h2>
+    <span class="explore">Explore The</span>
+    <span class="venues">Venues</span>
+  </h2>
+          </div>
+          <div class="content-container">
+         <span><p>At Dream Event Company, our services are designed to transform ordinary occasions into extraordinary experiences.
+               Whether it’s a lavish wedding, a high-profile corporate gathering, or an intimate private celebration,
+                we handle every detail with precision and creativity. From concept development and venue selection to décor,
+                 us means choosing peace of mind, knowing that your special day will be managed by professionals who care as much about your event as you do.
+             </p>
+         </span>
+          </div>
+          </div>
+        </div>
+
+<section class="venues1">
+  <h2>Our Venues</h2>
+<div class="venue-wrapper">
+{% for v in venues %}
+    <!-- CARD 1 -->
+    <div class="venue-card">
+        <div class="venue-image">
+            {% if v.image %}    
+            <img src="{{ url_for('static', filename='admin/image/' ~ v.image) }}" width="100%">
+            {% endif %}
+                           </div>
+             <div class="venue-card-body">
+            <h3>{{ v.name }}</h3>
+            <p class="venue-location">📍{{ v.location }}</p>
+                </div>
+  </div>  
+    {% endfor %}
+    <!-- CARD 2 -->
+    </div>
+</section>
+    <!-- CARD 2 -->
+   <section class="contact-cta">
+  <div class="contact-cta-box">
+
+    <!-- Left Content -->
+    <div class="contact-text">
+      <h2>Let’s Talk</h2>
+      <p>
+        Have questions or want to plan your next event with us?  
+        We’re here to help you turn your ideas into reality.
+      </p>
+    </div>
+
+    <!-- Right Button -->
+    <div class="contact-action">
+      <a  class="contact-btn">Contact</a>
+    </div>
+
+  </div>
+</section><script>
+/* Inquiry button → Contact page */
+document.querySelectorAll(".contact-btn").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); 
+    window.location.href = "/Contact"; 
+  });
+});</script>   
+     {% endblock %}

@@ -8,3 +8,4 @@ python-slugify
 pandas
 reportlab
 XlsxWriter
+Flask-Login

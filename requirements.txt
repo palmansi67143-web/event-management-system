@@ -4,3 +4,7 @@ Flask-SQLAlchemy
 PyMySQL
 gunicorn
 python-dotenv
+python-slugify
+pandas
+reportlab
+XlsxWriter

@@ -5,36 +5,36 @@
 <link rel="stylesheet" href="{{url_for('static',filename='admin/css/manage_booking.css')}}">
 
 <div class="ttl-btn">
-<h2>Payment List</h2>
+    <h2>Payment List</h2>
 </div>
 
 
 
 <table class="customer-table" id="bookingTable">
 
-<tr>
-<th>ID</th>
-<th>Booking ID</th>
-<th>Amount</th>
-<th>Method</th>
-<th>Status</th>
-<th>Date</th>
-</tr>
+    <tr>
+        <th>ID</th>
+        <th>Booking ID</th>
+        <th>Amount</th>
+        <th>Method</th>
+        <th>Status</th>
+        <th>Date</th>
+    </tr>
 
-{% for p in payments %}
+    {% for p in payments %}
 
-<tr>
+    <tr>
 
-<td>{{ p.id }}</td>
-<td>{{ p.booking_id }}</td>
-<td>{{ p.amount }}</td>
-<td>{{ p.payment_method }}</td>
-<td>{{ p.payment_status }}</td>
-<td>{{ p.payment_date }}</td>
+        <td>{{ p.id }}</td>
+        <td>{{ p.booking_id }}</td>
+        <td>{{ p.amount }}</td>
+        <td>{{ p.payment_method }}</td>
+        <td>{{ p.payment_status }}</td>
+        <td>{{ p.payment_date }}</td>
 
-</tr>
+    </tr>
 
-{% endfor %}
+    {% endfor %}
 
 </table>
 

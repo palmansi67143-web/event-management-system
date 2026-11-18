@@ -1,89 +1,97 @@
 {% extends "user/base.html" %} {% block title %}transportation{% endblock %} {% block content %}
 
 <html>
-    <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <link rel="stylesheet" href="{{url_for('static',filename='user/css/tr_tion.css')}}">
-         <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
-</div>
- <section class="tra_tion-hero1">
-   <div class="tra_tion-overlay1">
-    <div class="tra_tion-content">
-       <p class="slide-right">
-        "Arrive in style, leave with memories - premium wedding transportation at its finest."  
-       </p>
-        </div>
-   </div>
-        </section>
-    
 
-    </head>
-    <body>
-    <div class="transport-content">
-          <div class="img-content">
-          <div class="image-container">
-            <h2>
-    <span class="explore">Your Life</span>
-    <span class="venues">Journey</span>
-  </h2>
-          </div>
-          <div class="content-container">
-         <span><p><b>Arrive in style, leave with memories </b>- premium wedding transportation at its finest.
-Our fleet of luxury and vintage vehicles ensures <b>you make a grand entrance on your special day.</b>
-With professional chauffeurs and beautifully decorated cars, your journey becomes part of the celebration.
- Your journey to forever starts with the perfect ride.</b>
-Choose from our collection of elegant sedans, classic vintage cars, and luxury limousines.
-We provide comfortable,<b> stylish transportation that complements your wedding theme and creates picture-perfect moments.</b>
-             </p>
-         </span>
-          </div>
-          </div>
-        </div>
- <div class="trans-head">
-      <b><h1>Transportation Services</h1></b>
- </div>
-<div class="tra_tion-wrapper">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/tr_tion.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
+  </div>
+  <section class="tra_tion-hero1">
+    <div class="tra_tion-overlay1">
+      <div class="tra_tion-content">
+        <p class="slide-right">
+          "Arrive in style, leave with memories - premium wedding transportation at its finest."
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+</head>
+
+<body>
+  <div class="transport-content">
+    <div class="img-content">
+      <div class="image-container">
+        <h2>
+          <span class="explore">Your Life</span>
+          <span class="venues">Journey</span>
+        </h2>
+      </div>
+      <div class="content-container">
+        <span>
+          <p><b>Arrive in style, leave with memories </b>- premium wedding transportation at its finest.
+            Our fleet of luxury and vintage vehicles ensures <b>you make a grand entrance on your special day.</b>
+            With professional chauffeurs and beautifully decorated cars, your journey becomes part of the celebration.
+            Your journey to forever starts with the perfect ride.</b>
+            Choose from our collection of elegant sedans, classic vintage cars, and luxury limousines.
+            We provide comfortable,<b> stylish transportation that complements your wedding theme and creates
+              picture-perfect moments.</b>
+          </p>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="trans-head">
+    <b>
+      <h1>Transportation Services</h1>
+    </b>
+  </div>
+  <div class="tra_tion-wrapper">
     {% for t in transports %}
     <!-- CARD 1 -->
     <div class="tra_tion-card">
-        
-            {% if t.image %}
-             <img src="{{ url_for('static', filename='admin/image/' ~ t.image) }}" alt="{{ t.vehicle }}" width="100%" >
-             {% endif %}
-        <h3>{{ t.vehicle }}</h3>
-               
-</div>
-{% endfor %} 
-</div>  
-<section class="contact-cta">
-  <div class="contact-cta-box">
 
-    <!-- Left Content -->
-    <div class="contact-text">
-      <h2>Let’s Talk</h2>
-      <p>
-        Have questions or want to plan your next event with us?  
-        We’re here to help you turn your ideas into reality.
-      </p>
+      {% if t.image %}
+      <img src="{{ url_for('static', filename='admin/image/' ~ t.image) }}" alt="{{ t.vehicle }}" width="100%">
+      {% endif %}
+      <h3>{{ t.vehicle }}</h3>
+
     </div>
-
-    <!-- Right Button -->
-    <div class="contact-action">
-      <a  class="contact-btn">Contact</a>
-    </div>
-
+    {% endfor %}
   </div>
-</section><script>
-/* Inquiry button → Contact page */
-document.querySelectorAll(".contact-btn").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); 
-    window.location.href = "/Contact"; 
-  });
-});</script>   
-</body>
-</html>
-    
+  <section class="contact-cta">
+    <div class="contact-cta-box">
 
-    
- {% endblock %}
+      <!-- Left Content -->
+      <div class="contact-text">
+        <h2>Let’s Talk</h2>
+        <p>
+          Have questions or want to plan your next event with us?
+          We’re here to help you turn your ideas into reality.
+        </p>
+      </div>
+
+      <!-- Right Button -->
+      <div class="contact-action">
+        <a class="contact-btn">Contact</a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    /* Inquiry button → Contact page */
+    document.querySelectorAll(".contact-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.location.href = "/Contact";
+      });
+    });</script>
+</body>
+
+</html>
+
+
+
+{% endblock %}

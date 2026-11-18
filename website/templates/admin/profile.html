@@ -3,7 +3,7 @@
 {% block title %}My Profile{% endblock %}
 
 {% block content %}
-  <link rel="stylesheet" href="{{url_for('static',filename='admin/css/profile.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/profile.css')}}">
 
 <div class="profile-container">
 
@@ -12,12 +12,12 @@
     <div class="profile-card">
 
         <div class="profile-image">
-             <img src="{{ url_for('static', filename='admin/image/' ~ admin.image) }}"
-     width="100">         </div>
+            <img src="{{ url_for('static', filename='admin/image/' ~ admin.image) }}" width="100">
+        </div>
 
-        <div class="profile-details">   
-           <p>Name: {{ admin.name }}</p>
-           <p>Email: {{ admin.email }}</p>
+        <div class="profile-details">
+            <p>Name: {{ admin.name }}</p>
+            <p>Email: {{ admin.email }}</p>
             <p>Phone: {{ admin.phone }}</p>
         </div>
 

@@ -25,7 +25,7 @@
     <td>{{ b.blog_date.strftime("%d-%m-%Y") }}</td>
     <td>
       {% if b.image %}
-        <img src="{{ url_for('static', filename='admin/image/' ~ b.image) }}" width="100">
+      <img src="{{ url_for('static', filename='admin/image/' ~ b.image) }}" width="100">
       {% endif %}
     </td>
     <td>
@@ -68,60 +68,60 @@
 </div>
 
 <script>
-// Popup logic
-const addBlogPopup = document.getElementById("addBlogPopup");
-const addBlogBtn = document.getElementById("addBlogBtn");
-const addBlogCloseBtn = document.getElementById("addBlogCloseBtn");
-addBlogBtn.addEventListener("click", () => { addBlogPopup.style.display = "flex"; });
-addBlogCloseBtn.addEventListener("click", () => { addBlogPopup.style.display = "none"; });
+  // Popup logic
+  const addBlogPopup = document.getElementById("addBlogPopup");
+  const addBlogBtn = document.getElementById("addBlogBtn");
+  const addBlogCloseBtn = document.getElementById("addBlogCloseBtn");
+  addBlogBtn.addEventListener("click", () => { addBlogPopup.style.display = "flex"; });
+  addBlogCloseBtn.addEventListener("click", () => { addBlogPopup.style.display = "none"; });
 
-const editBlogPopup = document.getElementById("editBlogPopup");
-const editBlogCloseBtn = document.getElementById("editBlogCloseBtn");
-editBlogCloseBtn.addEventListener("click", () => { editBlogPopup.style.display = "none"; });
+  const editBlogPopup = document.getElementById("editBlogPopup");
+  const editBlogCloseBtn = document.getElementById("editBlogCloseBtn");
+  editBlogCloseBtn.addEventListener("click", () => { editBlogPopup.style.display = "none"; });
 
-// ADD
-document.getElementById("addBlogForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("{{ url_for('auth.manage_blog') }}", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => { if(data.success){ location.reload(); } else { alert(data.error); } });
-});
-
-// EDIT
-document.querySelectorAll(".editBlogBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/get_blog/${id}`)
+  // ADD
+  document.getElementById("addBlogForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("{{ url_for('auth.manage_blog') }}", { method: "POST", body: formData })
       .then(res => res.json())
-      .then(b => {
-        document.getElementById("editBlogId").value = b.id;
-        document.getElementById("editBlogTitle").value = b.title;
-        document.getElementById("editBlogShortDescription").value = b.short_description;
-        document.getElementById("editBlogContent").value = b.content;
-        editBlogPopup.style.display = "flex";
-      });
+      .then(data => { if (data.success) { location.reload(); } else { alert(data.error); } });
   });
-});
 
-// EDIT SUBMIT
-document.getElementById("editBlogForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("/admin/edit_blog", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => { if(data.success){ location.reload(); } else { alert(data.error); } });
-});
+  // EDIT
+  document.querySelectorAll(".editBlogBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/get_blog/${id}`)
+        .then(res => res.json())
+        .then(b => {
+          document.getElementById("editBlogId").value = b.id;
+          document.getElementById("editBlogTitle").value = b.title;
+          document.getElementById("editBlogShortDescription").value = b.short_description;
+          document.getElementById("editBlogContent").value = b.content;
+          editBlogPopup.style.display = "flex";
+        });
+    });
+  });
 
-// DELETE
-document.querySelectorAll(".deleteBlogBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/delete_blog/${id}`, { method: "POST" })
+  // EDIT SUBMIT
+  document.getElementById("editBlogForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("/admin/edit_blog", { method: "POST", body: formData })
       .then(res => res.json())
-      .then(data => { if(data.success){ document.getElementById("row-"+id).remove(); } else { alert(data.error); } });
+      .then(data => { if (data.success) { location.reload(); } else { alert(data.error); } });
   });
-});
+
+  // DELETE
+  document.querySelectorAll(".deleteBlogBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/delete_blog/${id}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => { if (data.success) { document.getElementById("row-" + id).remove(); } else { alert(data.error); } });
+    });
+  });
 </script>
 
 {% endblock %}

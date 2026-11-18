@@ -7,135 +7,135 @@
 
 <div class="payment-box">
 
-<h2>Complete Your Payment</h2>
+    <h2>Complete Your Payment</h2>
 
-<p><strong>Event:</strong> {{ event.name }}</p>
-<p><strong>Amount:</strong> ₹{{ event.price }}</p>
+    <p><strong>Event:</strong> {{ event.name }}</p>
+    <p><strong>Amount:</strong> ₹{{ event.price }}</p>
 
-<form method="POST">
+    <form method="POST">
 
-<h4>Select Payment Method</h4>
+        <h4>Select Payment Method</h4>
 
-<label class="payment-option">
-<input type="radio" name="payment_method" value="UPI" onclick="showUPI()" required>
-UPI (Google Pay / PhonePe)
-</label>
+        <label class="payment-option">
+            <input type="radio" name="payment_method" value="UPI" onclick="showUPI()" required>
+            UPI (Google Pay / PhonePe)
+        </label>
 
-<label class="payment-option">
-<input type="radio" name="payment_method" value="Card" onclick="showCard()">
-Debit / Credit Card
-</label>
+        <label class="payment-option">
+            <input type="radio" name="payment_method" value="Card" onclick="showCard()">
+            Debit / Credit Card
+        </label>
 
-<label class="payment-option">
-<input type="radio" name="payment_method" value="QR" onclick="showQR()">
-Scan QR Code
-</label>
+        <label class="payment-option">
+            <input type="radio" name="payment_method" value="QR" onclick="showQR()">
+            Scan QR Code
+        </label>
 
-<label class="payment-option">
-<input type="radio" name="payment_method" value="Cash" onclick="showCash()">
-Pay By Cash
-</label>
-
-
-<!-- CARD DETAILS -->
-<div id="cardBox" style="display:none;">
-
-<h4>Enter Card Details</h4>
-
-<input type="text" name="card_name" placeholder="Card Holder Name">
-
-<input type="text" name="card_number" placeholder="Card Number">
-
-<input type="text" name="expiry" placeholder="MM/YY">
-
-<input type="password" name="cvv" placeholder="CVV">
-
-</div>
+        <label class="payment-option">
+            <input type="radio" name="payment_method" value="Cash" onclick="showCash()">
+            Pay By Cash
+        </label>
 
 
-<!-- UPI -->
-<div id="upiBox" style="display:none;">
+        <!-- CARD DETAILS -->
+        <div id="cardBox" style="display:none;">
 
-<h4>Enter UPI ID</h4>
+            <h4>Enter Card Details</h4>
 
-<input type="text" name="upi_id" placeholder="example@upi">
+            <input type="text" name="card_name" placeholder="Card Holder Name">
 
-</div>
+            <input type="text" name="card_number" placeholder="Card Number">
 
+            <input type="text" name="expiry" placeholder="MM/YY">
 
-<!-- QR CODE -->
-<div id="qrBox" style="display:none; text-align:center;">
+            <input type="password" name="cvv" placeholder="CVV">
 
-<h4>Scan QR Code</h4>
-
-<img src="{{ url_for('static', filename='/user/image/OIP.jpeg') }}" width="200">
-
-<p>Scan using Google Pay / PhonePe</p>
-<button type="button" onclick="startScan()" class="scan-btn">
-Scan Payment
-</button>
-
-<div id="scanLoader" style="display:none; margin-top:20px;">
-<p>Scanning Payment...</p>
-<div class="loader"></div>
-</div>
-
-<div id="scanSuccess" style="display:none; color:green; margin-top:20px;">
-✅ Payment Successful
-</div>
-
-</div>
+        </div>
 
 
-<!-- CASH -->
-<div id="cashBox" style="display:none; text-align:center;">
+        <!-- UPI -->
+        <div id="upiBox" style="display:none;">
 
-<h4>Cash Payment</h4>
+            <h4>Enter UPI ID</h4>
 
-<p>You can pay cash on the event day.</p>
+            <input type="text" name="upi_id" placeholder="example@upi">
 
-</div>
+        </div>
 
 
-<button type="submit" class="pay-btn" id="payButton">
-Pay ₹{{ event.price }}
-</button>
+        <!-- QR CODE -->
+        <div id="qrBox" style="display:none; text-align:center;">
 
-</form>
+            <h4>Scan QR Code</h4>
+
+            <img src="{{ url_for('static', filename='/user/image/OIP.jpeg') }}" width="200">
+
+            <p>Scan using Google Pay / PhonePe</p>
+            <button type="button" onclick="startScan()" class="scan-btn">
+                Scan Payment
+            </button>
+
+            <div id="scanLoader" style="display:none; margin-top:20px;">
+                <p>Scanning Payment...</p>
+                <div class="loader"></div>
+            </div>
+
+            <div id="scanSuccess" style="display:none; color:green; margin-top:20px;">
+                ✅ Payment Successful
+            </div>
+
+        </div>
+
+
+        <!-- CASH -->
+        <div id="cashBox" style="display:none; text-align:center;">
+
+            <h4>Cash Payment</h4>
+
+            <p>You can pay cash on the event day.</p>
+
+        </div>
+
+
+        <button type="submit" class="pay-btn" id="payButton">
+            Pay ₹{{ event.price }}
+        </button>
+
+    </form>
 
 </div>
 
 
 <script>
 
-function hideAll(){
-document.getElementById("cardBox").style.display="none";
-document.getElementById("upiBox").style.display="none";
-document.getElementById("qrBox").style.display="none";
-document.getElementById("cashBox").style.display="none";
-document.getElementById("payButton").innerText="Pay ₹{{ event.price }}";
-}
+    function hideAll() {
+        document.getElementById("cardBox").style.display = "none";
+        document.getElementById("upiBox").style.display = "none";
+        document.getElementById("qrBox").style.display = "none";
+        document.getElementById("cashBox").style.display = "none";
+        document.getElementById("payButton").innerText = "Pay ₹{{ event.price }}";
+    }
 
-function showCard(){
-hideAll();
-document.getElementById("cardBox").style.display="block";
-}
+    function showCard() {
+        hideAll();
+        document.getElementById("cardBox").style.display = "block";
+    }
 
-function showUPI(){
-hideAll();
-document.getElementById("upiBox").style.display="block";
-}
+    function showUPI() {
+        hideAll();
+        document.getElementById("upiBox").style.display = "block";
+    }
 
-function showQR(){
-hideAll();
-document.getElementById("qrBox").style.display="block";
-}
+    function showQR() {
+        hideAll();
+        document.getElementById("qrBox").style.display = "block";
+    }
 
-function showCash(){
-hideAll();
-document.getElementById("cashBox").style.display="block";
-document.getElementById("payButton").innerText="Confirm Booking";
-}
+    function showCash() {
+        hideAll();
+        document.getElementById("cashBox").style.display = "block";
+        document.getElementById("payButton").innerText = "Confirm Booking";
+    }
 
 </script>
 

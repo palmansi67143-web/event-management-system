@@ -2,38 +2,38 @@
 {% block title %}Edit Profile{% endblock %}
 
 {% block content %}
-        <link rel="stylesheet" href="{{url_for('static',filename='user/css/edit-profile.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='user/css/edit-profile.css')}}">
 
 
 <div class="profile-container">
 
-<h2>Edit Profile</h2>
+        <h2>Edit Profile</h2>
 
-<form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
 
-<div class="profile-image">
+                <div class="profile-image">
 
-{% if user.image %}
-<img src="{{ url_for('static', filename='user/image/' + user.image) }}">
-{% else %}
-<img src="{{ url_for('static', filename='user/image/user.png') }}">
-{% endif %}
+                        {% if user.image %}
+                        <img src="{{ url_for('static', filename='user/image/' + user.image) }}">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='user/image/user.png') }}">
+                        {% endif %}
 
-</div>
+                </div>
 
-<input type="file" name="image">
+                <input type="file" name="image">
 
-<input type="text" name="name" value="{{user.name}}" placeholder="Name">
+                <input type="text" name="name" value="{{user.name}}" placeholder="Name">
 
-<input type="email" name="email" value="{{user.email}}" placeholder="Email">
+                <input type="email" name="email" value="{{user.email}}" placeholder="Email">
 
-<input type="text" name="phone" value="{{user.phone}}" placeholder="Phone">
+                <input type="text" name="phone" value="{{user.phone}}" placeholder="Phone">
 
-<input type="text" name="address" value="{{user.address}}" placeholder="Address">
+                <input type="text" name="address" value="{{user.address}}" placeholder="Address">
 
-<button type="submit">Update Profile</button>
+                <button type="submit">Update Profile</button>
 
-</form>
+        </form>
 </div>
 
 {% endblock %}

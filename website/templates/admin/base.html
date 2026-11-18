@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
@@ -8,109 +9,122 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/dashboard.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <!-- Sidebar -->
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            <h2>Admin</h2>
-        </div>
-
-        <ul class="sidebar-menu">
-             <li class="view-site-li">
-                <a href="{{ url_for('auth.event') }}" target="_blank">
-                    <i class="fas fa-globe"></i><span>View Site</span>
-                </a>
-            </li>
-            <li><a href="{{ url_for('auth.dashboard') }}"><i class="fas fa-th-large"></i><span>Dashboard</span></a></li>
-            <li><a href="{{ url_for('auth.manage_user') }}"><i class="fas fa-users"></i><span>Contacts</span></a></li>
-            <li><a href="{{ url_for('auth.manage_package') }}"><i class="fas fa-gift"></i><span>Packages</span></a></li>
-            <li><a href="{{ url_for('auth.manage_event') }}"><i class="fas fa-calendar-alt"></i><span> Events</span></a></li>
-            <li><a href="{{ url_for('auth.manage_venue') }}"><i class="fas fa-landmark"></i><span> Venues</span></a></li>
-            <li><a href="{{ url_for('auth.manage_service') }}"><i class="fas fa-concierge-bell"></i><span>Services</span></a></li>
-            <li><a href="{{ url_for('auth.manage_transport') }}"><i class="fas fa-car"></i><span>Transport</span></a></li>
-            <li><a href="{{ url_for('auth.manage_gallery') }}"><i class="fas fa-photo-video"></i><span>Gallery</span></a></li>
-            <li><a href="{{ url_for('auth.manage_blog') }}"><i class="fas fa-file-alt"></i><span> Blogs</span></a></li>
-            <li><a href="{{ url_for('auth.manage_booking') }}"><i class="fas fa-check-square"></i><span>Booking</span></a></li>
-            <li><a href="{{ url_for('auth.manage_payment') }}"><i class="fas fa-money-bill-wave"></i><span>Payments</span></a></li>
-            <li><a href="{{ url_for('auth.manage_client') }}"><i class="fas fa-user"></i><span>Clients</span></a></li>
-        </ul>
-    </nav>
-
-<!-- Main Content -->
-    <main class="main-content">
- 
-        <div class="header">
-            <button id="sidebarToggleBtn" class="sidebar-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
- 
-            <div class="user-info">
-                Welcome, <strong>{{ session.get('admin_name', 'Admin') }}</strong>
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin</h2>
             </div>
- 
-            <!-- ADMIN PROFILE -->
-            <div class="admin-profile" onclick="toggleProfile()">
- 
-                {% if admin and admin.image %}
-                    <img src="{{ url_for('static', filename='admin/image/' ~ admin.image) }}"
-                         width="40" height="40"
-                         style="border-radius:50%; object-fit:cover;">
-                {% else %}
+
+            <ul class="sidebar-menu">
+                <li class="view-site-li">
+                    <a href="{{ url_for('auth.event') }}" target="_blank">
+                        <i class="fas fa-globe"></i><span>View Site</span>
+                    </a>
+                </li>
+                <li><a href="{{ url_for('auth.dashboard') }}"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+                </li>
+                <li><a href="{{ url_for('auth.manage_user') }}"><i class="fas fa-users"></i><span>Contacts</span></a>
+                </li>
+                <li><a href="{{ url_for('auth.manage_package') }}"><i class="fas fa-gift"></i><span>Packages</span></a>
+                </li>
+                <li><a href="{{ url_for('auth.manage_event') }}"><i class="fas fa-calendar-alt"></i><span>
+                            Events</span></a></li>
+                <li><a href="{{ url_for('auth.manage_venue') }}"><i class="fas fa-landmark"></i><span> Venues</span></a>
+                </li>
+                <li><a href="{{ url_for('auth.manage_service') }}"><i
+                            class="fas fa-concierge-bell"></i><span>Services</span></a></li>
+                <li><a href="{{ url_for('auth.manage_transport') }}"><i
+                            class="fas fa-car"></i><span>Transport</span></a></li>
+                <li><a href="{{ url_for('auth.manage_gallery') }}"><i
+                            class="fas fa-photo-video"></i><span>Gallery</span></a></li>
+                <li><a href="{{ url_for('auth.manage_blog') }}"><i class="fas fa-file-alt"></i><span> Blogs</span></a>
+                </li>
+                <li><a href="{{ url_for('auth.manage_booking') }}"><i
+                            class="fas fa-check-square"></i><span>Booking</span></a></li>
+                <li><a href="{{ url_for('auth.manage_payment') }}"><i
+                            class="fas fa-money-bill-wave"></i><span>Payments</span></a></li>
+                <li><a href="{{ url_for('auth.manage_client') }}"><i class="fas fa-user"></i><span>Clients</span></a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <div class="header">
+                <button id="sidebarToggleBtn" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="user-info">
+                    Welcome, <strong>{{ session.get('admin_name', 'Admin') }}</strong>
+                </div>
+
+                <!-- ADMIN PROFILE -->
+                <div class="admin-profile" onclick="toggleProfile()">
+
+                    {% if admin and admin.image %}
+                    <img src="{{ url_for('static', filename='admin/image/' ~ admin.image) }}" width="40" height="40"
+                        style="border-radius:50%; object-fit:cover;">
+                    {% else %}
                     <div style="width:40px; height:40px; border-radius:50%;
                                 background:#6c757d; display:flex;
                                 align-items:center; justify-content:center;">
                         <i class="fas fa-user" style="color:white;"></i>
                     </div>
-                {% endif %}
- 
-                <span class="admin-name">{{ session.get('admin_name', 'Admin') }}</span>
-                <i class="fas fa-chevron-down"></i>
- 
-                <div class="profile-dropdown" id="profileDropdown">
-                    <a href="{{ url_for('auth.profile') }}"><i class="fas fa-user"></i> My Profile</a>
-                    <a href="{{ url_for('auth.edit_profile') }}"><i class="fas fa-edit"></i> Edit Profile</a>
-                    <a href="{{ url_for('auth.event') }}" target="_blank"><i class="fas fa-globe"></i> View Site</a>
-                    <hr style="margin:5px 0; border-color:#eee;">
-                    <a href="{{ url_for('auth.admin_logout') }}" style="color:red;">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
+                    {% endif %}
+
+                    <span class="admin-name">{{ session.get('admin_name', 'Admin') }}</span>
+                    <i class="fas fa-chevron-down"></i>
+
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="{{ url_for('auth.profile') }}"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="{{ url_for('auth.edit_profile') }}"><i class="fas fa-edit"></i> Edit Profile</a>
+                        <a href="{{ url_for('auth.event') }}" target="_blank"><i class="fas fa-globe"></i> View Site</a>
+                        <hr style="margin:5px 0; border-color:#eee;">
+                        <a href="{{ url_for('auth.admin_logout') }}" style="color:red;">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
- 
-        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                {% for category, message in messages %}
-                    <div>
-                        {{ message }}
-                    </div>
-                {% endfor %}
+            {% for category, message in messages %}
+            <div>
+                {{ message }}
+            </div>
+            {% endfor %}
             {% endif %}
-        {% endwith %}
- 
-        {% block content %}{% endblock %}
- 
-    </main>
-</div>
- 
-<script>
-    function toggleProfile() {
-        const menu = document.getElementById("profileDropdown");
-        menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-    window.addEventListener("click", function(e) {
-        const profile = document.querySelector(".admin-profile");
-        const menu = document.getElementById("profileDropdown");
-        if (profile && !profile.contains(e.target)) menu.style.display = "none";
-    });
-    document.getElementById("sidebarToggleBtn").addEventListener("click", function () {
-        document.querySelector(".sidebar").classList.toggle("collapsed");
-    });
-</script>
- 
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+
+        </main>
+    </div>
+
+    <script>
+        function toggleProfile() {
+            const menu = document.getElementById("profileDropdown");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+        window.addEventListener("click", function (e) {
+            const profile = document.querySelector(".admin-profile");
+            const menu = document.getElementById("profileDropdown");
+            if (profile && !profile.contains(e.target)) menu.style.display = "none";
+        });
+        document.getElementById("sidebarToggleBtn").addEventListener("click", function () {
+            document.querySelector(".sidebar").classList.toggle("collapsed");
+        });
+    </script>
+
 
 </body>
+
 </html>

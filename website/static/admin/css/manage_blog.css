@@ -1,92 +1,96 @@
-/* Table styling */
 .customer-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-family: 'Arial', sans-serif;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.customer-table th, .customer-table td {
-    border: 1px solid #ddd;
-    padding: 12px 15px;
-    text-align: left;
+.customer-table th,
+.customer-table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: left;
 }
 
 .customer-table th {
-    background-color: #891809; /* Purple header for blogs */
-    color: white;
-    font-weight: bold;
+  background-color: #891809;
+  color: white;
+  font-weight: bold;
 }
 
 .customer-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 .customer-table tr:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
 }
 
-/* Status badges */
+
 .status {
-    padding: 5px 10px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    display: inline-block;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  display: inline-block;
 }
 
 .status.active {
-    background-color: #28a745; /* Green for published */
+  background-color: #28a745;
 }
 
 .status.inactive {
-    background-color: #dc3545; /* Red for draft */
+  background-color: #dc3545;
 }
 
 .status.pending {
-    background-color: #ffc107; /* Yellow for pending review */
+  background-color: #ffc107;
 }
-.customer-table img{
-    height: 90px;
+
+.customer-table img {
+  height: 90px;
 }
 
 
 .popup {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);   /* semi-transparent black */
-  display: none;                 /* hidden by default */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
   justify-content: center;
   align-items: center;
-  z-index: 2000;                 /* above everything */
+  z-index: 2000;
 }
 
-/* Popup content box */
+
 .popup-content {
   background: #fff;
   padding: 25px;
   border-radius: 8px;
   width: 400px;
   max-width: 90%;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   animation: popupFade 0.3s ease-in-out;
   position: relative;
 }
 
-/* Close button */
+
 .popup-close {
   position: absolute;
-  top: 10px; right: 15px;
+  top: 10px;
+  right: 15px;
   font-size: 22px;
   font-weight: bold;
   color: #333;
   cursor: pointer;
 }
 
-/* Form styling */
+
 .popup-content form {
   display: flex;
   flex-direction: column;
@@ -105,14 +109,16 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-button{
-    justify-items: start;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: white;
-    background: #780804;
+
+button {
+  justify-items: start;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background: #780804;
 }
+
 .popup-content button {
   background: #780804;
   color: #fff;
@@ -128,15 +134,20 @@ button{
   color: #780804;
 }
 
-/* Animation */
+
 @keyframes popupFade {
-  from { transform: scale(0.9); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-.ttl-btn{
-    display: flex;
-    justify-content: space-between;
+.ttl-btn {
+  display: flex;
+  justify-content: space-between;
 }
-
-

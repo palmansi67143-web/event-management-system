@@ -18,36 +18,36 @@ class Admin(db.Model, UserMixin):
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)        # Blog title
-    slug = db.Column(db.String(200), unique=True, nullable=False)  # URL friendly
-    short_description = db.Column(db.Text, nullable=False)   # Listing page content
-    content = db.Column(db.Text, nullable=False)             # Detail page content (long)
-    image = db.Column(db.String(200))                        # Blog banner/image
+    title = db.Column(db.String(200), nullable=False)
+    slug = db.Column(db.String(200), unique=True, nullable=False)
+    short_description = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    image = db.Column(db.String(200))
     blog_date = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 class Booking(db.Model):
-    id = db.Column(db.Integer, primary_key=True) 
+    id = db.Column(db.Integer, primary_key=True)
 
-    # User details
+
     user_name = db.Column(db.String(150), nullable=False)
     user_email = db.Column(db.String(150), nullable=False)
     user_phone = db.Column(db.String(20))
 
-    # Linked selections
+
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=True)
     venue_id = db.Column(db.Integer, db.ForeignKey('venue.id'), nullable=True)
     service_id = db.Column(db.Integer, db.ForeignKey('service.id'), nullable=True)
     transport_id = db.Column(db.Integer, db.ForeignKey('transport.id'), nullable=True)
 
-    # Dates
+
     booking_date = db.Column(db.DateTime, default=db.func.current_timestamp())
     event_date = db.Column(db.DateTime)
 
-    # Status
-    status = db.Column(db.String(50), default="Pending")  # Pending / Confirmed / Cancelled
 
-    # Relationships
+    status = db.Column(db.String(50), default="Pending")
+
+
     event = db.relationship("Event", backref="bookings", lazy=True)
     venue = db.relationship("Venue", backref="bookings", lazy=True)
     service = db.relationship("Service", backref="bookings", lazy=True)
@@ -68,7 +68,7 @@ class EventPackage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     image = db.Column(db.String(200), nullable=True)
-    category = db.Column(db.String(50), nullable=False)   
+    category = db.Column(db.String(50), nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
 class Event(db.Model):
@@ -83,7 +83,7 @@ class Event(db.Model):
     venue_id = db.Column(db.Integer, db.ForeignKey('venue.id'), nullable=True)
     package_id = db.Column(db.Integer, db.ForeignKey('event_package.id'), nullable=True)
 
-    category = db.Column(db.String(100))  
+    category = db.Column(db.String(100))
     image = db.Column(db.String(200))
 
     venue = db.relationship("Venue", backref="events", lazy=True)
@@ -107,13 +107,13 @@ class Service(db.Model):
 
 class Transport(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    vehicle = db.Column(db.String(150), nullable=False)   # e.g. Bus, Car
-    image = db.Column(db.String(200))                     # image filename
+    vehicle = db.Column(db.String(150), nullable=False)
+    image = db.Column(db.String(200))
 
 
 class Gallery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    image = db.Column(db.String(200), nullable=False)   # image filename
+    image = db.Column(db.String(200), nullable=False)
 
 
 class Note(db.Model):
@@ -138,9 +138,9 @@ class Client(db.Model):
     password = db.Column(db.String(255), nullable=False)
     phone = db.Column(db.String(20))
     address = db.Column(db.String(255))
-    image = db.Column(db.String(255))   # 👈 add this
+    image = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-   
+
 class Payment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -157,4 +157,4 @@ class Payment(db.Model):
 
     booking = db.relationship("Booking", backref="payment")
 
-   
+

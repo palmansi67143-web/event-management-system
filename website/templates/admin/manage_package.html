@@ -23,7 +23,7 @@
     <td>{{ pkg.category }}</td>
     <td>
       {% if pkg.image %}
-        <img src="{{ url_for('static', filename='admin/image/' ~ pkg.image) }}" width="100">
+      <img src="{{ url_for('static', filename='admin/image/' ~ pkg.image) }}" width="100">
       {% endif %}
     </td>
     <td>
@@ -70,30 +70,30 @@
 </div>
 
 <script>
-// ADD POPUP
-const popupForm = document.getElementById("popupForm");
-const addBtn = document.getElementById("addBtn");
-const addCloseBtn = document.getElementById("addCloseBtn");
-addBtn.addEventListener("click", () => { popupForm.style.display = "flex"; });
-addCloseBtn.addEventListener("click", () => { popupForm.style.display = "none"; });
+  // ADD POPUP
+  const popupForm = document.getElementById("popupForm");
+  const addBtn = document.getElementById("addBtn");
+  const addCloseBtn = document.getElementById("addCloseBtn");
+  addBtn.addEventListener("click", () => { popupForm.style.display = "flex"; });
+  addCloseBtn.addEventListener("click", () => { popupForm.style.display = "none"; });
 
-// EDIT POPUP
-const editPopup = document.getElementById("editPopup");
-const editCloseBtn = document.getElementById("editCloseBtn");
-editCloseBtn.addEventListener("click", () => { editPopup.style.display = "none"; });
+  // EDIT POPUP
+  const editPopup = document.getElementById("editPopup");
+  const editCloseBtn = document.getElementById("editCloseBtn");
+  editCloseBtn.addEventListener("click", () => { editPopup.style.display = "none"; });
 
-// ADD SUBMIT
-document.getElementById("packageForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("{{ url_for('auth.manage_package') }}", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){
-        const table = document.getElementById("packageTable");
-        const row = table.insertRow(-1);
-        row.id = "row-" + data.package.id;
-        row.innerHTML = `
+  // ADD SUBMIT
+  document.getElementById("packageForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("{{ url_for('auth.manage_package') }}", { method: "POST", body: formData })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          const table = document.getElementById("packageTable");
+          const row = table.insertRow(-1);
+          row.id = "row-" + data.package.id;
+          row.innerHTML = `
           <td>${data.package.id}</td>
           <td>${data.package.name}</td>
           <td>${data.package.category}</td>
@@ -103,59 +103,59 @@ document.getElementById("packageForm").addEventListener("submit", function(e){
             <button class="deleteBtn" data-id="${data.package.id}"> Delete</button>
           </td>
         `;
-        popupForm.style.display = "none";
-        this.reset();
-      } else {
-        alert("Error: " + data.error);
-      }
-    });
-});
-
-// DELETE
-document.querySelectorAll(".deleteBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/delete_package/${id}`, { method: "POST" })
-      .then(res => res.json())
-      .then(data => {
-        if(data.success){
-          document.getElementById("row-"+id).remove();
+          popupForm.style.display = "none";
+          this.reset();
         } else {
           alert("Error: " + data.error);
         }
       });
   });
-});
 
-// EDIT
-document.querySelectorAll(".editBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/get_package/${id}`)
+  // DELETE
+  document.querySelectorAll(".deleteBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/delete_package/${id}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            document.getElementById("row-" + id).remove();
+          } else {
+            alert("Error: " + data.error);
+          }
+        });
+    });
+  });
+
+  // EDIT
+  document.querySelectorAll(".editBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/get_package/${id}`)
+        .then(res => res.json())
+        .then(pkg => {
+          document.getElementById("editId").value = pkg.id;
+          document.getElementById("editName").value = pkg.name;
+          document.getElementById("editCategory").value = pkg.category;
+          editPopup.style.display = "flex";
+        });
+    });
+  });
+
+  // EDIT SUBMIT
+  document.getElementById("editForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("/admin/edit_package", { method: "POST", body: formData })
       .then(res => res.json())
-      .then(pkg => {
-        document.getElementById("editId").value = pkg.id;
-        document.getElementById("editName").value = pkg.name;
-        document.getElementById("editCategory").value = pkg.category;
-        editPopup.style.display = "flex";
+      .then(data => {
+        if (data.success) {
+          location.reload();
+        } else {
+          alert("Error: " + data.error);
+        }
       });
   });
-});
-
-// EDIT SUBMIT
-document.getElementById("editForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("/admin/edit_package", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){
-        location.reload(); // refresh table
-      } else {
-        alert("Error: " + data.error);
-      }
-    });
-});
 </script>
 
 {% endblock %}

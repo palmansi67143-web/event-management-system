@@ -1,25 +1,26 @@
-
 {% extends "user/base.html" %} {% block title %}Home{% endblock %}{% block content %}
 <html>
 </div>
-<head>
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
-           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-     <link rel="stylesheet" href="{{url_for('static',filename='user/css/home.css')}}">
-      <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/home.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
 </head>
- <body>        
-<section class="hero">
-       <div class="overlay"></div>
-       <div class="hero-content">
+
+<body>
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
       <h1> Manage Your Events Easily </h1>
       <p> Wedding | Parties | Conferences </p>
     </div>
   </section>
-<section class="about-split">
+  <section class="about-split">
 
-  <div class="about-left">
+    <div class="about-left">
       <img src="/static/user/image/gallery1.jpg" alt="Event Image">
     </div>
 
@@ -28,517 +29,545 @@
       <div class="about-text">
         <h2>Dream Event Management</h2>
         <p>
-          Putting all the beautiful pieces together and crafting one-of-a-kind wedding, concerts and corporate event experiences of all shapes and sizes, we at Dream Events are known as the best event management . As the best event management, we have designed and produced events across the globe, ranging from an intimate wedding, corporate, birthday and social for many people to a grand-scale wedding for more than thousands. As the best event management, we take pride in being the architects of your most momentous life event. Renowned for our exceptional craftsmanship, we have earned the esteemed title of the best event management. And the results are nothing less than MAGIC!
+          Putting all the beautiful pieces together and crafting one-of-a-kind wedding, concerts and corporate event
+          experiences of all shapes and sizes, we at Dream Events are known as the best event management . As the best
+          event management, we have designed and produced events across the globe, ranging from an intimate wedding,
+          corporate, birthday and social for many people to a grand-scale wedding for more than thousands. As the best
+          event management, we take pride in being the architects of your most momentous life event. Renowned for our
+          exceptional craftsmanship, we have earned the esteemed title of the best event management. And the results are
+          nothing less than MAGIC!
         </p>
       </div>
     </div>
 
-</section>
+  </section>
 
-<!-- BLOG CTA CARD -->
-<section class="blog-cta">
-  <div class="blog-cta-container">
+  <!-- BLOG CTA CARD -->
+  <section class="blog-cta">
+    <div class="blog-cta-container">
 
-    <!-- LEFT CONTENT -->
-    <div class="blog-cta-text">
-      <h2>Explore Our Event Stories</h2>
-      <p>
-        Get inspired by real weddings, grand celebrations and corporate events
-        we’ve beautifully crafted. Discover trends, ideas and behind-the-scenes
-        moments in our blogs.
-      </p>
-<!-- BLOG CTA BUTTON -->
-<div class="blog-action">
-  <a class="blog-btn">Read Our Blogs</a>
-</div>
+      <!-- LEFT CONTENT -->
+      <div class="blog-cta-text">
+        <h2>Explore Our Event Stories</h2>
+        <p>
+          Get inspired by real weddings, grand celebrations and corporate events
+          we’ve beautifully crafted. Discover trends, ideas and behind-the-scenes
+          moments in our blogs.
+        </p>
+        <!-- BLOG CTA BUTTON -->
+        <div class="blog-action">
+          <a class="blog-btn">Read Our Blogs</a>
+        </div>
+      </div>
     </div>
-</div>
-</section>
-<script>
-/* Blog button → Blog page */
-document.querySelectorAll(".blog-btn").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    window.location.href = "/Blogs";
-  });
-});
-</script>
+  </section>
+  <script>
+    /* Blog button → Blog page */
+    document.querySelectorAll(".blog-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.location.href = "/Blogs";
+      });
+    });
+  </script>
 
 
-<section class="venues">
-  <h2>Our Venues</h2>
-<div class="venue-wrapper">
-{% for v in venues %}
-    <!-- CARD 1 -->
-    <div class="venue-card">
+  <section class="venues">
+    <h2>Our Venues</h2>
+    <div class="venue-wrapper">
+      {% for v in venues %}
+      <!-- CARD 1 -->
+      <div class="venue-card">
         <div class="venue-image">
-            {% if v.image %}    
-            <img src="{{ url_for('static', filename='admin/image/' ~ v.image) }}" width="100%">
-            {% endif %}
-                  </div>
-             <div class="venue-card-body">
-            <h3>{{ v.name }}</h3>
-            <p class="venue-location">📍{{ v.location }}</p>
-                </div>
-  </div>  
-    {% endfor %}
-    <!-- CARD 2 -->
+          {% if v.image %}
+          <img src="{{ url_for('static', filename='admin/image/' ~ v.image) }}" width="100%">
+          {% endif %}
+        </div>
+        <div class="venue-card-body">
+          <h3>{{ v.name }}</h3>
+          <p class="venue-location">📍{{ v.location }}</p>
+        </div>
+      </div>
+      {% endfor %}
+      <!-- CARD 2 -->
     </div>
-</section>
+  </section>
 
-<section class="packages-section">
+  <section class="packages-section">
     <h2>Our Packages</h2>
     <div class="packages-wrapper">
-        {% for pkg in packages %}
-        <div class="package-card" data-type="{{ pkg.category }}">
-            <div class="package-text">
-                <h3>{{ pkg.name }}</h3>
-            </div>
-            <div class="package-image">
-                {% if pkg.image %}
-                <img src="{{ url_for('static', filename='admin/image/' ~ pkg.image) }}" alt="{{ pkg.name }}">
-                {% endif %}
-            </div>
+      {% for pkg in packages %}
+      <div class="package-card" data-type="{{ pkg.category }}">
+        <div class="package-text">
+          <h3>{{ pkg.name }}</h3>
         </div>
-        {% endfor %}
-    </div>
-</section>
-<!-- CLICK → EVENT PAGE WITH FILTER -->
-<script>
-document.querySelectorAll('.package-card').forEach(card => {
-  card.addEventListener('click', () => {
-    const type = card.getAttribute('data-type');
-    window.location.href = "/event?type=" + type;
-  });
-});
-</script>
-
-
-
-<section class="services">
-    <div class="services-header">
-   <div class="services-left">
-  <h2>
-    <span class="experience">The Experience</span><br>
-    <span class="explore">Explore</span>
-    <span class="services">Services</span>
-  </h2>
-</div>
-
-
-    <div class="services-right">
-      <p>
-        We offer a wide range of high-quality services to meet your unique needs.
-        Our dedicated team ensures each project is handled with professionalism
-        and attention to detail, delivering the best results every time.
-      </p>
-    </div>
-  </div>
-    <div class="swiper-wrapper">
-           {% for s in services %}
-      <div class=" service-card">
-          {% if s.image %}
-           <img src="{{ url_for('static', filename='admin/image/' ~ s.image) }}" alt="{{ s.name }}" width="100%">
-           {% endif %}
-        <h3>{{ s.name }}</h3>
-      </div>
-    {% endfor %}
-    </div>
-</section>
-
-<section class="dream-event">
-  <div class="dream-overlay"></div>
-
-  <div class="dream-container">
-
-    <!-- TEXT BOX -->
-    <div class="dream-text-box">
-      <h2>
-        Unforgettable Moments :
-        Your Dream Event Starts Here
-        with The West Event Planner !
-      </h2>
-
-      <p>
-        At The West Event Planner, we believe that every celebration tells a story,
-        and every story deserves to be unforgettable. From intimate gatherings to
-        grand celebrations, we turn your vision into reality with creativity and care.
-      </p>
-
-      <p>
-        Our experienced team manages every detail, from planning and decor to
-        coordination and execution, ensuring your event flows seamlessly.
-        We focus on elegance, precision, and memorable experiences.
-      </p>
-
-      <p>
-        Whether it’s a wedding, corporate event, or personal celebration,
-        we work closely with you to understand your dreams and deliver beyond expectations.
-      </p>
-
-      <p>
-        With trusted vendors, innovative ideas, and a passion for excellence,
-        The West Event Planner creates moments you and your guests will cherish forever.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<!-- BLOG LIST -->
- <section class="blog-page">
-  <div class="blog-heading">
-          <h3>Latest Blogs</h3>
-  </div>
- <div class="blog-wrapper">
-      {% for b in blogs %}
-    <div class="blog-card">
-        <div class="blog-img">
-           {% if b.image %} 
-           <img src="{{ url_for('static', filename='admin/image/' ~ b.image) }}" alt="{{ b.title }}"> 
-           {% endif %}
-            <div class="blog-date">{{ b.blog_date.strftime("%d-%m-%Y") }}</div>
+        <div class="package-image">
+          {% if pkg.image %}
+          <img src="{{ url_for('static', filename='admin/image/' ~ pkg.image) }}" alt="{{ pkg.name }}">
+          {% endif %}
         </div>
-        <div class="blog-content">
-            <div class="text">
-            <h3>{{ b.title }}</h3></div><div class="para">
-            <p>
-              {{ b.short_description[:200] }}...
-            </p></div><div class="read">
-            <a class="read-more">Read More</a></div>
-        </div>
-    </div>
-   {% endfor %}
-  </div>
- </section>
- </section><script>
-/* Inquiry button → Contact page */
-document.querySelectorAll(".read-more").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); 
-    window.location.href = "/Blogs"; 
-  });
-});</script>
-
-
-<!-- Event Gallery Section -->
-<section class="gallery-section">
-  <h2 class="gallery-title">Our Event Gallery</h2>
-  <p class="gallery-subtitle">Real moments from our recent events</p>
-
-  <div class="slider">
-    <button class="nav prev">&#10094;</button>
-
-    <div class="gallery-slider-container">
-      {% for g in galleries %}
-      <div class="gallery-slide">
-        {% if g.image %}
-        <img src="{{ url_for('static', filename='admin/image/' ~ g.image) }}" alt="Gallery Image">
-        {% endif %}
       </div>
       {% endfor %}
     </div>
-
-    <button class="nav next">&#10095;</button>
-  </div>
-
-  <!-- Dots -->
-  <div class="slider-dots"></div>
-</section>
-
-
-<script>
-  const container = document.querySelector('.gallery-slider-container');
-  const slides = document.querySelectorAll('.gallery-slide');
-  const prevBtn = document.querySelector('.prev');
-  const nextBtn = document.querySelector('.next');
-  const dotsContainer = document.querySelector('.slider-dots');
-
-  let index = 0;
-
-  // Create dots
-  slides.forEach((_, i) => {
-    const dot = document.createElement('span');
-    dot.addEventListener('click', () => {
-      index = i;
-      updateSlider();
+  </section>
+  <!-- CLICK → EVENT PAGE WITH FILTER -->
+  <script>
+    document.querySelectorAll('.package-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const type = card.getAttribute('data-type');
+        window.location.href = "/event?type=" + type;
+      });
     });
-    dotsContainer.appendChild(dot);
-  });
-
-  const dots = document.querySelectorAll('.slider-dots span');
-
-  function updateSlider() {
-    container.style.transform = `translateX(-${index * 100}%)`;
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[index].classList.add('active');
-  }
-
-  nextBtn.onclick = () => {
-    index = (index + 1) % slides.length;
-    updateSlider();
-  };
-
-  prevBtn.onclick = () => {
-    index = (index - 1 + slides.length) % slides.length;
-    updateSlider();
-  };
-
-  // Auto slide (real-time feel)
-  setInterval(() => {
-    index = (index + 1) % slides.length;
-    updateSlider();
-  }, 3000);
-
-  updateSlider();
-</script>
+  </script>
 
 
 
- <section class="contact-cta">
-  <div class="contact-cta-box">
+  <section class="services">
+    <div class="services-header">
+      <div class="services-left">
+        <h2>
+          <span class="experience">The Experience</span><br>
+          <span class="explore">Explore</span>
+          <span class="services">Services</span>
+        </h2>
+      </div>
 
-    <!-- Left Content -->
-    <div class="contact-text">
-      <h2>Let’s Talk</h2>
-      <p>
-        Have questions or want to plan your next event with us?  
-        We’re here to help you turn your ideas into reality.
-      </p>
+
+      <div class="services-right">
+        <p>
+          We offer a wide range of high-quality services to meet your unique needs.
+          Our dedicated team ensures each project is handled with professionalism
+          and attention to detail, delivering the best results every time.
+        </p>
+      </div>
     </div>
-
-    <!-- Right Button -->
-    <div class="contact-action">
-      <a  class="contact-btn">Contact</a>
+    <div class="swiper-wrapper">
+      {% for s in services %}
+      <div class=" service-card">
+        {% if s.image %}
+        <img src="{{ url_for('static', filename='admin/image/' ~ s.image) }}" alt="{{ s.name }}" width="100%">
+        {% endif %}
+        <h3>{{ s.name }}</h3>
+      </div>
+      {% endfor %}
     </div>
+  </section>
 
-  </div>
-</section><script>
-/* Inquiry button → Contact page */
-document.querySelectorAll(".contact-btn").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); 
-    window.location.href = "/Contact"; 
-  });
-});</script>
+  <section class="dream-event">
+    <div class="dream-overlay"></div>
+
+    <div class="dream-container">
+
+      <!-- TEXT BOX -->
+      <div class="dream-text-box">
+        <h2>
+          Unforgettable Moments :
+          Your Dream Event Starts Here
+          with The West Event Planner !
+        </h2>
+
+        <p>
+          At The West Event Planner, we believe that every celebration tells a story,
+          and every story deserves to be unforgettable. From intimate gatherings to
+          grand celebrations, we turn your vision into reality with creativity and care.
+        </p>
+
+        <p>
+          Our experienced team manages every detail, from planning and decor to
+          coordination and execution, ensuring your event flows seamlessly.
+          We focus on elegance, precision, and memorable experiences.
+        </p>
+
+        <p>
+          Whether it’s a wedding, corporate event, or personal celebration,
+          we work closely with you to understand your dreams and deliver beyond expectations.
+        </p>
+
+        <p>
+          With trusted vendors, innovative ideas, and a passion for excellence,
+          The West Event Planner creates moments you and your guests will cherish forever.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BLOG LIST -->
+  <section class="blog-page">
+    <div class="blog-heading">
+      <h3>Latest Blogs</h3>
+    </div>
+    <div class="blog-wrapper">
+      {% for b in blogs %}
+      <div class="blog-card">
+        <div class="blog-img">
+          {% if b.image %}
+          <img src="{{ url_for('static', filename='admin/image/' ~ b.image) }}" alt="{{ b.title }}">
+          {% endif %}
+          <div class="blog-date">{{ b.blog_date.strftime("%d-%m-%Y") }}</div>
+        </div>
+        <div class="blog-content">
+          <div class="text">
+            <h3>{{ b.title }}</h3>
+          </div>
+          <div class="para">
+            <p>
+              {{ b.short_description[:200] }}...
+            </p>
+          </div>
+          <div class="read">
+            <a class="read-more">Read More</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  </section>
+  <script>
+    /* Inquiry button → Contact page */
+    document.querySelectorAll(".read-more").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.location.href = "/Blogs";
+      });
+    });</script>
 
 
-<div class="card-wrapper">
-{% for ev in events %}
-    <!-- CARD 1 -->
-<div class="event-card" data-form="form{{ ev.id }}"data-category="{{ ev.category }}">
-        <div class="card-image ">
-             {% if ev.image %}
-          <img src="{{ url_for('static', filename='admin/image/' ~ ev.image) }}" width="100%">
-          <span class="price">₹ {{ ev.price }}</span>
+  <!-- Event Gallery Section -->
+  <section class="gallery-section">
+    <h2 class="gallery-title">Our Event Gallery</h2>
+    <p class="gallery-subtitle">Real moments from our recent events</p>
+
+    <div class="slider">
+      <button class="nav prev">&#10094;</button>
+
+      <div class="gallery-slider-container">
+        {% for g in galleries %}
+        <div class="gallery-slide">
+          {% if g.image %}
+          <img src="{{ url_for('static', filename='admin/image/' ~ g.image) }}" alt="Gallery Image">
           {% endif %}
         </div>
-     <div class="card-body">
-            <h3>{{ ev.name }}</h3>
-            <p class="location">📍 {{ ev.city }}, {{ ev.venue.name if ev.venue else '-' }}</p>
+        {% endfor %}
+      </div>
+
+      <button class="nav next">&#10095;</button>
+    </div>
+
+    <!-- Dots -->
+    <div class="slider-dots"></div>
+  </section>
+
+
+  <script>
+    const container = document.querySelector('.gallery-slider-container');
+    const slides = document.querySelectorAll('.gallery-slide');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    const dotsContainer = document.querySelector('.slider-dots');
+
+    let index = 0;
+
+    // Create dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.addEventListener('click', () => {
+        index = i;
+        updateSlider();
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.slider-dots span');
+
+    function updateSlider() {
+      container.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[index].classList.add('active');
+    }
+
+    nextBtn.onclick = () => {
+      index = (index + 1) % slides.length;
+      updateSlider();
+    };
+
+    prevBtn.onclick = () => {
+      index = (index - 1 + slides.length) % slides.length;
+      updateSlider();
+    };
+
+    // Auto slide (real-time feel)
+    setInterval(() => {
+      index = (index + 1) % slides.length;
+      updateSlider();
+    }, 3000);
+
+    updateSlider();
+  </script>
+
+
+
+  <section class="contact-cta">
+    <div class="contact-cta-box">
+
+      <!-- Left Content -->
+      <div class="contact-text">
+        <h2>Let’s Talk</h2>
+        <p>
+          Have questions or want to plan your next event with us?
+          We’re here to help you turn your ideas into reality.
+        </p>
+      </div>
+
+      <!-- Right Button -->
+      <div class="contact-action">
+        <a class="contact-btn">Contact</a>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    /* Inquiry button → Contact page */
+    document.querySelectorAll(".contact-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.location.href = "/Contact";
+      });
+    });</script>
+
+
+  <div class="card-wrapper">
+    {% for ev in events %}
+    <!-- CARD 1 -->
+    <div class="event-card" data-form="form{{ ev.id }}" data-category="{{ ev.category }}">
+      <div class="card-image ">
+        {% if ev.image %}
+        <img src="{{ url_for('static', filename='admin/image/' ~ ev.image) }}" width="100%">
+        <span class="price">₹ {{ ev.price }}</span>
+        {% endif %}
+      </div>
+      <div class="card-body">
+        <h3>{{ ev.name }}</h3>
+        <p class="location">📍 {{ ev.city }}, {{ ev.venue.name if ev.venue else '-' }}</p>
       </div>
       <div class="tags">
-                <span>{{ ev.category }}</span>
-     </div>
-                    <div class="info">
-                    <div>🍽 {{ ev.food_type }}</div>
-                    <div>👥 {{ ev.pax }} Pax</div>
-                    <div>🏨 {{ ev.room }} room</div>
-                     </div>
- </div>  
-  <div class="event-form" id="form{{ ev.id }}">
-    <span class="close-form">✖</span>
-    <h2>{{ ev.name }}</h2>
-     <ul class="detail-list">
-         <li><span class="label">Price:</span><span class="value">₹ {{ ev.price }}</span></li> 
+        <span>{{ ev.category }}</span>
+      </div>
+      <div class="info">
+        <div>🍽 {{ ev.food_type }}</div>
+        <div>👥 {{ ev.pax }} Pax</div>
+        <div>🏨 {{ ev.room }} room</div>
+      </div>
+    </div>
+    <div class="event-form" id="form{{ ev.id }}">
+      <span class="close-form">✖</span>
+      <h2>{{ ev.name }}</h2>
+      <ul class="detail-list">
+        <li><span class="label">Price:</span><span class="value">₹ {{ ev.price }}</span></li>
         <li><span class="label">Food Type:</span><span class="value">{{ ev.food_type }}</span></li>
-         <li><span class="label">Pax:</span><span class="value">{{ ev.pax }}</span></li>
-        <li><span class="label">Room:</span><span class="value">{{ ev.room }}</span></li> 
-         <li><span class="label">City:</span><span class="value">{{ ev.city }}</span></li> 
+        <li><span class="label">Pax:</span><span class="value">{{ ev.pax }}</span></li>
+        <li><span class="label">Room:</span><span class="value">{{ ev.room }}</span></li>
+        <li><span class="label">City:</span><span class="value">{{ ev.city }}</span></li>
         <li><span class="label">Venue:</span><span class="value">{{ ev.venue.name if ev.venue else '-' }}</span></li>
-         <li><span class="label">Package:</span><span class="value">{{ ev.category }}</span></li>    
-        </ul>
-        <!-- BOOK BUTTON -->
-<a href="{{ url_for('auth.book_event', event_id=ev.id) }}" class="book-btn">Book Now</a>
- </div>
- 
+        <li><span class="label">Package:</span><span class="value">{{ ev.category }}</span></li>
+      </ul>
+      <!-- BOOK BUTTON -->
+      <a href="{{ url_for('auth.book_event', event_id=ev.id) }}" class="book-btn">Book Now</a>
+    </div>
+
     {% endfor %}
-</div>
-<script> 
-document.querySelectorAll(".event-card").forEach(card => {
-  card.addEventListener("click", () => {
-    const formId = card.getAttribute("data-form");
-    const form = document.getElementById(formId);
-
-    // agar already open hai → close
-    form.classList.toggle("active");
-  });
-});
-
-// Cross button
-document.querySelectorAll(".close-form").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); // card click se bachane ke liye
-    btn.parentElement.classList.remove("active");
-  });
-});
-
-/* Inquiry button → Contact page */
-document.querySelectorAll(".inquiry-btn").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); // form close hone se bachane ke liye
-    window.location.href = "/Contact"; // yahan apna contact URL
-  });
-});
-
-</script> 
-
- 
-<div class="faq-page">
-  <div class="faq-heading">
- <h1>FAQs About The Best Event Management</h1>
   </div>
- <div class="faq-container">
-    <div class="faq-item">
-    <div class="faq-question">
-        What makes Dream Events different from other wedding planners?
-    <span class="faq-icon">+</span></div>
-    <div class="faq-answer">We bring a blend of creativity, local expertise, and personal care. Many call us the best wedding planners in Udaipur because we focus on making the process stress-free and deeply personal. </div>
-    </div>
-    <div class="faq-item">
-    <div class="faq-question">
-        Can you suggest the best wedding venues in Jaipur?
-        <span class="faq-icon">+</span>
-    </div>
-    <div class="faq-answer">Yes. Jaipur is full of incredible options-heritage hotels, luxury resorts, and palaces. We help couples shortlist the finest wedding venues in Jaipur that suit their guest numbers, budget, and style.
-    </div>
-    </div>
-   <div class="faq-item">
-    <div class="faq-question">
-        Do you plan weddings at venues in Jodhpur?
-    <span class="faq-icon">+</span></div>
-    <div class="faq-answer">Yes. We have planned weddings in some of the best wedding venues in Jodhpur, from spectacular forts and stunning palaces, to luxury heritage hotels and private villas, anywhere that can bring the royal Rajasthani vibe to life.</div>
-   </div>
-    <div class="faq-item">
-    <div class="faq-question">
-        What makes you choose Udaipur as a wedding destination?
-    <span class="faq-icon">+</span></div>
-    <div class="faq-answer">Udaipur is known as the “City of Lakes” for a reason. The beautiful palaces and lakeside venues make it one of the most romantic wedding locations in the world. As the best wedding planner in Udaipur, we can provide you with access to hidden gems and exclusive spaces.</div>
-    </div>
-   <div class="faq-item">
-    <div class="faq-question">
-        Will you plan weddings in Chandigarh?
-    <span class="faq-icon">+</span></div>
-    <div class="faq-answer">Yes-we work with couples to find the best wedding venues in Chandigarh and incorporate a combination of modern elegance and the charm of tradition for weddings that feel both beautiful and like home.</div>
-   </div>
-  </div>
-</div>
-<script>
-document.querySelectorAll('.faq-question').forEach(q => {
-  q.addEventListener('click', () => {
-    let answer = q.nextElementSibling;
-    let icon = q.querySelector('.faq-icon');
+  <script>
+    document.querySelectorAll(".event-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const formId = card.getAttribute("data-form");
+        const form = document.getElementById(formId);
 
-    if (answer.classList.contains('show')) {
-      answer.classList.remove('show');
-      icon.textContent = '+';
-    } else {
-      // पहले बाकी answers collapse कर दें (optional)
-      document.querySelectorAll('.faq-answer.show').forEach(openAns => {
-        openAns.classList.remove('show');
-        openAns.previousElementSibling.querySelector('.faq-icon').textContent = '+';
+        // agar already open hai → close
+        form.classList.toggle("active");
       });
+    });
 
-      answer.classList.add('show');
-      icon.textContent = '-';
-    }
-  });
-});
+    // Cross button
+    document.querySelectorAll(".close-form").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation(); // card click se bachane ke liye
+        btn.parentElement.classList.remove("active");
+      });
+    });
 
-</script>
+    /* Inquiry button → Contact page */
+    document.querySelectorAll(".inquiry-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation(); // form close hone se bachane ke liye
+        window.location.href = "/Contact"; // yahan apna contact URL
+      });
+    });
+
+  </script>
+
+
+  <div class="faq-page">
+    <div class="faq-heading">
+      <h1>FAQs About The Best Event Management</h1>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">
+          What makes Dream Events different from other wedding planners?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">We bring a blend of creativity, local expertise, and personal care. Many call us the
+          best wedding planners in Udaipur because we focus on making the process stress-free and deeply personal.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          Can you suggest the best wedding venues in Jaipur?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Yes. Jaipur is full of incredible options-heritage hotels, luxury resorts, and palaces.
+          We help couples shortlist the finest wedding venues in Jaipur that suit their guest numbers, budget, and
+          style.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          Do you plan weddings at venues in Jodhpur?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Yes. We have planned weddings in some of the best wedding venues in Jodhpur, from
+          spectacular forts and stunning palaces, to luxury heritage hotels and private villas, anywhere that can bring
+          the royal Rajasthani vibe to life.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          What makes you choose Udaipur as a wedding destination?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Udaipur is known as the “City of Lakes” for a reason. The beautiful palaces and lakeside
+          venues make it one of the most romantic wedding locations in the world. As the best wedding planner in
+          Udaipur, we can provide you with access to hidden gems and exclusive spaces.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          Will you plan weddings in Chandigarh?
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Yes-we work with couples to find the best wedding venues in Chandigarh and incorporate a
+          combination of modern elegance and the charm of tradition for weddings that feel both beautiful and like home.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        let answer = q.nextElementSibling;
+        let icon = q.querySelector('.faq-icon');
+
+        if (answer.classList.contains('show')) {
+          answer.classList.remove('show');
+          icon.textContent = '+';
+        } else {
+          // पहले बाकी answers collapse कर दें (optional)
+          document.querySelectorAll('.faq-answer.show').forEach(openAns => {
+            openAns.classList.remove('show');
+            openAns.previousElementSibling.querySelector('.faq-icon').textContent = '+';
+          });
+
+          answer.classList.add('show');
+          icon.textContent = '-';
+        }
+      });
+    });
+
+  </script>
 
 
 
 
-<div class="workflow-zigzag">
-  <div class="icon-head">
-    <b>HOW DO WE WORK</b>
-    <h3>6 Easy Steps to a hassle-free perfection</h3>
+  <div class="workflow-zigzag">
+    <div class="icon-head">
+      <b>HOW DO WE WORK</b>
+      <h3>6 Easy Steps to a hassle-free perfection</h3>
+    </div>
+
+    <div class="icons">
+
+      <div class="zig-step top">
+        <div class="step-desc">
+          <p>We understand your needs and discuss the project goals.</p>
+        </div>
+        <div class="fa-solid ">
+          <img src="/static/user/image/huawei-meetime-svgrepo-com (1).svg">
+        </div>
+        <span>Meet</span>
+        <div class="arrow-line"></div>
+      </div>
+
+      <div class="zig-step bottom">
+        <div class="fa-solid ">
+          <img src=" /static/user/image/concept-creation-creative-svgrepo-com.svg">
+        </div>
+        <span>Concept</span>
+        <div class="step-desc">
+          <p>Creative ideas and planning for perfect execution.</p>
+        </div>
+        <div class="arrow-line"></div>
+      </div>
+
+      <div class="zig-step top">
+        <div class="step-desc">
+          <p>Detailed planning to ensure smooth workflow.</p>
+        </div>
+        <div class="fa-solid ">
+          <img src=" /static/user/image/schedule-svgrepo-com.svg">
+        </div>
+        <span>Plan</span>
+        <div class="arrow-line"></div>
+      </div>
+
+      <div class="zig-step bottom">
+        <div class="fa-solid ">
+          <img src="/static/user/image/schedule-calendar-svgrepo-com.svg">
+        </div>
+        <span>Schedule</span>
+        <div class="step-desc">
+          <p>Timely scheduling for flawless execution.</p>
+        </div>
+        <div class="arrow-line"></div>
+      </div>
+
+      <div class="zig-step top">
+        <div class="step-desc">
+          <p>Professional execution with full dedication.</p>
+        </div>
+        <div class="fa-solid ">
+          <img src="/static/user/image/execute-svgrepo-com.svg">
+        </div>
+        <span>Execute</span>
+        <div class="arrow-line"></div>
+      </div>
+
+      <div class="zig-step bottom">
+        <div class="fa-solid ">
+          <img src=" /static/user/image/success-filled-svgrepo-com.svg">
+        </div>
+        <span>Success</span>
+        <div class="step-desc">
+          <p>Delivering perfection and client satisfaction.</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <div class="icons">
-
-    <div class="zig-step top">
-      <div class="step-desc">
-        <p>We understand your needs and discuss the project goals.</p>
-      </div>
-      <div class="fa-solid ">
-        <img src="/static/user/image/huawei-meetime-svgrepo-com (1).svg">
-      </div>
-      <span>Meet</span>
-      <div class="arrow-line"></div>
-    </div>
-
-    <div class="zig-step bottom">
-      <div class="fa-solid ">
-      <img src=" /static/user/image/concept-creation-creative-svgrepo-com.svg">
-      </div>
-      <span>Concept</span>
-      <div class="step-desc">
-        <p>Creative ideas and planning for perfect execution.</p>
-      </div>
-      <div class="arrow-line"></div>
-    </div>
-
-    <div class="zig-step top">
-      <div class="step-desc">
-        <p>Detailed planning to ensure smooth workflow.</p>
-      </div>
-      <div class="fa-solid ">
-       <img src=" /static/user/image/schedule-svgrepo-com.svg">
-      </div>
-      <span>Plan</span>
-      <div class="arrow-line"></div>
-    </div>
-
-    <div class="zig-step bottom">
-      <div class="fa-solid ">
-      <img src="/static/user/image/schedule-calendar-svgrepo-com.svg">
-      </div>
-      <span>Schedule</span>
-      <div class="step-desc">
-        <p>Timely scheduling for flawless execution.</p>
-      </div>
-      <div class="arrow-line"></div>
-    </div>
-
-    <div class="zig-step top">
-      <div class="step-desc">
-        <p>Professional execution with full dedication.</p>
-      </div>
-      <div class="fa-solid ">
-      <img src="/static/user/image/execute-svgrepo-com.svg">
-      </div>
-      <span>Execute</span>
-      <div class="arrow-line"></div>
-    </div>
-
-    <div class="zig-step bottom">
-      <div class="fa-solid ">
-       <img src=" /static/user/image/success-filled-svgrepo-com.svg">
-      </div>
-      <span>Success</span>
-      <div class="step-desc">
-        <p>Delivering perfection and client satisfaction.</p>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 
+</body>
 
- </body>
 </html>
-  
-  {% endblock %}
+
+{% endblock %}

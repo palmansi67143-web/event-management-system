@@ -10,138 +10,138 @@
 
 <table class="customer-table" id="bookingTable">
 
-<tr>
-<th>ID</th>
-<th>User Name</th>
-<th>Email</th>
-<th>Phone</th>
-<th>Event</th>
-<th>Venue</th>
-<th>Service</th>
-<th>Transport</th>
-<th>Event Date</th>
-<th>Status</th>
-<th>Actions</th>
-</tr>
+  <tr>
+    <th>ID</th>
+    <th>User Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Event</th>
+    <th>Venue</th>
+    <th>Service</th>
+    <th>Transport</th>
+    <th>Event Date</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
 
-{% for b in bookings %}
+  {% for b in bookings %}
 
-<tr id="row-{{ b.id }}">
+  <tr id="row-{{ b.id }}">
 
-<td>{{ b.id }}</td>
-<td>{{ b.user_name }}</td>
-<td>{{ b.user_email }}</td>
-<td>{{ b.user_phone }}</td>
+    <td>{{ b.id }}</td>
+    <td>{{ b.user_name }}</td>
+    <td>{{ b.user_email }}</td>
+    <td>{{ b.user_phone }}</td>
 
-<td>{{ b.event.name if b.event else '-' }}</td>
-<td>{{ b.venue.name if b.venue else '-' }}</td>
-<td>{{ b.service.name if b.service else '-' }}</td>
-<td>{{ b.transport.vehicle if b.transport else '-' }}</td>
+    <td>{{ b.event.name if b.event else '-' }}</td>
+    <td>{{ b.venue.name if b.venue else '-' }}</td>
+    <td>{{ b.service.name if b.service else '-' }}</td>
+    <td>{{ b.transport.vehicle if b.transport else '-' }}</td>
 
-<td>{{ b.event_date.strftime("%d-%m-%Y") if b.event_date else '-' }}</td>
+    <td>{{ b.event_date.strftime("%d-%m-%Y") if b.event_date else '-' }}</td>
 
-<td>{{ b.status }}</td>
+    <td>{{ b.status }}</td>
 
-<td>
+    <td>
 
-<button class="confirmBookingBtn" data-id="{{ b.id }}">Confirm</button>
+      <button class="confirmBookingBtn" data-id="{{ b.id }}">Confirm</button>
 
-<button class="cancelBookingBtn" data-id="{{ b.id }}">Cancel</button>
+      <button class="cancelBookingBtn" data-id="{{ b.id }}">Cancel</button>
 
-<button class="pendingBookingBtn" data-id="{{ b.id }}">Pending</button>
+      <button class="pendingBookingBtn" data-id="{{ b.id }}">Pending</button>
 
-</td>
+    </td>
 
-</tr>
+  </tr>
 
-{% endfor %}
+  {% endfor %}
 
 </table>
 
 <script>
 
-// Confirm Booking
-document.querySelectorAll(".confirmBookingBtn").forEach(btn => {
+  // Confirm Booking
+  document.querySelectorAll(".confirmBookingBtn").forEach(btn => {
 
-btn.addEventListener("click", () => {
+    btn.addEventListener("click", () => {
 
-const id = btn.dataset.id;
+      const id = btn.dataset.id;
 
-fetch(`/admin/confirm_booking/${id}`, { method: "POST" })
+      fetch(`/admin/confirm_booking/${id}`, { method: "POST" })
 
-.then(res => res.json())
+        .then(res => res.json())
 
-.then(data => {
+        .then(data => {
 
-if(data.success){
-location.reload();
-}
+          if (data.success) {
+            location.reload();
+          }
 
-else{
-alert("Error: " + data.error);
-}
+          else {
+            alert("Error: " + data.error);
+          }
 
-});
+        });
 
-});
+    });
 
-});
-
-
-// Cancel Booking
-document.querySelectorAll(".cancelBookingBtn").forEach(btn => {
-
-btn.addEventListener("click", () => {
-
-const id = btn.dataset.id;
-
-fetch(`/admin/cancel_booking/${id}`, { method: "POST" })
-
-.then(res => res.json())
-
-.then(data => {
-
-if(data.success){
-location.reload();
-}
-
-else{
-alert("Error: " + data.error);
-}
-
-});
-
-});
-
-});
+  });
 
 
-// Pending Booking
-document.querySelectorAll(".pendingBookingBtn").forEach(btn => {
+  // Cancel Booking
+  document.querySelectorAll(".cancelBookingBtn").forEach(btn => {
 
-btn.addEventListener("click", () => {
+    btn.addEventListener("click", () => {
 
-const id = btn.dataset.id;
+      const id = btn.dataset.id;
 
-fetch(`/admin/pending_booking/${id}`, { method: "POST" })
+      fetch(`/admin/cancel_booking/${id}`, { method: "POST" })
 
-.then(res => res.json())
+        .then(res => res.json())
 
-.then(data => {
+        .then(data => {
 
-if(data.success){
-location.reload();
-}
+          if (data.success) {
+            location.reload();
+          }
 
-else{
-alert("Error: " + data.error);
-}
+          else {
+            alert("Error: " + data.error);
+          }
 
-});
+        });
 
-});
+    });
 
-});
+  });
+
+
+  // Pending Booking
+  document.querySelectorAll(".pendingBookingBtn").forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+      const id = btn.dataset.id;
+
+      fetch(`/admin/pending_booking/${id}`, { method: "POST" })
+
+        .then(res => res.json())
+
+        .then(data => {
+
+          if (data.success) {
+            location.reload();
+          }
+
+          else {
+            alert("Error: " + data.error);
+          }
+
+        });
+
+    });
+
+  });
 
 </script>
 

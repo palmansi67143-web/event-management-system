@@ -21,7 +21,7 @@
     <td>{{ t.vehicle }}</td>
     <td>
       {% if t.image %}
-        <img src="{{ url_for('static', filename='admin/image/' ~ t.image) }}" width="100">
+      <img src="{{ url_for('static', filename='admin/image/' ~ t.image) }}" width="100">
       {% endif %}
     </td>
     <td>
@@ -60,68 +60,68 @@
 </div>
 
 <script>
-// ADD POPUP
-const addTransportPopup = document.getElementById("addTransportPopup");
-const addTransportBtn = document.getElementById("addTransportBtn");
-const addTransportCloseBtn = document.getElementById("addTransportCloseBtn");
-addTransportBtn.addEventListener("click", () => { addTransportPopup.style.display = "flex"; });
-addTransportCloseBtn.addEventListener("click", () => { addTransportPopup.style.display = "none"; });
+  // ADD POPUP
+  const addTransportPopup = document.getElementById("addTransportPopup");
+  const addTransportBtn = document.getElementById("addTransportBtn");
+  const addTransportCloseBtn = document.getElementById("addTransportCloseBtn");
+  addTransportBtn.addEventListener("click", () => { addTransportPopup.style.display = "flex"; });
+  addTransportCloseBtn.addEventListener("click", () => { addTransportPopup.style.display = "none"; });
 
-// EDIT POPUP
-const editTransportPopup = document.getElementById("editTransportPopup");
-const editTransportCloseBtn = document.getElementById("editTransportCloseBtn");
-editTransportCloseBtn.addEventListener("click", () => { editTransportPopup.style.display = "none"; });
+  // EDIT POPUP
+  const editTransportPopup = document.getElementById("editTransportPopup");
+  const editTransportCloseBtn = document.getElementById("editTransportCloseBtn");
+  editTransportCloseBtn.addEventListener("click", () => { editTransportPopup.style.display = "none"; });
 
-// ADD SUBMIT
-document.getElementById("addTransportForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("{{ url_for('auth.manage_transport') }}", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){ location.reload(); }
-      else { alert("Error: " + data.error); }
-    });
-});
-
-// DELETE
-document.querySelectorAll(".deleteTransportBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/delete_transport/${id}`, { method: "POST" })
+  // ADD SUBMIT
+  document.getElementById("addTransportForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("{{ url_for('auth.manage_transport') }}", { method: "POST", body: formData })
       .then(res => res.json())
       .then(data => {
-        if(data.success){ document.getElementById("row-"+id).remove(); }
+        if (data.success) { location.reload(); }
         else { alert("Error: " + data.error); }
       });
   });
-});
 
-// EDIT
-document.querySelectorAll(".editTransportBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/get_transport/${id}`)
+  // DELETE
+  document.querySelectorAll(".deleteTransportBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/delete_transport/${id}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) { document.getElementById("row-" + id).remove(); }
+          else { alert("Error: " + data.error); }
+        });
+    });
+  });
+
+  // EDIT
+  document.querySelectorAll(".editTransportBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/get_transport/${id}`)
+        .then(res => res.json())
+        .then(t => {
+          document.getElementById("editTransportId").value = t.id;
+          document.getElementById("editTransportVehicle").value = t.vehicle;
+          editTransportPopup.style.display = "flex";
+        });
+    });
+  });
+
+  // EDIT SUBMIT
+  document.getElementById("editTransportForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("/admin/edit_transport", { method: "POST", body: formData })
       .then(res => res.json())
-      .then(t => {
-        document.getElementById("editTransportId").value = t.id;
-        document.getElementById("editTransportVehicle").value = t.vehicle;
-        editTransportPopup.style.display = "flex";
+      .then(data => {
+        if (data.success) { location.reload(); }
+        else { alert("Error: " + data.error); }
       });
   });
-});
-
-// EDIT SUBMIT
-document.getElementById("editTransportForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("/admin/edit_transport", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){ location.reload(); }
-      else { alert("Error: " + data.error); }
-    });
-});
 </script>
 
 {% endblock %}

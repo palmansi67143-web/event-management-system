@@ -2,71 +2,78 @@
 {% block title %}Blogs{% endblock %}
 {% block content %}
 
- 
+
 <!-- HERO section -->
- <html>
-    <head>
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-         <link rel="stylesheet" href="{{url_for('static',filename='user/css/blog.css')}}">
-          <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
-    </head>
- <body>
-        </div>
-<section class="hero">
-  <div class="overlay"></div>
-  <div class="hero-content">
-    <h1>Blogs</h1>
-    <p>Insights & Ideas for Your Perfect Event 💫<br>Expert tips and inspiring stories from the world of celebrations</p>
-  </div>
-</section>
+<html>
 
-<section class="blog-wrapper">
-  {% for b in blogs %}
-  <div class="blog-card">
-      <div class="blog-img">
-         {% if b.image %} 
-         <img src="{{ url_for('static', filename='admin/image/' ~ b.image) }}" alt="{{ b.title }}"> 
-         {% endif %}
-          <div class="blog-date">{{ b.blog_date.strftime("%d-%m-%Y") }}</div>
-      </div>
-      <div class="blog-content">
-          <div class="text">
-          <h3>{{ b.title }}</h3></div>
-          <div class="para">
-          <p>{{ b.short_description[:200] }}...</p></div>
-          <div class="read">
-          <a href="{{ url_for('auth.blog_detail', slug=b.slug) }}" class="read-more">Read More</a></div>
-      </div>
-  </div>
-  {% endfor %}
-</section>
- <div class="about-content">
-  <div class="contact-cta-box">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/blog.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
+</head>
 
-    <!-- Left Content -->
-    <div class="contact-text">
-      <h2>Let’s Talk</h2>
-      <p>
-        Have questions or want to plan your next event with us?  
-        We’re here to help you turn your ideas into reality.
+<body>
+  </div>
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>Blogs</h1>
+      <p>Insights & Ideas for Your Perfect Event 💫<br>Expert tips and inspiring stories from the world of celebrations
       </p>
     </div>
+  </section>
 
-    <!-- Right Button -->
-    <div class="contact-action">
-      <a  class="contact-btn">Contact</a>
+  <section class="blog-wrapper">
+    {% for b in blogs %}
+    <div class="blog-card">
+      <div class="blog-img">
+        {% if b.image %}
+        <img src="{{ url_for('static', filename='admin/image/' ~ b.image) }}" alt="{{ b.title }}">
+        {% endif %}
+        <div class="blog-date">{{ b.blog_date.strftime("%d-%m-%Y") }}</div>
+      </div>
+      <div class="blog-content">
+        <div class="text">
+          <h3>{{ b.title }}</h3>
+        </div>
+        <div class="para">
+          <p>{{ b.short_description[:200] }}...</p>
+        </div>
+        <div class="read">
+          <a href="{{ url_for('auth.blog_detail', slug=b.slug) }}" class="read-more">Read More</a>
+        </div>
+      </div>
     </div>
+    {% endfor %}
+  </section>
+  <div class="about-content">
+    <div class="contact-cta-box">
 
+      <!-- Left Content -->
+      <div class="contact-text">
+        <h2>Let’s Talk</h2>
+        <p>
+          Have questions or want to plan your next event with us?
+          We’re here to help you turn your ideas into reality.
+        </p>
+      </div>
+
+      <!-- Right Button -->
+      <div class="contact-action">
+        <a class="contact-btn">Contact</a>
+      </div>
+
+    </div>
   </div>
- </div>
-<script>
-/* Inquiry button → Contact page */
-document.querySelectorAll(".contact-btn").forEach(btn => {
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); 
-    window.location.href = "/Contact"; 
-  });
-});</script>  
- </body>
- </html>
+  <script>
+    /* Inquiry button → Contact page */
+    document.querySelectorAll(".contact-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.location.href = "/Contact";
+      });
+    });</script>
+</body>
+
+</html>
 {% endblock %}

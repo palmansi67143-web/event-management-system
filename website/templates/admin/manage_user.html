@@ -2,34 +2,36 @@
 {% block title %}Manage Users{% endblock %}
 
 {% block content %}
-  <link rel="stylesheet" href="{{url_for('static',filename='admin/css/manage_user.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/manage_user.css')}}">
 
 <h2>Total Contacts</h2>
 
 <table class="customer-table">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-         <th>Mobile No</th>
-          <th>Event Type</th>
-           <th>Event Date</th>
-            <th>Message</th>
-  <tbody>
-{% for contact in contacts %}
-<tr>
-    <td>{{ contact.id }}</td>
-    <td>{{ contact.firstname }}</td>
-    <td>{{ contact.email }}</td>
-    <td>{{ contact.mobile_no }}</td>
-    <td>{{ contact.event_type }}</td>
-    <td>{{ contact.event_date }}</td>
-    <td>{{ contact.message }}</td>
-</tr>
-{% else %}
-<tr><td colspan="7">No submissions yet.</td></tr>
-{% endfor %}
-</tbody>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Mobile No</th>
+    <th>Event Type</th>
+    <th>Event Date</th>
+    <th>Message</th>
+    <tbody>
+      {% for contact in contacts %}
+      <tr>
+        <td>{{ contact.id }}</td>
+        <td>{{ contact.firstname }}</td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.mobile_no }}</td>
+        <td>{{ contact.event_type }}</td>
+        <td>{{ contact.event_date }}</td>
+        <td>{{ contact.message }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7">No submissions yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
 
 
 </table>

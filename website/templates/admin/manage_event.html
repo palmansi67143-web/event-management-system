@@ -37,7 +37,7 @@
     <td>{{ ev.package.name if ev.package else '-' }}</td>
     <td>
       {% if ev.image %}
-        <img src="{{ url_for('static', filename='admin/image/' ~ ev.image) }}" width="100">
+      <img src="{{ url_for('static', filename='admin/image/' ~ ev.image) }}" width="100">
       {% endif %}
     </td>
     <td>
@@ -60,12 +60,12 @@
       <input type="number" name="pax" placeholder="Pax" required>
       <input type="text" name="room" placeholder="Room">
       <input type="text" name="city" placeholder="City">
-      
+
       <!-- Venue Dropdown -->
       <select name="venue_id" required>
         <option value="">Select Venue</option>
         {% for v in venues %}
-          <option value="{{ v.id }}">{{ v.name }}</option>
+        <option value="{{ v.id }}">{{ v.name }}</option>
         {% endfor %}
       </select>
 
@@ -73,7 +73,7 @@
       <select name="package_id">
         <option value="">Select Package</option>
         {% for p in packages %}
-          <option value="{{ p.id }}">{{ p.name }}</option>
+        <option value="{{ p.id }}">{{ p.name }}</option>
         {% endfor %}
       </select>
 
@@ -101,14 +101,14 @@
       <!-- Venue Dropdown -->
       <select name="venue_id" id="editEventVenue" required>
         {% for v in venues %}
-          <option value="{{ v.id }}">{{ v.name }}</option>
+        <option value="{{ v.id }}">{{ v.name }}</option>
         {% endfor %}
       </select>
 
       <!-- Package Dropdown -->
       <select name="package_id" id="editEventPackage">
         {% for p in packages %}
-          <option value="{{ p.id }}">{{ p.name }}</option>
+        <option value="{{ p.id }}">{{ p.name }}</option>
         {% endfor %}
       </select>
 
@@ -120,88 +120,88 @@
 </div>
 
 <script>
-// ADD POPUP
-const addEventPopup = document.getElementById("addEventPopup");
-const addEventBtn = document.getElementById("addEventBtn");
-const addEventCloseBtn = document.getElementById("addEventCloseBtn");
-addEventBtn.addEventListener("click", () => { addEventPopup.style.display = "flex"; });
-addEventCloseBtn.addEventListener("click", () => { addEventPopup.style.display = "none"; });
+  // ADD POPUP
+  const addEventPopup = document.getElementById("addEventPopup");
+  const addEventBtn = document.getElementById("addEventBtn");
+  const addEventCloseBtn = document.getElementById("addEventCloseBtn");
+  addEventBtn.addEventListener("click", () => { addEventPopup.style.display = "flex"; });
+  addEventCloseBtn.addEventListener("click", () => { addEventPopup.style.display = "none"; });
 
-// EDIT POPUP
-const editEventPopup = document.getElementById("editEventPopup");
-const editEventCloseBtn = document.getElementById("editEventCloseBtn");
-editEventCloseBtn.addEventListener("click", () => { editEventPopup.style.display = "none"; });
+  // EDIT POPUP
+  const editEventPopup = document.getElementById("editEventPopup");
+  const editEventCloseBtn = document.getElementById("editEventCloseBtn");
+  editEventCloseBtn.addEventListener("click", () => { editEventPopup.style.display = "none"; });
 
-// ADD SUBMIT
-document.getElementById("addEventForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("{{ url_for('auth.manage_event') }}", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){
-        location.reload();
-      } else {
-        alert("Error: " + data.error);
-      }
-    });
-});
-
-// DELETE
-document.querySelectorAll(".deleteEventBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/delete_event/${id}`, { method: "POST" })
+  // ADD SUBMIT
+  document.getElementById("addEventForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("{{ url_for('auth.manage_event') }}", { method: "POST", body: formData })
       .then(res => res.json())
       .then(data => {
-        if(data.success){
-          document.getElementById("row-"+id).remove();
+        if (data.success) {
+          location.reload();
         } else {
           alert("Error: " + data.error);
         }
       });
   });
-});
 
-// EDIT
-document.querySelectorAll(".editEventBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/get_event/${id}`)
+  // DELETE
+  document.querySelectorAll(".deleteEventBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/delete_event/${id}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            document.getElementById("row-" + id).remove();
+          } else {
+            alert("Error: " + data.error);
+          }
+        });
+    });
+  });
+
+  // EDIT
+  document.querySelectorAll(".editEventBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/get_event/${id}`)
+        .then(res => res.json())
+        .then(ev => {
+          document.getElementById("editEventId").value = ev.id;
+          document.getElementById("editEventName").value = ev.name;
+          document.getElementById("editEventPrice").value = ev.price;
+          document.getElementById("editEventFoodType").value = ev.food_type;
+          document.getElementById("editEventPax").value = ev.pax;
+          document.getElementById("editEventRoom").value = ev.room;
+          document.getElementById("editEventCity").value = ev.city;
+          document.getElementById("editEventCategory").value = ev.category;
+
+          // Set dropdown values
+          document.getElementById("editEventVenue").value = ev.venue_id || '';
+          document.getElementById("editEventPackage").value = ev.package_id || '';
+
+          editEventPopup.style.display = "flex";
+        });
+    });
+  });
+
+  // EDIT SUBMIT
+  document.getElementById("editEventForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("/admin/edit_event", { method: "POST", body: formData })
       .then(res => res.json())
-      .then(ev => {
-        document.getElementById("editEventId").value = ev.id;
-        document.getElementById("editEventName").value = ev.name;
-        document.getElementById("editEventPrice").value = ev.price;
-        document.getElementById("editEventFoodType").value = ev.food_type;
-        document.getElementById("editEventPax").value = ev.pax;
-        document.getElementById("editEventRoom").value = ev.room;
-        document.getElementById("editEventCity").value = ev.city;
-        document.getElementById("editEventCategory").value = ev.category;
-
-        // Set dropdown values
-        document.getElementById("editEventVenue").value = ev.venue_id || '';
-        document.getElementById("editEventPackage").value = ev.package_id || '';
-
-        editEventPopup.style.display = "flex";
+      .then(data => {
+        if (data.success) {
+          location.reload();
+        } else {
+          alert("Error: " + data.error);
+        }
       });
   });
-});
-
-// EDIT SUBMIT
-document.getElementById("editEventForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("/admin/edit_event", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){
-        location.reload();
-      } else {
-        alert("Error: " + data.error);
-      }
-    });
-});
 </script>
 
 {% endblock %}

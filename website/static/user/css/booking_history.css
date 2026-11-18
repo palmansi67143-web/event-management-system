@@ -1,45 +1,46 @@
-.booking-history-container{
-width:95%;
-margin:133px auto;
+.booking-history-container {
+    width: 95%;
+    margin: 133px auto;
 }
 
-.booking-history-container h2{
-color: #891809;
-text-align:center;
-margin-bottom:20px;
+.booking-history-container h2 {
+    color: #891809;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-table th, table td{
-border:1px solid #ddd;
-padding:10px;
-text-align:center;
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
 }
 
-table th{
-background:#891809;
-color:white;
+table th {
+    background: #891809;
+    color: white;
 }
 
-tr:nth-child(even){
-background:#f5f5f5;
+tr:nth-child(even) {
+    background: #f5f5f5;
 }
 
-.status.Confirmed{
-color:green;
-font-weight:bold;
+.status.Confirmed {
+    color: green;
+    font-weight: bold;
 }
 
-.status.Pending{
-color:orange;
-font-weight:bold;
+.status.Pending {
+    color: orange;
+    font-weight: bold;
 }
 
-.status.Cancelled{
-color:red;
-font-weight:bold;
+.status.Cancelled {
+    color: red;
+    font-weight: bold;
 }

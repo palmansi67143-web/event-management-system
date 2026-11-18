@@ -1,32 +1,31 @@
-/* General page styling */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-image: url("/static/user/image/WhatsApp Image 2026-02-10 at 14.42.57.jpeg");
-   position: relative;             /* allow overlay positioning */
- 
-  background-size: cover;         /* scale image to cover entire section */
-     /* center the image */
-  background-repeat: no-repeat;   /* prevent tiling */
-  background-attachment: fixed;   /* keeps image static while scrolling */
-margin-top: 75px;
-   
-  color: #fff;                    /* make text readable on image */
+  position: relative;
+
+  background-size: cover;
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-top: 75px;
+
+  color: #fff;
 
   border-radius: 8px;
-  z-index: 1; 
+  z-index: 1;
   margin: 0;
   padding: 0;
 }
 
-/* Booking form container */
+
 .booking-form {
   max-width: 600px;
   margin: 50px auto;
   background: #fff;
   padding: 30px;
-  
+
   margin-top: 150px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .booking-form h2 {
@@ -35,8 +34,8 @@ margin-top: 75px;
   color: #5e0404;
 }
 
-/* Input fields */
-.booking-form input{
+
+.booking-form input {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
@@ -45,17 +44,18 @@ margin-top: 75px;
   font-size: 14px;
   transition: border-color 0.3s ease;
 }
-.booking-form label{
+
+.booking-form label {
   color: rgb(2, 2, 2);
   font-size: 16px;
   font-weight: 600;
 }
-.booking-form input:focus{
+
+.booking-form input:focus {
   border-color: #0078d7;
   outline: none;
 }
 
-/* Submit button */
 .booking-form button {
   width: 100%;
   padding: 14px;
@@ -67,37 +67,38 @@ margin-top: 75px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
-/* Dropdown Select */
-.booking-form select{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    margin-bottom:15px;
-    border:1px solid #ddd;
-    border-radius:6px;
-    font-size:14px;
-    background:white;
+
+.booking-form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
 }
 
 .booking-form button:hover {
-    font-weight:bold;
-    font-size: 16px;
+  font-weight: bold;
+  font-size: 16px;
   background: #f7f5f4;
   color: brown;
 }
-.alert{
-padding:12px;
-margin-bottom:15px;
-border-radius:5px;
-font-weight:bold;
+
+.alert {
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
-.success{
-background:#d4edda;
-color:#155724;
+.success {
+  background: #d4edda;
+  color: #155724;
 }
 
-.danger{
-background:#f8d7da;
-color:#721c24;
+.danger {
+  background: #f8d7da;
+  color: #721c24;
 }

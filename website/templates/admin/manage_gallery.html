@@ -19,7 +19,7 @@
     <td>{{ g.id }}</td>
     <td>
       {% if g.image %}
-        <img src="{{ url_for('static', filename='admin/image/' ~ g.image) }}" width="100">
+      <img src="{{ url_for('static', filename='admin/image/' ~ g.image) }}" width="100">
       {% endif %}
     </td>
     <td>
@@ -56,67 +56,67 @@
 </div>
 
 <script>
-// ADD POPUP
-const addGalleryPopup = document.getElementById("addGalleryPopup");
-const addGalleryBtn = document.getElementById("addGalleryBtn");
-const addGalleryCloseBtn = document.getElementById("addGalleryCloseBtn");
-addGalleryBtn.addEventListener("click", () => { addGalleryPopup.style.display = "flex"; });
-addGalleryCloseBtn.addEventListener("click", () => { addGalleryPopup.style.display = "none"; });
+  // ADD POPUP
+  const addGalleryPopup = document.getElementById("addGalleryPopup");
+  const addGalleryBtn = document.getElementById("addGalleryBtn");
+  const addGalleryCloseBtn = document.getElementById("addGalleryCloseBtn");
+  addGalleryBtn.addEventListener("click", () => { addGalleryPopup.style.display = "flex"; });
+  addGalleryCloseBtn.addEventListener("click", () => { addGalleryPopup.style.display = "none"; });
 
-// EDIT POPUP
-const editGalleryPopup = document.getElementById("editGalleryPopup");
-const editGalleryCloseBtn = document.getElementById("editGalleryCloseBtn");
-editGalleryCloseBtn.addEventListener("click", () => { editGalleryPopup.style.display = "none"; });
+  // EDIT POPUP
+  const editGalleryPopup = document.getElementById("editGalleryPopup");
+  const editGalleryCloseBtn = document.getElementById("editGalleryCloseBtn");
+  editGalleryCloseBtn.addEventListener("click", () => { editGalleryPopup.style.display = "none"; });
 
-// ADD SUBMIT
-document.getElementById("addGalleryForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("{{ url_for('auth.manage_gallery') }}", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){ location.reload(); }
-      else { alert("Error: " + data.error); }
-    });
-});
-
-// DELETE
-document.querySelectorAll(".deleteGalleryBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/delete_gallery/${id}`, { method: "POST" })
+  // ADD SUBMIT
+  document.getElementById("addGalleryForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("{{ url_for('auth.manage_gallery') }}", { method: "POST", body: formData })
       .then(res => res.json())
       .then(data => {
-        if(data.success){ document.getElementById("row-"+id).remove(); }
+        if (data.success) { location.reload(); }
         else { alert("Error: " + data.error); }
       });
   });
-});
 
-// EDIT
-document.querySelectorAll(".editGalleryBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/get_gallery/${id}`)
+  // DELETE
+  document.querySelectorAll(".deleteGalleryBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/delete_gallery/${id}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) { document.getElementById("row-" + id).remove(); }
+          else { alert("Error: " + data.error); }
+        });
+    });
+  });
+
+  // EDIT
+  document.querySelectorAll(".editGalleryBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/get_gallery/${id}`)
+        .then(res => res.json())
+        .then(g => {
+          document.getElementById("editGalleryId").value = g.id;
+          editGalleryPopup.style.display = "flex";
+        });
+    });
+  });
+
+  // EDIT SUBMIT
+  document.getElementById("editGalleryForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("/admin/edit_gallery", { method: "POST", body: formData })
       .then(res => res.json())
-      .then(g => {
-        document.getElementById("editGalleryId").value = g.id;
-        editGalleryPopup.style.display = "flex";
+      .then(data => {
+        if (data.success) { location.reload(); }
+        else { alert("Error: " + data.error); }
       });
   });
-});
-
-// EDIT SUBMIT
-document.getElementById("editGalleryForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("/admin/edit_gallery", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){ location.reload(); }
-      else { alert("Error: " + data.error); }
-    });
-});
 </script>
 
 {% endblock %}

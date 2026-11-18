@@ -25,7 +25,7 @@
     <td>{{ v.price }}</td>
     <td>
       {% if v.image %}
-        <img src="{{ url_for('static', filename='admin/image/' ~ v.image) }}" width="100">
+      <img src="{{ url_for('static', filename='admin/image/' ~ v.image) }}" width="100">
       {% endif %}
     </td>
     <td>
@@ -68,79 +68,79 @@
 </div>
 
 <script>
-// ADD POPUP
-const addVenuePopup = document.getElementById("addVenuePopup");
-const addVenueBtn = document.getElementById("addVenueBtn");
-const addVenueCloseBtn = document.getElementById("addVenueCloseBtn");
-addVenueBtn.addEventListener("click", () => { addVenuePopup.style.display = "flex"; });
-addVenueCloseBtn.addEventListener("click", () => { addVenuePopup.style.display = "none"; });
+  // ADD POPUP
+  const addVenuePopup = document.getElementById("addVenuePopup");
+  const addVenueBtn = document.getElementById("addVenueBtn");
+  const addVenueCloseBtn = document.getElementById("addVenueCloseBtn");
+  addVenueBtn.addEventListener("click", () => { addVenuePopup.style.display = "flex"; });
+  addVenueCloseBtn.addEventListener("click", () => { addVenuePopup.style.display = "none"; });
 
-// EDIT POPUP
-const editVenuePopup = document.getElementById("editVenuePopup");
-const editVenueCloseBtn = document.getElementById("editVenueCloseBtn");
-editVenueCloseBtn.addEventListener("click", () => { editVenuePopup.style.display = "none"; });
+  // EDIT POPUP
+  const editVenuePopup = document.getElementById("editVenuePopup");
+  const editVenueCloseBtn = document.getElementById("editVenueCloseBtn");
+  editVenueCloseBtn.addEventListener("click", () => { editVenuePopup.style.display = "none"; });
 
-// ADD SUBMIT
-document.getElementById("addVenueForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("{{ url_for('auth.manage_venue') }}", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){
-        location.reload();
-      } else {
-        alert("Error: " + data.error);
-      }
-    });
-});
-
-// DELETE
-document.querySelectorAll(".deleteVenueBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/delete_venue/${id}`, { method: "POST" })
+  // ADD SUBMIT
+  document.getElementById("addVenueForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("{{ url_for('auth.manage_venue') }}", { method: "POST", body: formData })
       .then(res => res.json())
       .then(data => {
-        if(data.success){
-          document.getElementById("row-"+id).remove();
+        if (data.success) {
+          location.reload();
         } else {
           alert("Error: " + data.error);
         }
       });
   });
-});
 
-// EDIT
-document.querySelectorAll(".editVenueBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/get_venue/${id}`)
+  // DELETE
+  document.querySelectorAll(".deleteVenueBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/delete_venue/${id}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            document.getElementById("row-" + id).remove();
+          } else {
+            alert("Error: " + data.error);
+          }
+        });
+    });
+  });
+
+  // EDIT
+  document.querySelectorAll(".editVenueBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/get_venue/${id}`)
+        .then(res => res.json())
+        .then(v => {
+          document.getElementById("editVenueId").value = v.id;
+          document.getElementById("editVenueName").value = v.name;
+          document.getElementById("editVenueLocation").value = v.location;
+          document.getElementById("editVenuePrice").value = v.price;
+          editVenuePopup.style.display = "flex";
+        });
+    });
+  });
+
+  // EDIT SUBMIT
+  document.getElementById("editVenueForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("/admin/edit_venue", { method: "POST", body: formData })
       .then(res => res.json())
-      .then(v => {
-        document.getElementById("editVenueId").value = v.id;
-        document.getElementById("editVenueName").value = v.name;
-        document.getElementById("editVenueLocation").value = v.location;
-        document.getElementById("editVenuePrice").value = v.price;
-        editVenuePopup.style.display = "flex";
+      .then(data => {
+        if (data.success) {
+          location.reload();
+        } else {
+          alert("Error: " + data.error);
+        }
       });
   });
-});
-
-// EDIT SUBMIT
-document.getElementById("editVenueForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("/admin/edit_venue", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){
-        location.reload();
-      } else {
-        alert("Error: " + data.error);
-      }
-    });
-});
 </script>
 
 {% endblock %}

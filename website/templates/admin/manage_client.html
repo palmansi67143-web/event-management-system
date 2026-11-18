@@ -11,29 +11,29 @@
 
 <table class="customer-table" id="bookingTable">
 
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
-<th>Date</th>
-<th>Address</th>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Date</th>
+    <th>Address</th>
 
-</tr>
+  </tr>
 
-{% for c in clients %}
+  {% for c in clients %}
 
-<tr>
+  <tr>
 
-<td>{{ c.id }}</td>
-<td>{{ c.name }}</td>
-<td>{{ c.email }}</td>
-<td>{{ c.phone }}</td>
-<td>{{ c.created_at }}</td>
-<td>{{ c.address}}</td>
-</tr>
+    <td>{{ c.id }}</td>
+    <td>{{ c.name }}</td>
+    <td>{{ c.email }}</td>
+    <td>{{ c.phone }}</td>
+    <td>{{ c.created_at }}</td>
+    <td>{{ c.address}}</td>
+  </tr>
 
-{% endfor %}
+  {% endfor %}
 
 </table>
 

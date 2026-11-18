@@ -21,7 +21,7 @@
     <td>{{ s.name }}</td>
     <td>
       {% if s.image %}
-        <img src="{{ url_for('static', filename='admin/image/' ~ s.image) }}" width="100">
+      <img src="{{ url_for('static', filename='admin/image/' ~ s.image) }}" width="100">
       {% endif %}
     </td>
     <td>
@@ -60,68 +60,68 @@
 </div>
 
 <script>
-// Add Service Popup
-const addServicePopup = document.getElementById("addServicePopup");
-const addServiceBtn = document.getElementById("addServiceBtn");
-const addServiceCloseBtn = document.getElementById("addServiceCloseBtn");
-addServiceBtn.addEventListener("click", () => { addServicePopup.style.display = "flex"; });
-addServiceCloseBtn.addEventListener("click", () => { addServicePopup.style.display = "none"; });
+  // Add Service Popup
+  const addServicePopup = document.getElementById("addServicePopup");
+  const addServiceBtn = document.getElementById("addServiceBtn");
+  const addServiceCloseBtn = document.getElementById("addServiceCloseBtn");
+  addServiceBtn.addEventListener("click", () => { addServicePopup.style.display = "flex"; });
+  addServiceCloseBtn.addEventListener("click", () => { addServicePopup.style.display = "none"; });
 
-// Edit Service Popup
-const editServicePopup = document.getElementById("editServicePopup");
-const editServiceCloseBtn = document.getElementById("editServiceCloseBtn");
-editServiceCloseBtn.addEventListener("click", () => { editServicePopup.style.display = "none"; });
+  // Edit Service Popup
+  const editServicePopup = document.getElementById("editServicePopup");
+  const editServiceCloseBtn = document.getElementById("editServiceCloseBtn");
+  editServiceCloseBtn.addEventListener("click", () => { editServicePopup.style.display = "none"; });
 
-// Add Service Submit
-document.getElementById("addServiceForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("{{ url_for('auth.manage_service') }}", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){ location.reload(); }
-      else { alert("Error: " + data.error); }
-    });
-});
-
-// Delete Service
-document.querySelectorAll(".deleteServiceBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/delete_service/${id}`, { method: "POST" })
+  // Add Service Submit
+  document.getElementById("addServiceForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("{{ url_for('auth.manage_service') }}", { method: "POST", body: formData })
       .then(res => res.json())
       .then(data => {
-        if(data.success){ document.getElementById("row-"+id).remove(); }
+        if (data.success) { location.reload(); }
         else { alert("Error: " + data.error); }
       });
   });
-});
 
-// Edit Service
-document.querySelectorAll(".editServiceBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const id = btn.dataset.id;
-    fetch(`/admin/get_service/${id}`)
+  // Delete Service
+  document.querySelectorAll(".deleteServiceBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/delete_service/${id}`, { method: "POST" })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) { document.getElementById("row-" + id).remove(); }
+          else { alert("Error: " + data.error); }
+        });
+    });
+  });
+
+  // Edit Service
+  document.querySelectorAll(".editServiceBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.id;
+      fetch(`/admin/get_service/${id}`)
+        .then(res => res.json())
+        .then(s => {
+          document.getElementById("editServiceId").value = s.id;
+          document.getElementById("editServiceName").value = s.name;
+          editServicePopup.style.display = "flex";
+        });
+    });
+  });
+
+  // Edit Service Submit
+  document.getElementById("editServiceForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch("/admin/edit_service", { method: "POST", body: formData })
       .then(res => res.json())
-      .then(s => {
-        document.getElementById("editServiceId").value = s.id;
-        document.getElementById("editServiceName").value = s.name;
-        editServicePopup.style.display = "flex";
+      .then(data => {
+        if (data.success) { location.reload(); }
+        else { alert("Error: " + data.error); }
       });
   });
-});
-
-// Edit Service Submit
-document.getElementById("editServiceForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const formData = new FormData(this);
-  fetch("/admin/edit_service", { method: "POST", body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if(data.success){ location.reload(); }
-      else { alert("Error: " + data.error); }
-    });
-});
 </script>
 
 {% endblock %}

@@ -1,67 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" href="{{url_for('static',filename='user/css/base.css')}}">
-     <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous"/>
-    <title>{% block title %}Home{% endblock %}</title>
-  </head>
-  <body>
-   <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
 
-  <!-- Logo -->
-  <a class="navbar-brand" href="/">
-    <img src="{{ url_for('static', filename='user/image/Your paragraph text1.png') }}" style="height:80px;">
-  </a>
+<head>
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/base.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous" />
+  <title>{% block title %}Home{% endblock %}</title>
+</head>
 
-  <!-- Toggle -->
-  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbar">
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+
+
+    <a class="navbar-brand" href="/">
+      <img src="{{ url_for('static', filename='user/image/Your paragraph text1.png') }}" style="height:80px;">
+    </a>
+
+
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbar">
       <span class="navbar-toggler-icon"></span>
-  </button>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbar">
-    <div class="navbar-nav ml-auto navbar-link">
+    <div class="collapse navbar-collapse" id="navbar">
+      <div class="navbar-nav ml-auto navbar-link">
 
-      <a id="home" href="/">Home</a>
-      <a id="Reviews" href="/about">About Us</a>
+        <a id="home" href="/">Home</a>
+        <a id="Reviews" href="/about">About Us</a>
 
-      <div class="dropdown d-inline-block">
-        <a class="dropdown-toggle" id="serviceDropdown" href="/service" data-toggle="dropdown" style="color:brown;">
-          Services
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="/event_package">Event Package</a>
-          <a class="dropdown-item" href="/venue">Venues</a>
-          <a class="dropdown-item" href="/transportation">Transport</a>
-          <a class="dropdown-item" href="/service">Other Services</a>
+        <div class="dropdown d-inline-block">
+          <a class="dropdown-toggle" id="serviceDropdown" href="/service" data-toggle="dropdown" style="color:brown;">
+            Services
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/event_package">Event Package</a>
+            <a class="dropdown-item" href="/venue">Venues</a>
+            <a class="dropdown-item" href="/transportation">Transport</a>
+            <a class="dropdown-item" href="/service">Other Services</a>
+          </div>
         </div>
-      </div>
 
-      <a id="gallery" href="/gallery">Gallery</a>
-      <a id="Blogs" href="/Blogs">Blogs</a>
-      <a id="Contact" href="/Contact">Contact</a>
+        <a id="gallery" href="/gallery">Gallery</a>
+        <a id="Blogs" href="/Blogs">Blogs</a>
+        <a id="Contact" href="/Contact">Contact</a>
 
-      <!-- ✅ TEEN CONDITIONS: Admin / User / Guest -->
+        <!-- TEEN CONDITIONS: Admin / User / Guest -->
 
-      {% if session.get('admin_logged_in') %}
+        {% if session.get('admin_logged_in') %}
         <!-- ADMIN logged in hai - Admin badge + Dashboard link dikhao -->
         <div class="dropdown">
           <a data-toggle="dropdown" style="cursor:pointer; display:flex; align-items:center; gap:6px; ">
             <i class="fa fa-user-secret" style="font-size:28px; color:brown;"></i>
-             {% if admin and admin.image %}
-                    <img src="{{ url_for('static', filename='admin/image/' ~ admin.image) }}"
-                         width="40" height="40"
-                         style="border-radius:50%; object-fit:cover;">
-                {% else %}
-                    <div style="width:40px; height:40px; border-radius:50%;
+            {% if admin and admin.image %}
+            <img src="{{ url_for('static', filename='admin/image/' ~ admin.image) }}" width="40" height="40"
+              style="border-radius:50%; object-fit:cover;">
+            {% else %}
+            <div style="width:40px; height:40px; border-radius:50%;
                                 background:#6c757d; display:flex; 
                                 align-items:center; justify-content:center;">
-                        <i class="fas fa-user" style="color:white;"></i>
-                    </div>
-                {% endif %}
+              <i class="fas fa-user" style="color:white;"></i>
+            </div>
+            {% endif %}
           </a>
           <div class="dropdown-menu dropdown-menu-left">
             <a class="dropdown-item" href="{{ url_for('auth.dashboard') }}">
@@ -77,7 +80,7 @@
           </div>
         </div>
 
-      {% elif session.get('user_id') %}
+        {% elif session.get('user_id') %}
         <!-- USER logged in hai -->
         <div class="dropdown">
           <a data-toggle="dropdown">
@@ -92,96 +95,108 @@
           </div>
         </div>
 
-      {% else %}
+        {% else %}
         <!-- GUEST - koi login nahi -->
         <a href="/login">Login</a>
         <a href="/register">Register</a>
 
-      {% endif %}
+        {% endif %}
 
+      </div>
     </div>
+  </nav>
+
+  {% with messages = get_flashed_messages(with_categories=true)%}
+  {% if messages %}
+  {% for category, message in messages %}
+  {%if category=='error'%}
+  <div class="alert alert-danger alter-dismissable fade show" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-</nav>
-
-    {% with messages = get_flashed_messages(with_categories=true)%}
-    {% if messages %}
-       {% for category, message in messages %}
-       {%if category=='error'%}
-       <div class="alert alert-danger alter-dismissable fade show" role="alert">
-        {{message}}
-        <button type="button" class="close" data-dismiss="alert">
-          <span aria-hidden="true">&times;</span>
-        </button>
-       </div>
-       {% else %}
-        <div class="alert alert-success alter-dismissable fade show" role="alert">
-        {{message}}
-        <button type="button" class="close" data-dismiss="alert">
-          <span aria-hidden="true">&times;</span>
-        </button>
-       </div>
-       {% endif %}
-       {% endfor %}
-    {% endif %}
-    {%endwith %}
-
-    <div class="container">
-      {% block content %}
-      {% endblock %}
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{url_for('static',filename='index.js') }}"></script>
-
- <footer class="site-footer">
-  <div class="footer-container">
-    <div class="footer-col">
-      <h3 class="footer-logo">Company Name</h3>
-      <p class="footer-text">We provide high-quality services and smart solutions to help your business grow. Join our community for updates and offers.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Quick Links</h4>
-      <ul class="footer-links">
-        <li><a href="/#">Home</a></li>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/service">Services</a></li>
-        <li><a href="/Contact">Contact</a></li>
-        <li><a href="/event">Event</a></li>
-        <li><a href="/Blogs">Blogs</a></li>
-        <li><a href="/gallery">Gallery</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact Us</h4>
-      <div class="contact-item">
-        <img src="/static/user/image/address-pin-location-svgrepo-com.svg" alt="Address">
-        <span>221, Jaipur, Rajasthan</span>
-      </div>
-      <div class="contact-item">
-        <img src="/static/user/image/phone-call-ringing-svgrepo-com.svg" alt="Phone">
-        <a href="tel:+913232568895">+91 32325 68895</a>
-      </div>
-      <div class="contact-item">
-        <img src="/static/user/image/email-svgrepo-com.svg" alt="Email">
-        <a href="mailto:dreameventmanagement@gmail.com">dreameventmanagement@gmail.com</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Follow Us</h4>
-      <div class="social-icons">
-        <a href="#"><img src="{{ url_for('static', filename='user/image/twitter-154-svgrepo-com.svg') }}" alt="twitter"></a>
-        <a href="#"><img src="{{ url_for('static', filename='user/image/facebook-square-svgrepo-com.svg') }}" alt="Facebook"></a>
-        <a href="#"><img src="{{ url_for('static', filename='user/image/whatsapp-alt-svgrepo-com.svg') }}" alt="whatsapp"></a>
-        <a href="#"><img src="{{ url_for('static', filename='user/image/instagram-svgrepo-com.svg') }}" alt="Instagram"></a>
-      </div>
-    </div>
+  {% else %}
+  <div class="alert alert-success alter-dismissable fade show" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-  <div class="footer-bottom">
-    © 2026 dreamevent . All Rights Reserved.
-  </div>
-</footer>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {%endwith %}
 
-  </body>
+  <div class="container">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{url_for('static',filename='index.js') }}"></script>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3 class="footer-logo">Company Name</h3>
+        <p class="footer-text">We provide high-quality services and smart solutions to help your business grow. Join our
+          community for updates and offers.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="/#">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/service">Services</a></li>
+          <li><a href="/Contact">Contact</a></li>
+          <li><a href="/event">Event</a></li>
+          <li><a href="/Blogs">Blogs</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="contact-item">
+          <img src="/static/user/image/address-pin-location-svgrepo-com.svg" alt="Address">
+          <span>221, Jaipur, Rajasthan</span>
+        </div>
+        <div class="contact-item">
+          <img src="/static/user/image/phone-call-ringing-svgrepo-com.svg" alt="Phone">
+          <a href="tel:+913232568895">+91 32325 68895</a>
+        </div>
+        <div class="contact-item">
+          <img src="/static/user/image/email-svgrepo-com.svg" alt="Email">
+          <a href="mailto:dreameventmanagement@gmail.com">dreameventmanagement@gmail.com</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <div class="social-icons">
+          <a href="#"><img src="{{ url_for('static', filename='user/image/twitter-154-svgrepo-com.svg') }}"
+              alt="twitter"></a>
+          <a href="#"><img src="{{ url_for('static', filename='user/image/facebook-square-svgrepo-com.svg') }}"
+              alt="Facebook"></a>
+          <a href="#"><img src="{{ url_for('static', filename='user/image/whatsapp-alt-svgrepo-com.svg') }}"
+              alt="whatsapp"></a>
+          <a href="#"><img src="{{ url_for('static', filename='user/image/instagram-svgrepo-com.svg') }}"
+              alt="Instagram"></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 dreamevent . All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+
 </html>

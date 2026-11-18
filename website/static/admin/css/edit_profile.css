@@ -6,7 +6,7 @@ input {
     border: 1px solid #ccc;
 }
 
-.profile-container{
+.profile-container {
     padding: 40px 0px;
     justify-items: center;
 }
@@ -20,11 +20,12 @@ label {
     max-width: 492px;
     padding: 30px;
     padding-inline: 25px 24px;
-    border-radius:6px;
-    font-weight:600;
-     box-shadow: 0px 20px 55px 30px rgba(215,216,222,0.5);
+    border-radius: 6px;
+    font-weight: 600;
+    box-shadow: 0px 20px 55px 30px rgba(215, 216, 222, 0.5);
     background-color: rgba(255, 255, 255, 0.422);
 }
+
 .btn_edit {
     background: brown;
     color: white;
@@ -35,9 +36,7 @@ label {
     background: brown;
     color: white;
     padding: 7px;
-    /* align-items: start; */
     justify-items: right;
     margin-left: 20px;
     border: black;
-    /* border-radius: 3px; */
 }

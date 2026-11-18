@@ -2,110 +2,107 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-  <link rel="stylesheet" href="{{url_for('static',filename='admin/css/dashboard.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='admin/css/dashboard.css')}}">
 
 <h1>Dashboard</h1>
 
 <div class="stats-container">
-    <div class="stat-card blue">
-        <div class="card-icon"><i class="fas fa-users"></i></div>
-        <div class="card-text">
-            <h4>Total Contacts</h4>
-            <p>{{ total_clients }}</p>
-        </div>
+  <div class="stat-card blue">
+    <div class="card-icon"><i class="fas fa-users"></i></div>
+    <div class="card-text">
+      <h4>Total Clients</h4>
+      <p>{{ total_clients }}</p>
     </div>
+  </div>
 
-    <div class="stat-card pink">
-        <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
-        <div class="card-text">
-            <h4>Total Events</h4>
-            <p>{{ total_events }}</p>
-        </div>
+  <div class="stat-card pink">
+    <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+    <div class="card-text">
+      <h4>Total Events</h4>
+      <p>{{ total_events }}</p>
     </div>
+  </div>
 
-    <div class="stat-card cyan">
-        <div class="card-icon"><i class="fas fa-comments"></i></div>
-        <div class="card-text">
-            <h4>Total Booking</h4>
-            <p>{{ total_bookings }}</p>
-        </div>
+  <div class="stat-card cyan">
+    <div class="card-icon"><i class="fas fa-comments"></i></div>
+    <div class="card-text">
+      <h4>Total Booking</h4>
+      <p>{{ total_bookings }}</p>
     </div>
+  </div>
 
-    <div class="stat-card orange">
-        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="card-text">
-            <h4>Total Venues</h4>
-            <p>{{ total_venues }}</p>
-        </div>
+  <div class="stat-card orange">
+    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+    <div class="card-text">
+      <h4>Total Venues</h4>
+      <p>{{ total_venues }}</p>
     </div>
-     <div class="stat-card purple">
-        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="card-text">
-            <h4>Total Services</h4>
-            <p>{{ total_services }}</p>
-        </div>
+  </div>
+  <div class="stat-card purple">
+    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+    <div class="card-text">
+      <h4>Total Services</h4>
+      <p>{{ total_services }}</p>
     </div>
-     <div class="stat-card red">
-        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="card-text">
-            <h4>Total Blogs </h4>
-            <p>{{ total_blogs }}</p>
-        </div>
+  </div>
+  <div class="stat-card red">
+    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+    <div class="card-text">
+      <h4>Total Blogs </h4>
+      <p>{{ total_blogs }}</p>
     </div>
-     <div class="stat-card pink">
-        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="card-text">
-            <h4>Total Gallery</h4>
-            <p>{{ total_gallery }}</p>
-        </div>
+  </div>
+  <div class="stat-card pink">
+    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+    <div class="card-text">
+      <h4>Total Gallery</h4>
+      <p>{{ total_gallery }}</p>
     </div>
-     <div class="stat-card green">
-        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="card-text">
-            <h4>Total Transports</h4>
-            <p>{{ total_transports}}</p>
-        </div>
+  </div>
+  <div class="stat-card green">
+    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+    <div class="card-text">
+      <h4>Total Transports</h4>
+      <p>{{ total_transports}}</p>
     </div>
+  </div>
 </div>
 
-<div id="chart-data"
-     data-users="{{ total_users }}"
-     data-events="{{ total_events }}"
-     data-bookings="{{ total_bookings }}"
-     data-contacts="{{ total_contacts }}">
+<div id="chart-data" data-users="{{ total_users }}" data-events="{{ total_events }}"
+  data-bookings="{{ total_bookings }}" data-contacts="{{ total_contacts }}">
 </div>
 
 <div class="charts">
   <div class="chart-box">
-<canvas id="summaryPie" width="400" height="400"></canvas>
+    <canvas id="summaryPie" width="400" height="400"></canvas>
   </div>
   <div class="chart-box">
-<canvas id="summaryBar" width="400" height="400"></canvas>
+    <canvas id="summaryBar" width="400" height="400"></canvas>
   </div>
 </div>
 
 
 
 
-    <!-- Controls -->
-   <div class="controls">
+<!-- Controls -->
+<div class="controls">
   <label for="month">Month:</label>
   <select id="month">
     {% set months = ["January","February","March","April","May","June",
-                     "July","August","September","October","November","December"] %}
+    "July","August","September","October","November","December"] %}
     {% for m in range(1,13) %}
-      <option value="{{ m }}" {% if m == current_month %}selected{% endif %}>
-        {{ months[m-1] }}
-      </option>
+    <option value="{{ m }}" {% if m==current_month %}selected{% endif %}>
+      {{ months[m-1] }}
+    </option>
     {% endfor %}
   </select>
 
   <label for="year">Year:</label>
   <select id="year">
     {% for y in range(2020, current_year+1) %}
-      <option value="{{ y }}" {% if y == current_year %}selected{% endif %}>
-        {{ y }}
-      </option>
+    <option value="{{ y }}" {% if y==current_year %}selected{% endif %}>
+      {{ y }}
+    </option>
     {% endfor %}
   </select>
 </div>
@@ -114,132 +111,132 @@
 
 
 <div class="report-section">
-    <h2>Generate Reports</h2>
-    <form method="GET" action="/admin/report">
-        <label>Report Type:</label>
-        <select name="report_type" id="report-type">
-            <option value="bookings">Booking Report</option>
-            <option value="users">User Report</option>
-        </select>
+  <h2>Generate Reports</h2>
+  <form method="GET" action="/admin/report">
+    <label>Report Type:</label>
+    <select name="report_type" id="report-type">
+      <option value="bookings">Booking Report</option>
+      <option value="users">User Report</option>
+    </select>
 
-        <div id="booking-filters">
-            <label>Start Date:</label>
-            <input type="date" name="start_date">
-            <label>End Date:</label>
-            <input type="date" name="end_date">
-            <label>Status:</label>
-            <select name="status">
-                <option value="">All</option>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Pending">Pending</option>
-                <option value="Cancelled">Cancelled</option>
-            </select>
-        </div>
-
-        <div class="form-footer">
-            <button type="submit">Generate Report</button>
-             <button type="submit" name="format" value="pdf">Download PDF</button>
-                 <button type="submit" name="format" value="excel">Download Excel</button>
-
-        </div>
-    </form>
-
-    {% if report_data %}
-    <div id="report-preview">
-        <h3>Report Results</h3>
-        <table>
-            <thead>
-                <tr>
-                    {% for col in report_data[0].keys() %}
-                        <th>{{ col }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in report_data %}
-                <tr>
-                    {% for val in row.values() %}
-                        <td>{{ val }}</td>
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div id="booking-filters">
+      <label>Start Date:</label>
+      <input type="date" name="start_date">
+      <label>End Date:</label>
+      <input type="date" name="end_date">
+      <label>Status:</label>
+      <select name="status">
+        <option value="">All</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Pending">Pending</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
     </div>
-    {% endif %}
+
+    <div class="form-footer">
+      <button type="submit">Generate Report</button>
+      <button type="submit" name="format" value="pdf">Download PDF</button>
+      <button type="submit" name="format" value="excel">Download Excel</button>
+
+    </div>
+  </form>
+
+  {% if report_data %}
+  <div id="report-preview">
+    <h3>Report Results</h3>
+    <table>
+      <thead>
+        <tr>
+          {% for col in report_data[0].keys() %}
+          <th>{{ col }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in report_data %}
+        <tr>
+          {% for val in row.values() %}
+          <td>{{ val }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
 </div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-let pieChart, barChart;
+  let pieChart, barChart;
 
-async function loadSummary() {
-  const year = document.getElementById('year').value;
-  const month = document.getElementById('month').selectedIndex + 1;
+  async function loadSummary() {
+    const year = document.getElementById('year').value;
+    const month = document.getElementById('month').selectedIndex + 1;
 
-  try {
-    const response = await fetch(`/admin/monthly_summary/${year}/${month}`);
-    const data = await response.json();
+    try {
+      const response = await fetch(`/admin/monthly_summary/${year}/${month}`);
+      const data = await response.json();
 
-    const labels = ['Users Registered', 'Events (Confirmed)', 'Bookings (Total)', 'Contacts'];
-    const values = [
-      data.users_registered || 0,
-      data.events || 0,
-      data.bookings || 0,
-      data.contacts || 0
-    ];
+      const labels = ['Users Registered', 'Events (Confirmed)', 'Bookings (Total)', 'Contacts'];
+      const values = [
+        data.users_registered || 0,
+        data.events || 0,
+        data.bookings || 0,
+        data.contacts || 0
+      ];
 
-    // Pie Chart
-    if (!pieChart) {
-      pieChart = new Chart(document.getElementById('summaryPie'), {
-        type: 'pie',
-        data: {
-          labels,
-          datasets: [{
-            data: values,
-            backgroundColor: ['#1976d2','#2e7d32','#fbc02d','#d32f2f']
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { position: 'bottom' } }
-        }
-      });
-    } else {
-      pieChart.data.datasets[0].data = values;
-      pieChart.update();
+      // Pie Chart
+      if (!pieChart) {
+        pieChart = new Chart(document.getElementById('summaryPie'), {
+          type: 'pie',
+          data: {
+            labels,
+            datasets: [{
+              data: values,
+              backgroundColor: ['#1976d2', '#2e7d32', '#fbc02d', '#d32f2f']
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } }
+          }
+        });
+      } else {
+        pieChart.data.datasets[0].data = values;
+        pieChart.update();
+      }
+
+      // Bar Chart
+      if (!barChart) {
+        barChart = new Chart(document.getElementById('summaryBar'), {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              label: 'Monthly Counts',
+              data: values,
+              backgroundColor: ['#42a5f5', '#66bb6a', '#ffca28', '#ab47bc']
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true } }
+          }
+        });
+      } else {
+        barChart.data.datasets[0].data = values;
+        barChart.update();
+      }
+    } catch (err) {
+      console.error("Error loading summary:", err);
     }
-
-    // Bar Chart
-    if (!barChart) {
-      barChart = new Chart(document.getElementById('summaryBar'), {
-        type: 'bar',
-        data: {
-          labels,
-          datasets: [{
-            label: 'Monthly Counts',
-            data: values,
-            backgroundColor: ['#42a5f5','#66bb6a','#ffca28','#ab47bc']
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-    } else {
-      barChart.data.datasets[0].data = values;
-      barChart.update();
-    }
-  } catch (err) {
-    console.error("Error loading summary:", err);
   }
-}
 
-document.addEventListener("DOMContentLoaded", loadSummary);
-document.getElementById('month').addEventListener('change', loadSummary);
-document.getElementById('year').addEventListener('change', loadSummary);
+  document.addEventListener("DOMContentLoaded", loadSummary);
+  document.getElementById('month').addEventListener('change', loadSummary);
+  document.getElementById('year').addEventListener('change', loadSummary);
 </script>
 
 

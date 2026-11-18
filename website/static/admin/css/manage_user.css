@@ -1,11 +1,10 @@
-/* ================= Manage Users Table ================= */
 .customer-table {
     width: 100%;
     border-collapse: collapse;
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     margin-top: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -16,7 +15,8 @@
     font-weight: 600;
 }
 
-.customer-table th, .customer-table td {
+.customer-table th,
+.customer-table td {
     padding: 14px 20px;
     text-align: left;
 }
@@ -36,12 +36,12 @@
     font-size: 14px;
 }
 
-/* Optional: Zebra stripe for rows */
+
 .customer-table tbody tr:nth-child(even) {
     background: #fafafa;
 }
-th{
+
+th {
     color: white;
-    background:#891809;
+    background: #891809;
 }
-/* Table heading icon s*

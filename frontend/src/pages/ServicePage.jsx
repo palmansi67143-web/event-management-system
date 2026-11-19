@@ -1,0 +1,117 @@
+import React, { useState, useEffect } from 'react';
+import { apiService } from '../services/api';
+import ServiceCard from '../components/ServiceCard';
+import ContactCTA from '../components/ContactCTA';
+import '../styles/service.css';
+
+export default function ServicePage() {
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    async function loadServices() {
+      const data = await apiService.getServices();
+      setServices(data);
+    }
+    loadServices();
+  }, []);
+
+  return (
+    <div className="service-page-root">
+      <section className="service-hero">
+        <div className="service-overlay">
+          <div className="text-wrapper">
+            <p className="slide-right" style={{ fontSize: '24px', fontWeight: 'bold' }}>
+              "We don't create events, we create memories that last a lifetime."
+            </p>
+            <br />
+            <p className="slide-right" style={{ fontSize: '20px' }}>
+              "Events are where stories begin and memories are born."
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="text">
+        <b>
+          <h1>WHY HIRE A EVENT PLANNER?</h1>
+        </b>
+        <p>
+          Hiring an event planner is more than just a convenience—it’s an investment in peace of
+          mind and flawless execution. Planning an event involves countless moving parts, from
+          coordinating vendors and managing budgets to designing décor and ensuring everything runs
+          smoothly on the big day. Without professional guidance, these details can quickly become
+          overwhelming and stressful. An experienced event planner brings industry expertise,
+          creative vision, and strong vendor relationships that save you time, reduce costs, and
+          elevate the overall experience. They anticipate challenges before they arise, negotiate on
+          your behalf, and transform your ideas into a cohesive, memorable celebration. Most
+          importantly, they allow you to focus on enjoying the moment with your guests while they
+          handle the logistics behind the scenes. Whether it’s a wedding, corporate function, or
+          private party, an event planner ensures that your event is not only beautifully designed
+          but also seamlessly executed, leaving you with lasting memories instead of last-minute
+          worries.
+        </p>
+      </div>
+
+      <div className="service-content">
+        <h1>Experience the Event of Your Dreams With the Best Services</h1>
+        <div className="img-content">
+          <div className="image-container">
+            <img
+              src="https://hicksconventions.com/wp-content/uploads/shutterstock_614687651.jpg"
+              alt="Services"
+            />
+          </div>
+          <div className="content-container">
+            <span>
+              <p>
+                At Dream Event Company, our services are designed to transform ordinary occasions
+                into extraordinary experiences. Whether it’s a lavish wedding, a high-profile
+                corporate gathering, or an intimate private celebration, we handle every detail with
+                precision and creativity. From concept development and venue selection to décor,
+                entertainment, hospitality, and seamless logistics, our team ensures that your
+                vision is brought to life exactly as you imagined. With strong vendor partnerships,
+                innovative ideas, and a client-first approach, we deliver events that are not only
+                beautifully designed but also flawlessly executed. Choosing us means choosing peace
+                of mind, knowing that your special day will be managed by professionals who care as
+                much about your event as you do.
+              </p>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="service-section">
+        <b>
+          <h1>OUR SERVICES</h1>
+        </b>
+      </div>
+
+      <div className="swiper-wrapper">
+        {services.map((s) => (
+          <ServiceCard key={s.id} service={s} />
+        ))}
+      </div>
+
+      <div className="text2">
+        <h1>What makes dream events different from other event planners?</h1>
+        <p>
+          At Dream Events, what sets us apart from other event planners is our unique blend of
+          creativity, precision, and client-focused service. While many planners focus solely on
+          logistics, we go beyond by crafting experiences that reflect the personality, vision, and
+          aspirations of each client. Our approach combines innovative design concepts with
+          meticulous attention to detail, ensuring that every element—from décor and entertainment to
+          hospitality and guest experience—feels seamless and memorable. We pride ourselves on
+          strong vendor partnerships, transparent communication, and a commitment to excellence
+          that guarantees peace of mind throughout the planning journey. Unlike traditional
+          planners, we embrace modern trends and technology to deliver events that are not only
+          flawlessly executed but also truly unforgettable. Choosing Dream Events means choosing a
+          partner who cares deeply about your celebration and works tirelessly to transform your
+          dream into reality.
+        </p>
+      </div>
+
+      <ContactCTA />
+    </div>
+  );
+}
+

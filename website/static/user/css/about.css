@@ -81,8 +81,10 @@
      max-width: 800px;
      ;
      background: white;
+     background-clip: text;
      -webkit-background-clip: text;
      -webkit-text-fill-color: transparent;
+     color: transparent;
  }
 
  .e_p-overlay1 p {

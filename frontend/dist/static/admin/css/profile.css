@@ -1,0 +1,49 @@
+.profile-container {
+    padding: 30px;
+    justify-items: center;
+}
+
+.profile-card {
+    background: #fff;
+    padding: 25px;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 35px;
+}
+
+.profile-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+}
+
+.profile-details p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.profile-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-actions .btn {
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+    display: inline-block;
+}
+
+.btn.edit {
+    background: #3498db;
+    color: #fff;
+}
+
+.btn.logout {
+    background: #e74c3c;
+    color: #fff;
+}

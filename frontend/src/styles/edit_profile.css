@@ -1,0 +1,42 @@
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.profile-container {
+    padding: 40px 0px;
+    justify-items: center;
+}
+
+label {
+    font-weight: bold;
+}
+
+.profile-card {
+    margin-top: 30px;
+    max-width: 492px;
+    padding: 30px;
+    padding-inline: 25px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    box-shadow: 0px 20px 55px 30px rgba(215, 216, 222, 0.5);
+    background-color: rgba(255, 255, 255, 0.422);
+}
+
+.btn_edit {
+    background: brown;
+    color: white;
+    padding: 10px;
+}
+
+.btn_logout {
+    background: brown;
+    color: white;
+    padding: 7px;
+    justify-items: right;
+    margin-left: 20px;
+    border: black;
+}

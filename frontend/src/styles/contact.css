@@ -1,0 +1,237 @@
+.contact-page-root .hero {
+    width: 100%;
+    min-height: 85vh;
+    position: relative;
+    overflow: hidden;
+    background-image: url("/static/user/image/gallery21.jpg");
+}
+
+.contact-page-root .hero::before {
+    animation: none;
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(33, 33, 33, 0.682);
+}
+
+.hero-content {
+    position: relative;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 40px;
+    animation: slideUp 1.5s ease-out forwards;
+    margin-top: 256px;
+    text-align: -webkit-center;
+}
+
+.hero-content p {
+    width: 50%;
+    margin: 0 auto;
+    font-size: 18px;
+    animation: slideUp 1.5s ease-out forwards;
+    text-align: -webkit-center;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.info-text p {
+    margin-left: 16%;
+    font-size: 17px;
+    color: white;
+}
+
+.contactform {
+    background: white;
+    box-shadow: 0px 20px 55px 30px rgba(215, 216, 222, 0.5);
+    padding: 51px;
+}
+
+.contactform h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: black;
+    font-size: 34px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: black;
+    font-size: 18px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.contact-box {
+    color: white !important;
+
+    flex-direction: column;
+    padding: 40px;
+    width: 90%;
+    display: flex;
+    background-color: #550404;
+}
+
+.title {
+    margin-bottom: 62px;
+}
+
+.contact-info {
+    margin-bottom: 30px;
+}
+
+.contact-box img {
+    background-color: white !important;
+    padding: 0;
+    width: 50px;
+    height: 7vh;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.info h4 {
+    font-size: 19px;
+    color: white;
+    margin-left: 20px;
+}
+
+.md-text {
+    margin: 22px;
+    text-align: center;
+    font-size: 22px;
+    color: #000;
+}
+
+.social-icons {
+    padding-top: 70px;
+    margin: 13px;
+}
+
+.social-icons img {
+    margin-right: 10px;
+    transition: 0.5s ease-in-out;
+}
+
+.social-icons img:hover {
+    transform: scale(1.1);
+    transition: 0.5s ease-in-out;
+}
+
+.Contact-content h1 {
+    color: #fbf9f9;
+    margin-bottom: 10px;
+    font-size: 45px;
+    margin-left: 112px;
+    font-weight: bold;
+}
+
+.Contact-content p {
+    font-size: 30px;
+    font-family: emoji;
+    font-weight: 600;
+    margin-left: 47px;
+    color: #fbf9f9;
+    animation: slideUp 1.5s ease-out forwards;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.Contact-content b {
+    font-size: 58px;
+    font-family: pacifico;
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    margin-bottom: 136px;
+    margin-left: 22px;
+    display: flex;
+    background: linear-gradient(to right, #cc0e0e, #550404);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.box h2 {
+    margin-top: 10px 0;
+    font-size: 16px;
+}
+
+
+
+.container-contact {
+    max-width: 2100px;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    margin-right: 137px;
+    margin-left: 137px;
+}
+
+.btn-primary {
+    margin-left: 140px;
+    width: 50%;
+    background-color: #550404 !important;
+    border: 2px solid #550404 !important;
+}
+
+.btn-primary:hover {
+    background-color: white !important;
+    color: #550404;
+}
+
+.success-message {
+    display: none;
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+    font-weight: 600;
+}

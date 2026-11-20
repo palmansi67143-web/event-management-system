@@ -692,7 +692,7 @@
     }
 
     .navbar-link {
-        margin-right: -423px;
+        margin-right: 0;
     }
 
     .about-left {
@@ -753,9 +753,7 @@
     }
 
     .abimage-container::after {
-        left: -23px;
-        width: 433px;
-        height: 293px;
+        display: none;
     }
 
     .about-container {
@@ -769,9 +767,7 @@
     }
 
     .image-container1::after {
-        height: 326px;
-        right: -32px;
-        width: 438px;
+        display: none;
     }
 
     .about-content {
@@ -795,10 +791,7 @@
     }
 
     .image-container::after {
-        top: -66px;
-        left: -124px;
-        width: 98%;
-        height: 141px;
+        display: none;
     }
 
     .card-wrapper {
@@ -809,12 +802,12 @@
     }
 
     .event-card {
-        width: 103%;
+        width: 100%;
     }
 
     .card-image {
         height: 230px;
-        width: 130%;
+        width: 100%;
     }
 
     .p-column {

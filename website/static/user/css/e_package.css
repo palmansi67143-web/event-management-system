@@ -406,3 +406,46 @@ body {
   color: brown !important;
   transform: translateY(-3px);
 }
+/* Responsive Enhancements for Event Packages Page */
+@media (max-width: 991px) {
+  .e_p-hero1 {
+    min-height: 45vh;
+  }
+
+  .e_p-overlay1 p {
+    font-size: 20px !important;
+    margin-top: 30px !important;
+    padding: 0 10px;
+  }
+
+  .package-content .img-content {
+    flex-direction: column !important;
+    padding: 20px 15px !important;
+  }
+
+  .card-wrapper {
+    padding: 20px 15px !important;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    gap: 20px !important;
+  }
+
+  .event-card {
+    width: 100% !important;
+  }
+
+  .text-wrapper {
+    width: 95% !important;
+    grid-template-columns: 1fr !important;
+    padding: 15px !important;
+    margin: 25px auto !important;
+  }
+
+  .event-card-text {
+    width: 100% !important;
+    margin: 15px 0 !important;
+  }
+
+  .p-column h1 {
+    font-size: 22px !important;
+  }
+}

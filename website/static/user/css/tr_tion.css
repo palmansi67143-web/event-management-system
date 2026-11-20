@@ -335,3 +335,26 @@ body {
   color: brown !important;
   transform: translateY(-3px);
 }
+/* Responsive Enhancements for Transportation Page */
+@media (max-width: 991px) {
+  .tra_tion-hero1 {
+    min-height: 45vh;
+  }
+
+  .tra_tion-content p {
+    font-size: 18px !important;
+    padding: 0 10px;
+  }
+
+  .transport-content .img-content {
+    flex-direction: column !important;
+    padding: 20px 15px !important;
+    margin-top: 20px !important;
+  }
+
+  .tra_tion-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    gap: 20px !important;
+    padding: 20px 15px !important;
+  }
+}

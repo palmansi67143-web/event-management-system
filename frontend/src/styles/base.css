@@ -8,7 +8,6 @@ body {
 .navbar-link {
   font-size: 20px;
   background: #550404;
-  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-left: 460px;
@@ -174,7 +173,6 @@ body {
 .navbar-link .dropdown-toggle {
   font-size: 20px;
   background: #550404;
-  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 600;
@@ -263,4 +261,250 @@ body {
 
 .navbar-expand-lg .navbar-nav .dropdown-menu .fa fa-th-large {
   gap: 3px;
+}
+/* ============================================================
+   RESPONSIVE NAVBAR (OPTION 3) & ACCORDION FOOTER (OPTION 3)
+   ============================================================ */
+
+/* Brand logo fluid size */
+.brand-logo {
+  height: 80px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  transition: height 0.3s ease;
+}
+
+.nav-top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .nav-top-header {
+    width: auto;
+  }
+}
+
+/* Mobile Header Auth Controls */
+.mobile-header-auth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mobile-auth-btn {
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 20px;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.mobile-auth-btn.login-btn {
+  color: #550404;
+  border: 1.5px solid #550404;
+  background: transparent;
+}
+
+.mobile-auth-btn.signup-btn {
+  background: #550404;
+  color: #ffffff;
+  border: 1.5px solid #550404;
+}
+
+.mobile-auth-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Mobile Scrollable Navigation Row (< 992px) - Option 3 */
+.mobile-scroll-nav {
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid rgba(85, 4, 4, 0.08);
+  border-bottom: 2px solid rgba(85, 4, 4, 0.12);
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0 4px;
+}
+
+.mobile-scroll-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-nav-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+  white-space: nowrap;
+  min-width: max-content;
+}
+
+.scroll-link {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444444;
+  text-decoration: none !important;
+  border-radius: 18px;
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
+}
+
+.scroll-link:hover {
+  color: #8b0000;
+  background: rgba(85, 4, 4, 0.05);
+}
+
+.scroll-link.active {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #550404, #8b0000);
+  box-shadow: 0 2px 8px rgba(85, 4, 4, 0.25);
+}
+
+/* Main Navbar Layout Adaptations */
+@media (max-width: 991.98px) {
+  .site-navbar {
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-top-header {
+    padding: 8px 16px;
+    height: 64px;
+  }
+
+  .brand-logo {
+    height: 48px;
+  }
+
+  body {
+    padding-top: 110px;
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 90px;
+  }
+  
+  .site-navbar {
+    padding: 0.5rem 2rem;
+  }
+}
+
+/* Flash Messages */
+.flash-messages-wrapper {
+  position: fixed;
+  top: 118px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 550px;
+  z-index: 1050;
+}
+
+@media (min-width: 992px) {
+  .flash-messages-wrapper {
+    top: 95px;
+  }
+}
+
+/* ============================================================
+   ACCORDION FOOTER (OPTION 3) - MOBILE (< 768px)
+   ============================================================ */
+@media (max-width: 767.98px) {
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    gap: 0;
+  }
+
+  .footer-col {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 14px 0;
+  }
+
+  .footer-col:last-child {
+    border-bottom: none;
+  }
+
+  .footer-accordion-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    user-select: none;
+    padding: 6px 0;
+  }
+
+  .footer-accordion-title::after {
+    display: none !important;
+  }
+
+  .accordion-icon {
+    font-size: 13px;
+    color: #f7f7f8;
+    transition: transform 0.3s ease;
+  }
+
+  .footer-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.3s ease;
+    padding: 0;
+  }
+
+  .footer-col.is-open .footer-accordion-content {
+    max-height: 400px;
+    opacity: 1;
+    padding-top: 14px;
+    padding-bottom: 6px;
+  }
+
+  .footer-col.is-open .accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  .social-icons {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer-accordion-title {
+    cursor: default;
+    pointer-events: none;
+  }
+  
+  .footer-accordion-content {
+    display: block !important;
+    max-height: none !important;
+    opacity: 1 !important;
+  }
 }

@@ -492,3 +492,52 @@ body {
 .service-card:hover h3::after {
   width: 90%;
 }
+/* Responsive Enhancements for Service Page */
+@media (max-width: 991px) {
+  .service-hero {
+    min-height: 45vh;
+  }
+
+  .text-wrapper p1,
+  .text-wrapper p2 {
+    font-size: 18px !important;
+  }
+
+  .text p {
+    padding: 20px 15px !important;
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+  }
+
+  .text h1 {
+    font-size: 26px !important;
+    text-align: center;
+  }
+
+  .service-content {
+    padding: 25px 15px !important;
+  }
+
+  .service-content .img-content {
+    flex-direction: column !important;
+    padding: 0 !important;
+  }
+
+  .text2 p {
+    padding: 20px 15px !important;
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+  }
+
+  .text2 h1 {
+    font-size: 24px !important;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .swiper-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    margin: 15px 0 !important;
+    gap: 20px !important;
+  }
+}

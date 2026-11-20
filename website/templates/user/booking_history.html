@@ -9,39 +9,38 @@
 
     <h2>My Booking History</h2>
 
-    <table>
-
-        <tr>
-            <th>ID</th>
-            <th>Event</th>
-            <th>Venue</th>
-            <th>Service</th>
-            <th>Transport</th>
-            <th>Event Date</th>
-            <th>Status</th>
-        </tr>
-
-        {% for b in bookings %}
-        <tr>
-
-            <td>{{ b.id }}</td>
-
-            <td>{{ b.event.name if b.event else '-' }}</td>
-
-            <td>{{ b.venue.name if b.venue else '-' }}</td>
-
-            <td>{{ b.service.name if b.service else '-' }}</td>
-
-            <td>{{ b.transport.vehicle if b.transport else '-' }}</td>
-
-            <td>{{ b.event_date.strftime("%d-%m-%Y") if b.event_date else '-' }}</td>
-
-            <td class="status {{ b.status }}">{{ b.status }}</td>
-
-        </tr>
-        {% endfor %}
-
-    </table>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Event</th>
+                    <th>Venue</th>
+                    <th>Service</th>
+                    <th>Transport</th>
+                    <th>Event Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bookings %}
+                <tr>
+                    <td>{{ b.id }}</td>
+                    <td>{{ b.event.name if b.event else '-' }}</td>
+                    <td>{{ b.venue.name if b.venue else '-' }}</td>
+                    <td>{{ b.service.name if b.service else '-' }}</td>
+                    <td>{{ b.transport.vehicle if b.transport else '-' }}</td>
+                    <td>{{ b.event_date.strftime("%d-%m-%Y") if b.event_date else '-' }}</td>
+                    <td class="status {{ b.status }}">{{ b.status }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" style="padding: 30px; color: #666;">No bookings found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 </div>
 

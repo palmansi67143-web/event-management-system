@@ -490,3 +490,40 @@
   color: brown !important;
   transform: translateY(-3px);
 }
+/* Responsive Enhancements for Venue Page */
+@media (max-width: 991px) {
+  .venueimage {
+    min-height: 45vh;
+  }
+
+  .venueoverlay b {
+    margin-bottom: 20px !important;
+    font-size: 32px !important;
+  }
+
+  .text-wrapper {
+    margin-top: 30px !important;
+    padding: 10px !important;
+  }
+
+  .text-wrapper p1,
+  .text-wrapper p2 {
+    font-size: 17px !important;
+  }
+
+  .venues,
+  .venues1 {
+    padding: 30px 15px !important;
+  }
+
+  .venue-wrapper {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    gap: 20px !important;
+  }
+
+  .img-content {
+    flex-direction: column !important;
+    padding: 20px 15px !important;
+    margin-top: 20px !important;
+  }
+}

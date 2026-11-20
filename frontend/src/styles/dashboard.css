@@ -512,3 +512,79 @@ select {
     border-radius: 6px;
     border: 1px solid #ccc;
 }
+/* Responsive Enhancements for Admin Panel */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        width: 250px;
+        z-index: 1050;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.collapsed {
+        left: 0;
+    }
+
+    .sidebar-header h2,
+    .sidebar-menu span {
+        display: inline !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 15px !important;
+    }
+
+    .header {
+        padding: 12px 15px;
+    }
+
+    .user-info {
+        font-size: 13px;
+    }
+
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
+    }
+
+    .charts {
+        flex-direction: column !important;
+    }
+
+    .chart-box {
+        width: 100% !important;
+    }
+
+    .customer-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+    }
+
+    .popup-content {
+        width: 92% !important;
+        max-width: 480px;
+        padding: 20px 15px;
+    }
+
+    .report-section {
+        padding: 15px;
+    }
+
+    .report-section table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-container {
+        grid-template-columns: 1fr !important;
+    }
+}

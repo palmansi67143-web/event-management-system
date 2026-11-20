@@ -1,36 +1,95 @@
 .payment-box {
-    width: 400px;
-    margin: 50px auto;
-    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px 25px;
     background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.payment-box h2 {
+    color: #550404;
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.payment-box p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.payment-box h4 {
+    font-size: 18px;
+    color: #550404;
+    margin-top: 20px;
+    margin-bottom: 12px;
 }
 
 .payment-option {
     display: block;
     margin: 10px 0;
+    font-size: 15px;
+    color: #444;
+    cursor: pointer;
 }
 
-.payment-box input {
+.payment-box input[type="text"],
+.payment-box input[type="password"] {
     width: 100%;
-    padding: 10px;
+    padding: 10px 14px;
     margin: 8px 0;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.payment-box input:focus {
+    border-color: #550404;
+    outline: none;
 }
 
 .pay-btn {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: #28a745;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
 }
 
 .pay-btn:hover {
     background: #218838;
+}
+
+.scan-btn {
+    padding: 8px 20px;
+    background: #550404;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+    .payment-box {
+        padding: 20px 15px;
+        margin: 20px auto;
+        box-shadow: none;
+        border: 1px solid #eee;
+    }
+
+    .payment-box h2 {
+        font-size: 22px;
+    }
 }

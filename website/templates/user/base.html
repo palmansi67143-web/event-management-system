@@ -1,34 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <link rel="stylesheet" href="{{url_for('static',filename='user/css/base.css')}}">
-  <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/base.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='user/css/style.css')}}">
   <title>{% block title %}Home{% endblock %}</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+  <!-- NAVBAR: Desktop full menu + Mobile Top Header & Horizontal Scroll Nav (Option 3) -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top site-navbar">
+    <div class="nav-top-header">
+      <a class="navbar-brand" href="/">
+        <img src="{{ url_for('static', filename='user/image/Your paragraph text1.png') }}" alt="Dream Event Logo" class="brand-logo">
+      </a>
 
+      <!-- Mobile Top Header Auth Action (< 992px) -->
+      <div class="mobile-header-auth d-lg-none">
+        {% if session.get('admin_logged_in') %}
+        <div class="dropdown">
+          <a data-toggle="dropdown" class="mobile-auth-trigger" aria-haspopup="true" aria-expanded="false" style="cursor:pointer;">
+            <i class="fa fa-user-secret" style="font-size:22px; color:brown; margin-right:4px;"></i>
+            {% if admin and admin.image %}
+            <img src="{{ url_for('static', filename='admin/image/' ~ admin.image) }}" width="34" height="34"
+              style="border-radius:50%; object-fit:cover;">
+            {% else %}
+            <div style="width:34px; height:34px; border-radius:50%; background:#6c757d; display:inline-flex; align-items:center; justify-content:center;">
+              <i class="fas fa-user" style="color:white; font-size:14px;"></i>
+            </div>
+            {% endif %}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="{{ url_for('auth.dashboard') }}">
+              <i class="fa fa-th-large mr-2"></i> Dashboard
+            </a>
+            <a class="dropdown-item" href="{{ url_for('auth.profile') }}">
+              <i class="fa fa-user mr-2"></i> Admin Profile
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" href="{{ url_for('auth.admin_logout') }}">
+              <i class="fa fa-sign-out mr-2"></i> Admin Logout
+            </a>
+          </div>
+        </div>
 
-    <a class="navbar-brand" href="/">
-      <img src="{{ url_for('static', filename='user/image/Your paragraph text1.png') }}" style="height:80px;">
-    </a>
+        {% elif session.get('user_id') %}
+        <div class="dropdown">
+          <a data-toggle="dropdown" class="mobile-auth-trigger" aria-haspopup="true" aria-expanded="false" style="cursor:pointer;">
+            <img
+              src="{% if user and user.image %}{{ url_for('static', filename='user/image/' + user.image) }}{% else %}{{ url_for('static', filename='user/image/1769841445_db24a411-678a-46df-a42b-6431213e2b96.jpg') }}{% endif %}"
+              class="nav-profile" style="width:36px; height:36px; border-radius:50%; object-fit:cover;">
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="/client_profile"><i class="fa fa-user-circle mr-2"></i> Edit Profile</a>
+            <a class="dropdown-item" href="/booking_history"><i class="fa fa-history mr-2"></i> Booking History</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" href="{{ url_for('auth.user_logout') }}"><i class="fa fa-sign-out mr-2"></i> Logout</a>
+          </div>
+        </div>
 
+        {% else %}
+        <div class="mobile-auth-buttons">
+          <a href="/login" class="mobile-auth-btn login-btn">Login</a>
+          <a href="/register" class="mobile-auth-btn signup-btn">Register</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
 
-    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbar">
+    <!-- Desktop Navigation (>= 992px) - Original layout preserved -->
+    <div class="collapse navbar-collapse d-none d-lg-flex" id="navbar">
       <div class="navbar-nav ml-auto navbar-link">
-
         <a id="home" href="/">Home</a>
         <a id="Reviews" href="/about">About Us</a>
 
@@ -49,86 +99,97 @@
         <a id="Contact" href="/Contact">Contact</a>
 
         <!-- TEEN CONDITIONS: Admin / User / Guest -->
-
         {% if session.get('admin_logged_in') %}
-        <!-- ADMIN logged in hai - Admin badge + Dashboard link dikhao -->
         <div class="dropdown">
-          <a data-toggle="dropdown" style="cursor:pointer; display:flex; align-items:center; gap:6px; ">
+          <a data-toggle="dropdown" style="cursor:pointer; display:flex; align-items:center; gap:6px;">
             <i class="fa fa-user-secret" style="font-size:28px; color:brown;"></i>
             {% if admin and admin.image %}
             <img src="{{ url_for('static', filename='admin/image/' ~ admin.image) }}" width="40" height="40"
               style="border-radius:50%; object-fit:cover;">
             {% else %}
-            <div style="width:40px; height:40px; border-radius:50%;
-                                background:#6c757d; display:flex; 
-                                align-items:center; justify-content:center;">
+            <div style="width:40px; height:40px; border-radius:50%; background:#6c757d; display:flex; align-items:center; justify-content:center;">
               <i class="fas fa-user" style="color:white;"></i>
             </div>
             {% endif %}
           </a>
           <div class="dropdown-menu dropdown-menu-left">
             <a class="dropdown-item" href="{{ url_for('auth.dashboard') }}">
-              <i class="fa fa-th-large"></i> Dashboard
+              <i class="fa fa-th-large mr-2"></i> Dashboard
             </a>
             <a class="dropdown-item" href="{{ url_for('auth.profile') }}">
-              <i class="fa fa-user"></i> Admin Profile
+              <i class="fa fa-user mr-2"></i> Admin Profile
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item text-danger" href="{{ url_for('auth.admin_logout') }}">
-              <i class="fa fa-sign-out"></i> Admin Logout
+              <i class="fa fa-sign-out mr-2"></i> Admin Logout
             </a>
           </div>
         </div>
 
         {% elif session.get('user_id') %}
-        <!-- USER logged in hai -->
         <div class="dropdown">
-          <a data-toggle="dropdown">
+          <a data-toggle="dropdown" style="cursor:pointer;">
             <img
               src="{% if user and user.image %}{{ url_for('static', filename='user/image/' + user.image) }}{% else %}{{ url_for('static', filename='user/image/1769841445_db24a411-678a-46df-a42b-6431213e2b96.jpg') }}{% endif %}"
               class="nav-profile">
           </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/client_profile">Edit Profile</a>
-            <a class="dropdown-item" href="/booking_history">Booking History</a>
-            <a class="dropdown-item" href="{{ url_for('auth.user_logout') }}">Logout</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="/client_profile"><i class="fa fa-user-circle mr-2"></i> Edit Profile</a>
+            <a class="dropdown-item" href="/booking_history"><i class="fa fa-history mr-2"></i> Booking History</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" href="{{ url_for('auth.user_logout') }}"><i class="fa fa-sign-out mr-2"></i> Logout</a>
           </div>
         </div>
 
         {% else %}
-        <!-- GUEST - koi login nahi -->
         <a href="/login">Login</a>
         <a href="/register">Register</a>
-
         {% endif %}
+      </div>
+    </div>
 
+    <!-- Mobile Horizontally Scrollable Navigation Strip (< 992px) - Option 3 -->
+    <div class="mobile-scroll-nav d-lg-none">
+      <div class="scroll-nav-inner">
+        <a href="/" class="scroll-link" data-path="/">Home</a>
+        <a href="/about" class="scroll-link" data-path="/about">About</a>
+        <a href="/event_package" class="scroll-link" data-path="/event_package">Packages</a>
+        <a href="/venue" class="scroll-link" data-path="/venue">Venues</a>
+        <a href="/transportation" class="scroll-link" data-path="/transportation">Transport</a>
+        <a href="/service" class="scroll-link" data-path="/service">Services</a>
+        <a href="/event" class="scroll-link" data-path="/event">Events</a>
+        <a href="/gallery" class="scroll-link" data-path="/gallery">Gallery</a>
+        <a href="/Blogs" class="scroll-link" data-path="/blogs">Blogs</a>
+        <a href="/Contact" class="scroll-link" data-path="/contact">Contact</a>
       </div>
     </div>
   </nav>
 
   {% with messages = get_flashed_messages(with_categories=true)%}
   {% if messages %}
-  {% for category, message in messages %}
-  {%if category=='error'%}
-  <div class="alert alert-danger alter-dismissable fade show" role="alert">
-    {{message}}
-    <button type="button" class="close" data-dismiss="alert">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  {% else %}
-  <div class="alert alert-success alter-dismissable fade show" role="alert">
-    {{message}}
-    <button type="button" class="close" data-dismiss="alert">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <div class="flash-messages-wrapper">
+    {% for category, message in messages %}
+    {% if category=='error' %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    {% endfor %}
   </div>
   {% endif %}
-  {% endfor %}
-  {% endif %}
-  {%endwith %}
+  {% endwith %}
 
-  <div class="container">
+  <div class="main-content-container">
     {% block content %}
     {% endblock %}
   </div>
@@ -142,61 +203,87 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-  <script type="text/javascript" src="{{url_for('static',filename='index.js') }}"></script>
+  <script type="text/javascript" src="{{url_for('static',filename='user/js/index.js') }}"></script>
 
+  <!-- FOOTER: Desktop 4-col grid + Mobile Accordion (Option 3) -->
   <footer class="site-footer">
     <div class="footer-container">
-      <div class="footer-col">
-        <h3 class="footer-logo">Company Name</h3>
-        <p class="footer-text">We provide high-quality services and smart solutions to help your business grow. Join our
-          community for updates and offers.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul class="footer-links">
-          <li><a href="/#">Home</a></li>
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/service">Services</a></li>
-          <li><a href="/Contact">Contact</a></li>
-          <li><a href="/event">Event</a></li>
-          <li><a href="/Blogs">Blogs</a></li>
-          <li><a href="/gallery">Gallery</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact Us</h4>
-        <div class="contact-item">
-          <img src="/static/user/image/address-pin-location-svgrepo-com.svg" alt="Address">
-          <span>221, Jaipur, Rajasthan</span>
-        </div>
-        <div class="contact-item">
-          <img src="/static/user/image/phone-call-ringing-svgrepo-com.svg" alt="Phone">
-          <a href="tel:+913232568895">+91 32325 68895</a>
-        </div>
-        <div class="contact-item">
-          <img src="/static/user/image/email-svgrepo-com.svg" alt="Email">
-          <a href="mailto:dreameventmanagement@gmail.com">dreameventmanagement@gmail.com</a>
+      <div class="footer-col" data-accordion="col1">
+        <h3 class="footer-logo footer-accordion-title" tabindex="0" role="button" aria-expanded="false">
+          <span>Company Name</span>
+          <span class="accordion-icon d-md-none"><i class="fas fa-chevron-down"></i></span>
+        </h3>
+        <div class="footer-accordion-content">
+          <p class="footer-text">
+            We provide high-quality services and smart solutions to help your business grow. Join our
+            community for updates and offers.
+          </p>
         </div>
       </div>
-      <div class="footer-col">
-        <h4>Follow Us</h4>
-        <div class="social-icons">
-          <a href="#"><img src="{{ url_for('static', filename='user/image/twitter-154-svgrepo-com.svg') }}"
-              alt="twitter"></a>
-          <a href="#"><img src="{{ url_for('static', filename='user/image/facebook-square-svgrepo-com.svg') }}"
-              alt="Facebook"></a>
-          <a href="#"><img src="{{ url_for('static', filename='user/image/whatsapp-alt-svgrepo-com.svg') }}"
-              alt="whatsapp"></a>
-          <a href="#"><img src="{{ url_for('static', filename='user/image/instagram-svgrepo-com.svg') }}"
-              alt="Instagram"></a>
+
+      <div class="footer-col" data-accordion="col2">
+        <h4 class="footer-accordion-title" tabindex="0" role="button" aria-expanded="false">
+          <span>Quick Links</span>
+          <span class="accordion-icon d-md-none"><i class="fas fa-chevron-down"></i></span>
+        </h4>
+        <div class="footer-accordion-content">
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/service">Services</a></li>
+            <li><a href="/Contact">Contact</a></li>
+            <li><a href="/event">Event</a></li>
+            <li><a href="/Blogs">Blogs</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-col" data-accordion="col3">
+        <h4 class="footer-accordion-title" tabindex="0" role="button" aria-expanded="false">
+          <span>Contact Us</span>
+          <span class="accordion-icon d-md-none"><i class="fas fa-chevron-down"></i></span>
+        </h4>
+        <div class="footer-accordion-content">
+          <div class="contact-item">
+            <img src="/static/user/image/address-pin-location-svgrepo-com.svg" alt="Address">
+            <span>221, Jaipur, Rajasthan</span>
+          </div>
+          <div class="contact-item">
+            <img src="/static/user/image/phone-call-ringing-svgrepo-com.svg" alt="Phone">
+            <a href="tel:+913232568895">+91 32325 68895</a>
+          </div>
+          <div class="contact-item">
+            <img src="/static/user/image/email-svgrepo-com.svg" alt="Email">
+            <a href="mailto:dreameventmanagement@gmail.com">dreameventmanagement@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-col" data-accordion="col4">
+        <h4 class="footer-accordion-title" tabindex="0" role="button" aria-expanded="false">
+          <span>Follow Us</span>
+          <span class="accordion-icon d-md-none"><i class="fas fa-chevron-down"></i></span>
+        </h4>
+        <div class="footer-accordion-content">
+          <div class="social-icons">
+            <a href="#"><img src="{{ url_for('static', filename='user/image/twitter-154-svgrepo-com.svg') }}"
+                alt="twitter"></a>
+            <a href="#"><img src="{{ url_for('static', filename='user/image/facebook-square-svgrepo-com.svg') }}"
+                alt="Facebook"></a>
+            <a href="#"><img src="{{ url_for('static', filename='user/image/whatsapp-alt-svgrepo-com.svg') }}"
+                alt="whatsapp"></a>
+            <a href="#"><img src="{{ url_for('static', filename='user/image/instagram-svgrepo-com.svg') }}"
+                alt="Instagram"></a>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="footer-bottom">
       © 2026 dreamevent . All Rights Reserved.
     </div>
   </footer>
-
 </body>
 
 </html>
